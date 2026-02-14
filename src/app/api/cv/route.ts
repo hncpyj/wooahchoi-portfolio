@@ -79,24 +79,6 @@ export async function GET() {
       y += 1.5;
     };
 
-    const drawBullet = (text: string, fontSize = 9.2, indent = 6) => {
-      const bullet = "• ";
-      doc.setFont("helvetica", "normal");
-      doc.setFontSize(fontSize);
-
-      const safe = sanitizeText(text);
-      const lines = doc.splitTextToSize(safe, contentWidth - indent - 2);
-
-      checkPage(lines.length * lineHeight(fontSize) + 2);
-
-      doc.setTextColor(gray[0], gray[1], gray[2]);
-      doc.text(bullet, margin + 1.5, y);
-
-      doc.text(lines, margin + indent, y);
-      y += lines.length * lineHeight(fontSize);
-      y += 0.8;
-    };
-
     const drawKeyValueLine = (label: string, value: string) => {
       checkPage(7);
       doc.setFontSize(9.2);
