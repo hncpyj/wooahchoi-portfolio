@@ -150,7 +150,7 @@ export function Projects() {
                         </a>
                       </Button>
                     )}
-                    {project.link && (
+                    {"link" in project && typeof project.link === "string" ? (
                       <Button asChild variant="ghost" size="sm">
                         <a
                           href={project.link}
@@ -161,7 +161,7 @@ export function Projects() {
                           Visit
                         </a>
                       </Button>
-                    )}
+                    ) : null}
                   </div>
                 </CardContent>
               </Card>
