@@ -79,6 +79,24 @@ export async function GET() {
       y += 1.5;
     };
 
+    const drawBullet = (text: string, fontSize = 9.2, indent = 6) => {
+      const bullet = "• ";
+      doc.setFont("helvetica", "normal");
+      doc.setFontSize(fontSize);
+
+      const safe = sanitizeText(text);
+      const lines = doc.splitTextToSize(safe, contentWidth - indent - 2);
+
+      checkPage(lines.length * lineHeight(fontSize) + 2);
+
+      doc.setTextColor(gray[0], gray[1], gray[2]);
+      doc.text(bullet, margin + 1.5, y);
+
+      doc.text(lines, margin + indent, y);
+      y += lines.length * lineHeight(fontSize);
+      y += 0.8;
+    };
+
     const drawKeyValueLine = (label: string, value: string) => {
       checkPage(7);
       doc.setFontSize(9.2);
@@ -109,13 +127,21 @@ export async function GET() {
     doc.text(sanitizeText(personalInfo.title), margin, 29);
 
     doc.setFontSize(9);
-    const contactLine = [
+    const linkToLabel = (url: string) => {
+      try {
+        const u = new URL(url.startsWith("http") ? url : `https://${url}`);
+        return u.hostname.replace(/^www\./, "") + u.pathname.replace(/\/$/, "");
+      } catch {
+        return url;
+      }
+    };
+    const contactParts = [
       personalInfo.email,
-      "github.com/hncpyj",
-      "linkedin.com/in/wooah-choi",
-      "backenddeveloper.tistory.com",
-    ].join("  |  ");
-    doc.text(sanitizeText(contactLine), margin, 36);
+      personalInfo.github && linkToLabel(personalInfo.github),
+      personalInfo.linkedin && linkToLabel(personalInfo.linkedin),
+      personalInfo.blog && linkToLabel(personalInfo.blog),
+    ].filter(Boolean) as string[];
+    doc.text(sanitizeText(contactParts.join("  |  ")), margin, 36);
 
     y = 50;
 

@@ -1,46 +1,5 @@
 import Parser from "rss-parser";
 
-const FEED_URL = "https://backenddeveloper.tistory.com/rss";
-
-const DATA_SCIENCE_MATCHERS = [
-  "Data Science",
-  "DataScience",
-  "Data science",
-  "데이터 과학",
-  "Data Science ", // trailing space
-];
-
-function normalizeCategory(c: string): string {
-  return c.trim().toLowerCase().replace(/\s+/g, " ");
-}
-
-function isDataScienceItem(item: {
-  categories?: string[];
-  link?: string;
-  [key: string]: unknown;
-}): boolean {
-  const allCats: string[] = [];
-  (item.categories || []).forEach((c) => allCats.push(...(Array.isArray(c) ? c : [String(c)])));
-  const subject = item["dc:subject"] ?? item["subject"];
-  if (subject != null) {
-    allCats.push(...(Array.isArray(subject) ? subject : [String(subject)]));
-  }
-  const categoryAlt = item["categoryAlt"];
-  if (categoryAlt != null) {
-    allCats.push(...(Array.isArray(categoryAlt) ? categoryAlt : [String(categoryAlt)]));
-  }
-  const normalizedTargets = DATA_SCIENCE_MATCHERS.map((m) => normalizeCategory(m));
-  if (allCats.length > 0) {
-    const match = allCats.some((c) => {
-      const n = normalizeCategory(String(c));
-      return normalizedTargets.some((t) => n === t) || (n.includes("data") && n.includes("science"));
-    });
-    if (match) return true;
-  }
-  const link = item.link || "";
-  return link.includes("Data%20Science") || link.includes("Data+Science");
-}
-
 export interface BlogPost {
   title: string;
   link: string;
@@ -58,14 +17,12 @@ export async function getBlogPosts(): Promise<BlogPost[]> {
         Accept: "application/rss+xml, application/xml, text/xml, */*",
       },
       timeout: 10000,
-      customFields: {
-        item: [["dc:subject", "dc:subject"], ["category", "categoryAlt"]],
-      },
     });
-    const feed = await parser.parseURL(FEED_URL);
-    const filtered = (feed.items || []).filter(isDataScienceItem);
+    const feed = await parser.parseURL(
+      "https://backenddeveloper.tistory.com/rss"
+    );
 
-    return filtered.slice(0, 5).map((item) => ({
+    return feed.items.slice(0, 5).map((item) => ({
       title: item.title || "Untitled",
       link: item.link || "#",
       pubDate: item.pubDate || "",

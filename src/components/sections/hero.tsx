@@ -1,7 +1,6 @@
 "use client";
 
 import type { ReactNode } from "react";
-import Image from "next/image";
 import { personalInfo } from "@/data/portfolio";
 import { Button } from "@/components/ui/button";
 import { ArrowDown, Github, Linkedin, Mail, Download, BookOpen } from "lucide-react";
@@ -73,30 +72,17 @@ export function Hero() {
 
       <div className="max-w-4xl mx-auto text-center space-y-10">
         <div className="space-y-6 animate-fade-in">
-          <div className="flex flex-col items-center gap-6">
-            <div className="p-[3px] rounded-full bg-gradient-to-br from-sky-400 via-violet-400 to-purple-500 shadow-lg shadow-violet-500/20">
-              <div className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden bg-background">
-                <Image
-                  src="/images/memoji.png"
-                  alt="WooAh avatar"
-                  fill
-                  className="object-contain object-bottom p-1 sm:p-2"
-                  priority
-                />
-              </div>
-            </div>
-            <h1 className="text-5xl sm:text-6xl font-bold tracking-tight">
-              <span
-                className="bg-clip-text text-transparent"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(90deg, #93b5e0 0%, #a78bfa 50%, #7c3aed 100%)",
-                }}
-              >
-                {personalInfo.name}
-              </span>
-            </h1>
-          </div>
+          <h1 className="text-5xl sm:text-6xl font-bold tracking-tight">
+            <span
+              className="bg-clip-text text-transparent"
+              style={{
+                backgroundImage:
+                  "linear-gradient(90deg, #93b5e0 0%, #a78bfa 50%, #7c3aed 100%)",
+              }}
+            >
+              {personalInfo.name}
+            </span>
+          </h1>
 
           <p className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100">
             {personalInfo.title}
