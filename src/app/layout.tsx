@@ -17,35 +17,43 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "WooAh Choi | Backend & Machine Learning Engineer",
+  // Without this, Next cannot resolve relative URLs in openGraph/twitter metadata
+  // and logs a warning on every build.
+  metadataBase: new URL("https://wooahchoi.com"),
+  title: "WooAh Choi | Machine Learning & Backend Engineer",
   description:
-    "Portfolio of WooAh Choi — Backend & Machine Learning Engineer specializing in TypeScript, Java, NestJS, Spring, PostgreSQL, AWS, and scalable API design.",
+    "Portfolio of WooAh Choi — Machine Learning & Backend Engineer specializing in PyTorch, Transformers, Reinforcement Learning, XGBoost, NestJS, Spring, and scalable ML systems.",
   keywords: [
+    "Machine Learning Engineer",
     "Backend Engineer",
-    "Software Engineer",
+    "Python",
+    "PyTorch",
+    "Reinforcement Learning",
+    "Transformer",
+    "BERT",
+    "XGBoost",
+    "NLP",
+    "Information Retrieval",
     "TypeScript",
     "Java",
     "NestJS",
     "Spring",
     "PostgreSQL",
     "AWS",
-    "Docker",
-    "REST API",
-    "GraphQL",
   ],
   authors: [{ name: "WooAh Choi" }],
   openGraph: {
-    title: "WooAh Choi | Backend & Machine Learning Engineer",
+    title: "WooAh Choi | Machine Learning & Backend Engineer",
     description:
-      "Backend & Machine Learning  Engineer specializing in scalable systems, API design, and cloud infrastructure.",
+      "Machine Learning & Backend Engineer specializing in forecasting, NLP, reinforcement learning, and scalable ML systems.",
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "WooAh Choi | Backend & Machine Learning Engineer",
+    title: "WooAh Choi | Machine Learning & Backend Engineer",
     description:
-      "Backend Machine Learning Engineer specializing in scalable systems, API design, and cloud infrastructure.",
+      "Machine Learning & Backend Engineer specializing in forecasting, NLP, reinforcement learning, and scalable ML systems.",
   },
   robots: {
     index: true,

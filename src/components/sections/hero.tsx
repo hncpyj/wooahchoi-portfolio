@@ -99,7 +99,10 @@ export function Hero() {
             size="lg"
             className="rounded-xl border-0 shadow-lg shadow-violet-500/20 bg-gradient-to-r from-blue-500 via-violet-500 to-purple-500 hover:from-blue-600 hover:via-violet-600 hover:to-purple-600 text-white px-6"
           >
-            <a href="/api/cv" download="WooAh_Choi_Resume.pdf">
+            {/* Serves the real CV from /public, not a generated approximation.
+                To update: export career/WooahChoi_CV.docx to PDF, overwrite
+                public/WooAh_Choi_CV.pdf, and redeploy. */}
+            <a href="/WooAh_Choi_CV.pdf" download="WooAh_Choi_CV.pdf">
               <Download className="mr-2 h-4 w-4" />
               Download CV
             </a>

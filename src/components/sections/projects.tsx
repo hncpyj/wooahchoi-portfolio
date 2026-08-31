@@ -12,7 +12,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { ExternalLink, Github, Rocket } from "lucide-react";
+import { ArrowRight, ExternalLink, Github, Rocket } from "lucide-react";
+import Link from "next/link";
 
 const cardAccents = [
   {
@@ -82,7 +83,8 @@ export function Projects() {
               <Card
                 key={project.title}
                 className={cn(
-                  "group hover:shadow-xl transition-all duration-500 hover:-translate-y-2 flex flex-col overflow-hidden border-0 shadow-md",
+                  "group relative hover:shadow-xl transition-all duration-500 hover:-translate-y-2 flex flex-col overflow-hidden border-0 shadow-md",
+                  "focus-within:ring-2 focus-within:ring-cyan-500 focus-within:ring-offset-2",
                   isVisible
                     ? "opacity-100 translate-y-0"
                     : "opacity-0 translate-y-4"
@@ -91,6 +93,17 @@ export function Projects() {
                   transitionDelay: isVisible ? `${index * 150}ms` : "0ms",
                 }}
               >
+                {/* Whole-card click target. Stretched-link pattern: an overlay
+                    anchor rather than wrapping the card, so the Code/Visit
+                    links below stay valid (no nested anchors) and clickable. */}
+                {"slug" in project && typeof project.slug === "string" && (
+                  <Link
+                    href={`/projects/${project.slug}`}
+                    aria-label={`View details: ${project.title}`}
+                    className="absolute inset-0 z-10 cursor-pointer"
+                  />
+                )}
+
                 {/* Gradient top bar */}
                 <div
                   className={cn(
@@ -137,8 +150,18 @@ export function Projects() {
                       </Badge>
                     ))}
                   </div>
-                  <div className="flex gap-2 pt-2">
-                    {project.github && (
+                  {/* z-20 keeps these above the whole-card overlay link */}
+                  <div className="relative z-20 flex gap-2 pt-2 flex-wrap">
+                    {"slug" in project && typeof project.slug === "string" && (
+                      <span
+                        aria-hidden
+                        className="inline-flex items-center h-9 px-3 text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors"
+                      >
+                        <ArrowRight className="mr-2 h-4 w-4" />
+                        View Details
+                      </span>
+                    )}
+                    {"github" in project && typeof project.github === "string" && (
                       <Button asChild variant="ghost" size="sm">
                         <a
                           href={project.github}

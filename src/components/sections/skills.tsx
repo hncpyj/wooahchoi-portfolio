@@ -5,6 +5,7 @@ import { useScrollAnimation } from "@/lib/hooks";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import {
+  BrainCircuit,
   Code2,
   Layers,
   Database,
@@ -25,10 +26,20 @@ const skillCategories = [
     border: "border-violet-200 dark:border-violet-500/20",
   },
   {
+    key: "ml" as const,
+    label: "ML / AI",
+    icon: BrainCircuit,
+    gradient: "from-cyan-500 to-blue-600",
+    bg: "bg-cyan-50 dark:bg-cyan-500/10",
+    badgeBg:
+      "bg-cyan-100 text-cyan-700 dark:bg-cyan-500/15 dark:text-cyan-300 hover:bg-cyan-200 dark:hover:bg-cyan-500/25",
+    border: "border-cyan-200 dark:border-cyan-500/20",
+  },
+  {
     key: "frameworks" as const,
     label: "Frameworks",
     icon: Layers,
-    gradient: "from-blue-500 to-cyan-600",
+    gradient: "from-blue-500 to-indigo-600",
     bg: "bg-blue-50 dark:bg-blue-500/10",
     badgeBg:
       "bg-blue-100 text-blue-700 dark:bg-blue-500/15 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-500/25",
