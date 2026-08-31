@@ -60,7 +60,7 @@ const projectDetails: Record<
       },
       {
         heading: "Results, including the inconvenient one",
-        body: "The validation-selected checkpoint reached Smin = 0.959, and the interventions confirmed genuine cue-dependent branch control. However, a parameter-matched LSTM (h = 304, 2.90M parameters) also solved the task at Smin = 0.898. That result removed the architecture-comparison claim I had started with, so the contribution moved to where the evidence actually supported it: the analysis and the measurement framework, not a ranking of architectures.",
+        body: "Difference-vector attribution assigned 33–58% of the key–ball retrieval difference to padding. But exchanging the padding-derived source reversed no decision, while exchanging the real-transition source reversed both — at exactly preserved norm, so the effect was not an artefact of activation magnitude. Correlation and causation pointed at different sources on the same policy, which is the result the dissertation is built around.\n\nTwo things complicate it, and both are reported. The clean two-sided signature appeared in only three of six successful checkpoints, so equal behaviour did not imply equal mechanism. And a parameter-matched LSTM (h = 304, 2.90M parameters) also solved the task, at Smin = 0.898. That removed the architecture-comparison claim I started with, so the contribution moved to where the evidence actually supported it: the analysis and the measurement framework, not a ranking of architectures.\n\nThe one clean architectural separation came from a preregistered fixed-length follow-up that isolates retrospective load from navigation. There the Transformer held 1.000 accuracy through 32 bindings and 0.9997 at 64, while the matched and larger LSTMs fell to 0.77 or below at eight — in all six seeds.",
       },
       {
         heading: "What is reusable",
@@ -304,6 +304,36 @@ export default function ProjectPage({ params }: Props) {
             ))}
           </div>
         )}
+
+        {/* Figures. Real work, with captions that say what the reader is
+            looking at — the point of a portfolio page over a CV bullet. */}
+        {"gallery" in project &&
+          Array.isArray(project.gallery) &&
+          project.gallery.length > 0 && (
+            <div className="space-y-8">
+              <h2 className="text-xl font-semibold">Figures</h2>
+              {(project.gallery as { src: string; caption: string }[]).map(
+                (figure, i) => (
+                  <figure key={figure.src} className="space-y-3">
+                    <div className="relative w-full overflow-hidden rounded-xl border bg-white shadow-sm">
+                      <Image
+                        src={figure.src}
+                        alt={figure.caption}
+                        width={1600}
+                        height={900}
+                        sizes="(max-width: 768px) 100vw, 768px"
+                        className="h-auto w-full object-contain"
+                        priority={i === 0}
+                      />
+                    </div>
+                    <figcaption className="text-sm text-muted-foreground leading-relaxed">
+                      {figure.caption}
+                    </figcaption>
+                  </figure>
+                )
+              )}
+            </div>
+          )}
 
         {/* Overview */}
         {detail ? (

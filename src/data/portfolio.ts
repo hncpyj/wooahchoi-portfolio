@@ -8,7 +8,7 @@ export const personalInfo = {
   intro:
     "Machine Learning Engineer with a production engineering foundation, specialising in NLP, information retrieval, and the evaluation of systems that are harder to verify than they look. MSc AI at Queen Mary University of London, where my dissertation applied mechanistic interpretability to a Transformer policy in partially observable RL. Previously built enterprise search and NLP in production, including the Supreme Court of Korea's e-litigation search.",
   about:
-    "MSc AI student at Queen Mary University of London, with nearly 3 years of industry experience as a Software Engineer at Konan Technology building enterprise search and NLP systems. My coursework spans Machine Learning, Neural Networks and NLP, Information Retrieval, Reinforcement Learning, and Conversational Agents — building depth in both theory and implementation.\n\nMy dissertation is a mechanistic analysis of a PPO-trained causal Transformer policy in a partially observable MiniGrid T-maze. Its central finding was methodological: the aggregate success metric hid a failure mode, because an agent that always turns the same way scores around 50% while having learned nothing about the instruction cue. I designed a worst-case metric, Smin = min(S_key, S_ball), that exposes those one-sided policies, and used causal interventions — retrieval blocking, opposite-memory patching, and norm-preserving source exchange — to verify genuine cue-dependent control rather than infer it from correlation. The validation-selected checkpoint reached Smin = 0.959; a parameter-matched LSTM also solved the task at 0.898, which moved the contribution from architecture comparison to the analysis and evaluation framework itself.\n\nI review for the FinNLP workshop at EMNLP 2026, the annual workshop of the ACL Special Interest Group on Financial and Economic NLP.\n\nAs co-founder of GridFlow Trade (selected for QMUL QIncubator), I built a UK electricity price forecasting pipeline: 48 domain-driven features on 55,000+ real half-hourly settlement periods, with XGBoost achieving MAE £4.10/MWh (R²=0.943) — a 76% error reduction over a Naive baseline.\n\nAt Konan Technology, I delivered production search and NLP systems for the Supreme Court of Korea, reducing litigation search latency from 5+ minutes to 8 seconds, and shipped query intelligence features across four enterprise clients.\n\nKaggle: Top ~17% in Google AI4Code · Top ~28% in RSNA 2022 Cervical Spine Fracture Detection.",
+    "MSc AI student at Queen Mary University of London, with nearly 3 years of industry experience as a Software Engineer at Konan Technology building enterprise search and NLP systems. My coursework spans Machine Learning, Neural Networks and NLP, Information Retrieval, Reinforcement Learning, and Conversational Agents — building depth in both theory and implementation.\n\nMy dissertation is a mechanistic analysis of a PPO-trained causal Transformer policy in a partially observable MiniGrid T-maze. Its central finding was methodological: the aggregate success metric hid a failure mode, because an agent that always turns the same way scores around 50% while having learned nothing about the instruction cue. I designed a worst-case metric, Smin = min(S_key, S_ball), that exposes those one-sided policies, and used causal interventions to test control rather than infer it from correlation. Difference-vector attribution assigned 33–58% of the retrieval difference to padding, yet exchanging the padding source reversed no decision while exchanging the real-transition source reversed both — correlation and causation pointing at different things on the same policy. That signature held in only three of six successful checkpoints, so equal behaviour did not imply equal mechanism. A parameter-matched LSTM also solved the task at Smin = 0.898, which moved the contribution from architecture comparison to the analysis and evaluation framework itself.\n\nI review for the FinNLP workshop at EMNLP 2026, the annual workshop of the ACL Special Interest Group on Financial and Economic NLP.\n\nAs co-founder of GridFlow Trade (selected for QMUL QIncubator), I built a UK electricity price forecasting pipeline: 48 domain-driven features on 55,000+ real half-hourly settlement periods, with XGBoost achieving MAE £4.10/MWh (R²=0.943) — a 76% error reduction over a Naive baseline.\n\nAt Konan Technology, I delivered production search and NLP systems for the Supreme Court of Korea, reducing litigation search latency from 5+ minutes to 8 seconds, and shipped query intelligence features across four enterprise clients.\n\nKaggle: Top ~17% in Google AI4Code · Top ~28% in RSNA 2022 Cervical Spine Fracture Detection.",
   introHighlight: [
     "Machine Learning Engineer",
     "NLP",
@@ -24,7 +24,7 @@ export const personalInfo = {
     "Konan Technology",
   ],
   aboutHighlightGreen: [
-    "0.959 balanced cue success",
+    "1.000 through 32 bindings",
     "MAE £4.10/MWh",
     "76% error reduction",
     "5+ minutes to 8 seconds",
@@ -118,11 +118,29 @@ export const projects = [
       "Mechanistic interpretability of a PPO-trained causal Transformer in a partially observable MiniGrid T-maze. Designed a worst-case cue metric that exposed one-sided shortcut policies hidden by aggregate success, then used causal interventions to verify genuine cue-dependent branch control rather than inferring it from correlation.",
     tech: ["PyTorch", "RL (PPO)", "Mechanistic Interpretability", "MiniGrid", "Python"],
     status: "Research",
-    image: "https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=1200&q=80",
+    image: "/images/dissertation/architecture-comparison.png",
+    gallery: [
+      {
+        src: "/images/dissertation/architecture-comparison.png",
+        caption:
+          "All three policies are trained under one shared PPO protocol — same task, same encodings, same cue-balanced schedule — so any difference comes from the architecture rather than the setup. The matched LSTM is included as a fairness control at equal parameter count, and it can solve the full task.",
+      },
+      {
+        src: "/images/dissertation/training-dynamics.png",
+        caption:
+          "Why aggregate success is not enough. The dashed line marks a cue-blind policy that always takes the same route: it scores 0.5 on overall success while having learned nothing about the cue. Smin = min(S_key, S_ball) collapses for such a policy, which is what makes the failure mode visible.",
+      },
+      {
+        src: "/images/dissertation/causal-interventions.png",
+        caption:
+          "Causal interventions on 1,000 held-out episodes. Under normal operation the policy is confident in the correct branch. Blocking retrieval pushes it to no branch preference (0.43 / 0.57), and patching in the opposite memory flips the decision outright (0.03 / 0.09) — evidence that the retrieved cue is used, not merely present.",
+      },
+    ],
     stats: [
-      { label: "Smin (validation-selected)", value: "0.959" },
-      { label: "Matched LSTM Smin", value: "0.898" },
-      { label: "Causal interventions", value: "3 families" },
+      { label: "Transformer @ 32 bindings", value: "1.000" },
+      { label: "Matched LSTM @ 8 bindings", value: "≤0.77" },
+      { label: "Seeds reproducing it", value: "6 / 6" },
+      { label: "Causal signature held in", value: "3 / 6" },
     ],
   },
   {
