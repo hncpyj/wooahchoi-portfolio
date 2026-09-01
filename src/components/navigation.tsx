@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Menu, X, Moon, Sun } from "lucide-react";
@@ -21,6 +23,13 @@ export function Navigation() {
   const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
 
+  // The sections these link to only exist on the landing page. On a project
+  // detail page a bare "#home" resolves against the current URL and goes
+  // nowhere, so the links have to be routed back to "/" first.
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+  const to = (hash: string) => (isHome ? hash : `/${hash}`);
+
   useEffect(() => {
     setMounted(true);
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -38,23 +47,23 @@ export function Navigation() {
       )}
     >
       <nav className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-        <a
-          href="#home"
+        <Link
+          href={to("#home")}
           className="text-xl font-bold tracking-tight bg-gradient-to-r from-violet-600 to-blue-600 bg-clip-text text-transparent"
         >
           Wooah<span className="text-violet-400">.</span>
-        </a>
+        </Link>
 
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-1">
           {navLinks.map((link) => (
-            <a
+            <Link
               key={link.href}
-              href={link.href}
+              href={to(link.href)}
               className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-md hover:bg-accent"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
           {mounted && (
             <Button
@@ -110,14 +119,14 @@ export function Navigation() {
         <div className="md:hidden bg-background/95 backdrop-blur-md border-b">
           <div className="px-4 py-4 space-y-1">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.href}
-                href={link.href}
+                href={to(link.href)}
                 onClick={() => setMobileOpen(false)}
                 className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent rounded-md transition-colors"
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </div>
         </div>

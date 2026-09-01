@@ -39,10 +39,64 @@ export const experiences = [
     role: "Software Engineer, AI Solution Development Team",
     period: "Nov 2020 — Jun 2023",
     description:
-      "Built and improved enterprise search and NLP systems across four clients, cutting Supreme Court litigation search latency from 5+ minutes to 8 seconds. Applied BERT-based NER, SFX/SRL query analysis, fastText, and vector search; shipped query intelligence features including related terms, recommendations, popular queries, and typo correction.",
+      "Built and improved enterprise search and NLP systems across four clients, cutting Supreme Court litigation search latency from 5+ minutes to 8 seconds. Applied BERT-based NER, SFX/SRL query analysis, fastText, and vector search; shipped query intelligence features including related terms, recommendations, popular queries, and typo correction.\n\nAlongside the four builds below, I supported 14 shorter engagements across finance, government, healthcare, manufacturing, energy and policing — engine installs and integrations, escalation support, and internal training on the search stack. These included a redundant, high-availability search deployment for the Export-Import Bank of Korea, where the topology the client specified was not achievable under the constraints in place; I prepared the technical case, presented it, and we agreed an alternative that met the availability requirement.",
     projects: [
       {
+        slug: "supreme-court",
         name: "Supreme Court of Korea - E-litigation Search and Analysis",
+        // The system I worked on is largely on a closed network. This public
+        // portal exposes the same class of features, so it is offered as
+        // "see the product", not "see my screen".
+        link: "https://portal.scourt.go.kr/pgp/index.on?m=PGP1011M01&l=N&c=900",
+        linkLabel: "Public portal",
+        stats: [
+          { label: "Search latency", value: "5+ min → 8 s" },
+          { label: "Speed improvement", value: "37×" },
+          { label: "Misanalysed cases resolved", value: "375+" },
+          { label: "NER extraction quality", value: "+4%" },
+        ],
+        gallery: [
+          {
+            src: "/images/supreme-court/architecture.svg",
+            caption:
+              "The query pipeline I designed. Entities are tagged into typed fields offline, so at query time SFX and NER can route each term to the field that holds it rather than matching against the whole corpus. Vector search handles expansion and typo correction; search-log analytics feed expansion terms back in.",
+          },
+          {
+            src: "/images/supreme-court/thesaurus.png",
+            caption:
+              "The part of this work I would point at first. Expanding a query term does not mean fetching synonyms — in law it means walking a hierarchy. Here 손해 (damages) expands into hyponyms (lost profit, medical expenses, direct, consequential, foreseeable, irrecoverable) and separately into related concepts (intent to cause damage, damage security, mitigation duty). A user searching the general term still reaches judgments that only ever use the specific one, which is exactly the omission problem a court system cannot tolerate.",
+          },
+          {
+            src: "/images/supreme-court/keyword-map.png",
+            caption:
+              "The same concept mapped across all five corpora at once. 손해 (damages) surfaces as 손해액 and 위자료 in case law, 손해배상 and 이해관계인 in statutes, 불가항력 and 국제사법재판소 in treaties, 배상기 and 상당인과관계 in literature, and 확정일자 and 유가증권 in registry precedents. The same legal idea is expressed with different vocabulary depending on which corpus you are in, which is why a single flat synonym list does not work here.",
+          },
+          {
+            src: "/images/supreme-court/case-law-search.png",
+            caption:
+              "Case law results. The system I worked on runs mostly on a closed network, but this public portal exposes the same class of features I built: morphological search rather than substring matching, related terms beside the query, relevance-versus-popularity ranking, result counts per field (full text 14,377 / summary 4,874 / holding 4,154), and facet counts by court level, precedent grade and case type.",
+          },
+          {
+            src: "/images/supreme-court/literature-autocomplete.png",
+            caption:
+              "Auto-completion over the literature corpus. The suggestions are whole article titles containing the typed term, not prefix matches on a static dictionary — on the systems I delivered these candidates came from search-log analysis, so they tracked what users were actually looking for.",
+          },
+          {
+            src: "/images/supreme-court/statutes.png",
+            caption:
+              "Statutes, with a schema of their own: promulgation number and date, enforcement date, amendment status, and a choice between current-only and historical versions. Each corpus needs its own typed fields; a single generic index cannot answer \"which version was in force on this date\".",
+          },
+          {
+            src: "/images/supreme-court/treaties.png",
+            caption:
+              "Treaties, again with a different schema — bilateral versus multilateral, counterpart country, subject area, continent, effective date versus gazette date. Five corpora, five field sets, one query-understanding layer in front of them.",
+          },
+          {
+            src: "/images/supreme-court/rules-precedents.png",
+            caption:
+              "Rules, established practice and registry precedents. Note the field-scoped tabs — title (7) / body (157) / appendix (0) / forms (3) / rule number (19) — which is the same idea as scoping a query to the field the entity actually lives in, surfaced to the user as a choice.",
+          },
+        ],
         description:
           "Built a next-generation electronic litigation search and analysis system, reducing search latency from 5+ minutes to 8 seconds and resolving 375+ misanalysed cases. Optimised Java backend algorithms and indexing pipeline to achieve 37× search speed improvement.\n\nApplied speech act analysis (SFX) and semantic role labeling (SRL) to derive structured query constraints (time, location, case context). Fine-tuned a BERT-based NER model to extract case numbers, law names, and party names, with 4%+ improvement in extraction quality. Built vector search for related case retrieval and search analytics dashboards (line, bubble, dendrogram charts) for administrators.",
         tech: [
@@ -60,22 +114,130 @@ export const experiences = [
         ],
       },
       {
+        slug: "millie-library",
         name: "Millie's Library - Book Search and User Pattern Analysis",
+        stats: [
+          { label: "Indexed points", value: "100M+" },
+          { label: "Designed to scale to", value: "1B+ records" },
+          { label: "Ranking quality", value: "+38%" },
+          { label: "Searchable collections", value: "5" },
+        ],
+        gallery: [
+          {
+            src: "/images/millie/architecture.svg",
+            caption:
+              "The search stack as I built it. Full and dynamic indexing keep the index current without a nightly rebuild; the query layer handles completion, typo correction and expansion before retrieval; and the ranking layer combines field matches with engagement counted over rolling windows. Everything the log-analytics loop derives at the bottom is fed back into the query layer at the top.",
+          },
+          {
+            src: "/images/millie/recommended-terms.png",
+            caption:
+              "The recommended-search-terms row, and the piece of this project I am proudest of. It was not in the original scope, the engine had no such feature, and there was no labelled data to build one from — the client asked for it anyway. What I built groups accounts by when in the day they search, then forecasts each group's term demand from its own search history, so the row is driven by search behaviour rather than editorially curated. The feature is still in the app.",
+          },
+          {
+            src: "/images/millie/popular-terms.png",
+            caption:
+              "Popular search terms with rise/fall/steady markers, timestamped to the aggregation window. Note rows 1 and 9 (오디세이 / 오디세이아) and 2 and 8 (히가시노 게이고 / 히가시노게이고): spelling and spacing variants are counted separately rather than merged. That is the raw form the log analysis needs — which variant users actually type is exactly the signal the typo-correction dictionary is extracted from, and merging them before counting would throw it away.",
+          },
+          {
+            src: "/images/millie/autocomplete.png",
+            caption:
+              "Auto-completion on the partial term 이토록. The matches are whole titles containing the term, and the term is highlighted wherever it falls — mid-title in 누군가를 이토록 사랑한 적 and 심리학이 이토록 재미있을 줄이야, not just at the start. Korean prefix matching alone would have missed both. The candidate dictionary is rebuilt by a batch job that exports title and category fields ordered by recent opens, so ranking inside the suggestion list follows real demand.",
+          },
+          {
+            src: "/images/millie/unified-results.png",
+            caption:
+              "Unified search across five collections — books, webtoons/webnovels, Millie Road, posts, shelves — each with its own count and its own tab. One query, five differently-shaped result sets, ranked independently and then presented together.",
+          },
+          {
+            src: "/images/millie/author-results.png",
+            caption:
+              "An author query returns a curated collection card above the books. Ranking here is not pure text relevance — 97 titles match 히가시노 and the order they come back in is decided by the ranking layer, which weighs field matches against engagement signals such as recent opens, shelf adds, completion percentage and review count. Tuning those weights against a fixed list of about a hundred test queries is the work behind the 38% ranking-quality improvement.",
+          },
+        ],
         description:
           "Engineered an automated indexing system handling 100M+ data points, designed to scale beyond 1B records. Improved search ranking quality by 38% via custom scoring logic. Implemented auto-completion, related-term suggestion, and typo correction. Delivered time-series analysis of search terms for recommended and popular keyword features.",
         tech: ["C++", "Python", "MySQL", "Linux"],
       },
       {
+        slug: "heungkuk-fire",
         name: "Heungkuk Fire & Marine Insurance - Main Website Search Renewal",
+        link: "https://m.heungkukfire.co.kr/common/search/CCOTF0201_M01/CCOTF0201_M01.do",
+        linkLabel: "Live search",
+        stats: [
+          { label: "Result categories", value: "6" },
+          { label: "Shipped", value: "2022 — still live" },
+          { label: "Layer", value: "Full-stack" },
+        ],
+        gallery: [
+          {
+            src: "/images/heungkuk/architecture.svg",
+            caption:
+              "Where this delivery sits. The search engine is the same one behind my other Konan deliveries; what was mine here was everything in front of it — the JSP/JSTL page, the AJAX layer that requests each category, the incremental rendering, and the log-derived popular terms and completion candidates that populate the empty state.",
+          },
+          {
+            src: "/images/heungkuk/results-and-popular-terms.png",
+            caption:
+              "The page still running today, on a query for 보험 (insurance): popular-term chips above, recent searches, then 468 results split by category with a count on each tab. The chips are worth a second look — they read 제지급 · 철회 · 배서 · 금리인하 · 모바일 here, and a different five when I checked earlier the same day. They are derived from the search logs and rotate with them, which is the whole point of not hard-coding an empty state.\n\nThe menu results underneath show what Korean morphological indexing buys you: 보험 is highlighted inside 장기보험증권, 자동차보험금지급확인서 and 휴면보험금신청 — mid-word, in compounds the user never typed. Substring matching would find some of these by accident and miss the rest.",
+          },
+          {
+            src: "/images/heungkuk/documents-glossary.png",
+            caption:
+              "Two of the six categories have shapes the others do not. Forms are PDFs, indexed by their extracted text and returned as downloads rather than pages. Glossary entries (104 of them for this query) expand inline, so a user who searched a term they did not understand gets the definition without leaving the results — with the query highlighted through the definition body as well. Each of these needed its own template and its own rendering path in the page.",
+          },
+        ],
         description:
           "Full-stack development of the web application's search system. Implemented AJAX-based continuous scrolling for smooth user experience and built auto-completion and popular search term features. Supported production rollout with log-based quality monitoring.",
-        tech: ["Java", "Oracle", "SVN", "Linux", "JavaScript"],
+        tech: [
+          "Java",
+          "JSP",
+          "JSTL",
+          "JavaScript",
+          "AJAX",
+          "Oracle",
+          "SVN",
+          "Linux",
+        ],
       },
       {
+        slug: "venture-confirmation",
         name: "Ministry of SMEs and Startups - Venture Confirmation System Search",
+        link: "https://www.smes.go.kr/venturein/totalSearch/viewTotalSearchList?keyword=%EB%B2%A4%EC%B2%98%ED%99%95%EC%9D%B8",
+        linkLabel: "Live search",
+        stats: [
+          { label: "Result categories", value: "3" },
+          { label: "Date-range filters", value: "6" },
+          { label: "Document source", value: "AWS S3" },
+          { label: "Deliverable", value: "Search + REST API" },
+        ],
+        gallery: [
+          {
+            src: "/images/venture/architecture.svg",
+            caption:
+              "The pipeline. Attached documents live in S3 rather than on the search server, so indexing them starts with a fetch: pull the object, extract its text, index it alongside the record it belongs to, then delete the downloaded tree. The query side is a REST API, shipped with a written guide because the deliverable included someone else being able to call it.",
+          },
+          {
+            src: "/images/venture/search-filters.png",
+            caption:
+              "The live search on a query for 벤처확인 (venture certification): 276 results across three collections, with the count on each tab — including 벤처공시 (disclosures) at 0. Above it, the controls: refine within results, popular terms, sort by relevance or recency, and a period filter of all / 1 day / 1 week / 1 month / 1 year / custom. The period filter is a domain requirement rather than a nicety — government application windows expire, and a two-year-old notice about one is worse than no result.",
+          },
+          {
+            src: "/images/venture/refine-within-results.png",
+            caption:
+              "Refine within results, doing its job. The box now holds 수수료 (fee) with the checkbox ticked, so the second term is applied to the 276 results from the first query rather than to the whole corpus: 276 → 28, and both terms stay highlighted in every hit. The user narrowed instead of starting over — which is also why both queries have to be carried in the request state rather than just the latest one.",
+          },
+        ],
         description:
           "Developed search engine and RESTful API with text extraction and indexing from documents via Aspose and PDFBox. Implemented recursive file/folder deletion logic for efficient data management.",
-        tech: ["Java", "PostgreSQL", "SVN", "Linux", "AWS S3"],
+        tech: [
+          "Java",
+          "PostgreSQL",
+          "AWS S3",
+          "Aspose",
+          "PDFBox",
+          "REST API",
+          "SVN",
+          "Linux",
+        ],
       },
     ],
   },
@@ -138,8 +300,8 @@ export const projects = [
     ],
     stats: [
       { label: "Transformer @ 32 bindings", value: "1.000" },
-      { label: "Matched LSTM @ 8 bindings", value: "≤0.77" },
-      { label: "Seeds reproducing it", value: "6 / 6" },
+      { label: "Matched LSTM, retrospective @ 8", value: "0.688" },
+      { label: "Paired gap, seeds reproducing", value: "6 / 6" },
       { label: "Causal signature held in", value: "3 / 6" },
     ],
   },

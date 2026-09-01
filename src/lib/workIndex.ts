@@ -29,16 +29,12 @@ function tagsFor(key: string, raw: string[]): string[] {
  * One index over everything: personal projects and paid client work.
  * Experience matters here — the Konan deliveries are the strongest evidence
  * for the search and NLP skills, and they are not "projects" on this site.
+ *
+ * Paid client work is listed first, for the same reason the chips are sorted
+ * by evidence: shipped production work outranks a side project, and the
+ * results list is read top-down.
  */
 export const workIndex: WorkDoc[] = [
-  ...projects.map((p): WorkDoc => ({
-    id: p.slug,
-    kind: "project",
-    title: p.title,
-    description: p.description,
-    tags: tagsFor(p.slug, p.tech),
-    href: `/projects/${p.slug}`,
-  })),
   ...experiences.flatMap((exp) =>
     (exp.projects ?? []).map((sub): WorkDoc => ({
       id: sub.name,
@@ -48,8 +44,18 @@ export const workIndex: WorkDoc[] = [
       period: exp.period,
       description: sub.description,
       tags: tagsFor(sub.name, sub.tech ?? []),
+      // Client deliveries only have a detail page if they were given a slug.
+      href: "slug" in sub ? `/projects/${sub.slug}` : undefined,
     }))
   ),
+  ...projects.map((p): WorkDoc => ({
+    id: p.slug,
+    kind: "project",
+    title: p.title,
+    description: p.description,
+    tags: tagsFor(p.slug, p.tech),
+    href: `/projects/${p.slug}`,
+  })),
 ];
 
 /** How many documents each facet would return, honouring parent/child. */

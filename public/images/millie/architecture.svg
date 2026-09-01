@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 660" width="1120" height="660" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+  <defs>
+    <marker id="marw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/>
+    </marker>
+    <marker id="marwLight" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/>
+    </marker>
+  </defs>
+
+  <rect width="1120" height="660" fill="#ffffff"/>
+
+  <!-- ══════════ OFFLINE ══════════ -->
+  <rect x="24" y="24" width="1072" height="140" rx="12" fill="#f8fafc" stroke="#e2e8f0"/>
+  <text x="44" y="50" font-size="12" font-weight="700" fill="#64748b" letter-spacing="1.5">OFFLINE — INDEXING</text>
+
+  <rect x="44" y="66" width="196" height="74" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="142" y="90" font-size="14" font-weight="600" text-anchor="middle" fill="#0f172a">Content sources</text>
+  <text x="142" y="110" font-size="11.5" text-anchor="middle" fill="#64748b">books · webtoons/webnovels</text>
+  <text x="142" y="124" font-size="11.5" text-anchor="middle" fill="#64748b">posts · shelves · categories</text>
+
+  <line x1="244" y1="103" x2="284" y2="103" stroke="#64748b" stroke-width="1.6" marker-end="url(#marw)"/>
+
+  <rect x="288" y="66" width="206" height="74" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="391" y="90" font-size="14" font-weight="600" text-anchor="middle" fill="#0f172a">Korean morphology</text>
+  <text x="391" y="110" font-size="11.5" text-anchor="middle" fill="#64748b">analyser + dictionaries,</text>
+  <text x="391" y="124" font-size="11.5" text-anchor="middle" fill="#64748b">wider coverage than the previous engine</text>
+
+  <line x1="498" y1="103" x2="538" y2="103" stroke="#64748b" stroke-width="1.6" marker-end="url(#marw)"/>
+
+  <rect x="542" y="66" width="206" height="74" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="645" y="90" font-size="14" font-weight="600" text-anchor="middle" fill="#0f172a">Full + dynamic indexing</text>
+  <text x="645" y="110" font-size="11.5" text-anchor="middle" fill="#64748b">periodic full rebuild, plus</text>
+  <text x="645" y="124" font-size="11.5" text-anchor="middle" fill="#64748b">incremental updates on change</text>
+
+  <line x1="752" y1="103" x2="792" y2="103" stroke="#64748b" stroke-width="1.6" marker-end="url(#marw)"/>
+
+  <rect x="796" y="66" width="280" height="74" rx="8" fill="#eef2ff" stroke="#c7d2fe"/>
+  <text x="936" y="90" font-size="14" font-weight="700" text-anchor="middle" fill="#3730a3">Multi-collection index</text>
+  <text x="936" y="110" font-size="11.5" text-anchor="middle" fill="#4f46e5">100M+ indexed points, designed to</text>
+  <text x="936" y="124" font-size="11.5" text-anchor="middle" fill="#4f46e5">scale beyond 1B records</text>
+
+  <!-- ══════════ ONLINE ══════════ -->
+  <rect x="24" y="184" width="1072" height="278" rx="12" fill="#f8fafc" stroke="#e2e8f0"/>
+  <text x="44" y="210" font-size="12" font-weight="700" fill="#64748b" letter-spacing="1.5">ONLINE — QUERY</text>
+
+  <rect x="44" y="228" width="150" height="80" rx="8" fill="#ffffff" stroke="#cbd5e1"/>
+  <text x="119" y="258" font-size="14" font-weight="600" text-anchor="middle" fill="#0f172a">User query</text>
+  <text x="119" y="278" font-size="11.5" text-anchor="middle" fill="#64748b">partial, misspelled,</text>
+  <text x="119" y="292" font-size="11.5" text-anchor="middle" fill="#64748b">or an author name</text>
+
+  <line x1="198" y1="268" x2="238" y2="268" stroke="#64748b" stroke-width="1.6" marker-end="url(#marw)"/>
+
+  <!-- query assistance -->
+  <rect x="242" y="216" width="266" height="192" rx="10" fill="#ffffff" stroke="#a5b4fc" stroke-width="1.6"/>
+  <text x="375" y="240" font-size="12.5" font-weight="700" text-anchor="middle" fill="#4338ca">QUERY ASSISTANCE</text>
+
+  <rect x="258" y="252" width="234" height="46" rx="7" fill="#f5f3ff" stroke="#ddd6fe"/>
+  <text x="375" y="272" font-size="13" font-weight="600" text-anchor="middle" fill="#0f172a">Auto-completion</text>
+  <text x="375" y="289" font-size="11.5" text-anchor="middle" fill="#64748b">batch-built from titles and categories</text>
+
+  <rect x="258" y="306" width="234" height="46" rx="7" fill="#f5f3ff" stroke="#ddd6fe"/>
+  <text x="375" y="326" font-size="13" font-weight="600" text-anchor="middle" fill="#0f172a">Typo correction</text>
+  <text x="375" y="343" font-size="11.5" text-anchor="middle" fill="#64748b">dictionary mined from the logs</text>
+
+  <rect x="258" y="360" width="234" height="36" rx="7" fill="#f5f3ff" stroke="#ddd6fe"/>
+  <text x="375" y="383" font-size="13" font-weight="600" text-anchor="middle" fill="#0f172a">Synonym / n-gram expansion</text>
+
+  <line x1="512" y1="308" x2="552" y2="308" stroke="#64748b" stroke-width="1.6" marker-end="url(#marw)"/>
+
+  <!-- retrieval + ranking -->
+  <rect x="556" y="216" width="254" height="192" rx="10" fill="#ffffff" stroke="#a5b4fc" stroke-width="1.6"/>
+  <text x="683" y="240" font-size="12.5" font-weight="700" text-anchor="middle" fill="#4338ca">RETRIEVAL &amp; RANKING</text>
+
+  <rect x="572" y="252" width="222" height="46" rx="7" fill="#f5f3ff" stroke="#ddd6fe"/>
+  <text x="683" y="272" font-size="13" font-weight="600" text-anchor="middle" fill="#0f172a">Multi-collection search</text>
+  <text x="683" y="289" font-size="11.5" text-anchor="middle" fill="#64748b">one query, five result sets</text>
+
+  <rect x="572" y="306" width="222" height="90" rx="7" fill="#f5f3ff" stroke="#ddd6fe"/>
+  <text x="683" y="326" font-size="13" font-weight="600" text-anchor="middle" fill="#0f172a">Weighted ranking logic</text>
+  <text x="683" y="345" font-size="11.5" text-anchor="middle" fill="#64748b">field matches (title, author, narrator)</text>
+  <text x="683" y="360" font-size="11.5" text-anchor="middle" fill="#64748b">+ engagement over 7d / 30d / all-time</text>
+  <text x="683" y="375" font-size="11.5" text-anchor="middle" fill="#64748b">opens · shelf adds · reviews · dwell</text>
+  <text x="683" y="390" font-size="11" text-anchor="middle" fill="#7c3aed">weights tuned against a fixed query set</text>
+
+  <line x1="814" y1="308" x2="854" y2="308" stroke="#64748b" stroke-width="1.6" marker-end="url(#marw)"/>
+
+  <rect x="858" y="252" width="218" height="112" rx="8" fill="#ecfdf5" stroke="#a7f3d0"/>
+  <text x="967" y="280" font-size="14" font-weight="700" text-anchor="middle" fill="#047857">Unified results</text>
+  <text x="967" y="304" font-size="12.5" text-anchor="middle" fill="#065f46">+38% ranking quality</text>
+  <text x="967" y="326" font-size="11.5" text-anchor="middle" fill="#065f46">books · webtoons · Millie Road</text>
+  <text x="967" y="342" font-size="11.5" text-anchor="middle" fill="#065f46">posts · shelves</text>
+  <text x="967" y="358" font-size="11" text-anchor="middle" fill="#059669">collection cards for author queries</text>
+
+  <!-- ══════════ FEEDBACK LOOP ══════════ -->
+  <rect x="24" y="482" width="1072" height="154" rx="12" fill="#fffbeb" stroke="#fde68a"/>
+  <text x="44" y="508" font-size="12" font-weight="700" fill="#b45309" letter-spacing="1.5">FEEDBACK LOOP — SEARCH LOG ANALYTICS</text>
+
+  <rect x="44" y="524" width="190" height="90" rx="8" fill="#ffffff" stroke="#fcd34d"/>
+  <text x="139" y="554" font-size="13.5" font-weight="600" text-anchor="middle" fill="#0f172a">Search logs</text>
+  <text x="139" y="576" font-size="11.5" text-anchor="middle" fill="#92400e">queries, zero-result terms,</text>
+  <text x="139" y="591" font-size="11.5" text-anchor="middle" fill="#92400e">click-through, session order</text>
+
+  <line x1="238" y1="569" x2="278" y2="569" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#marwLight)"/>
+
+  <rect x="282" y="524" width="226" height="90" rx="8" fill="#ffffff" stroke="#fcd34d"/>
+  <text x="395" y="550" font-size="13.5" font-weight="600" text-anchor="middle" fill="#0f172a">Time-series analysis</text>
+  <text x="395" y="571" font-size="11.5" text-anchor="middle" fill="#92400e">term volume over rolling windows</text>
+  <text x="395" y="586" font-size="11.5" text-anchor="middle" fill="#92400e">co-occurrence within a session</text>
+  <text x="395" y="601" font-size="11.5" text-anchor="middle" fill="#92400e">accounts cohorted by time of day</text>
+
+  <line x1="512" y1="569" x2="552" y2="569" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#marwLight)"/>
+
+  <rect x="556" y="524" width="254" height="90" rx="8" fill="#ffffff" stroke="#fcd34d"/>
+  <text x="683" y="550" font-size="13.5" font-weight="600" text-anchor="middle" fill="#0f172a">Derived keyword features</text>
+  <text x="683" y="571" font-size="11.5" text-anchor="middle" fill="#92400e">popular · rising · related · personalised</text>
+  <text x="683" y="586" font-size="11.5" text-anchor="middle" fill="#92400e">auto-extracted typo dictionary</text>
+  <text x="683" y="601" font-size="11.5" text-anchor="middle" fill="#92400e">low-result terms flagged for review</text>
+
+  <line x1="814" y1="569" x2="854" y2="569" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#marwLight)"/>
+
+  <rect x="858" y="524" width="218" height="90" rx="8" fill="#ffffff" stroke="#fcd34d"/>
+  <text x="967" y="554" font-size="13.5" font-weight="600" text-anchor="middle" fill="#0f172a">Admin tooling</text>
+  <text x="967" y="576" font-size="11.5" text-anchor="middle" fill="#92400e">dictionary edits, re-index triggers,</text>
+  <text x="967" y="591" font-size="11.5" text-anchor="middle" fill="#92400e">search-quality monitoring</text>
+
+  <!-- feedback arrows up -->
+  <path d="M 683 520 L 683 492 L 375 492 L 375 420" fill="none" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#marw)"/>
+  <text x="388" y="440" font-size="11" fill="#b45309">suggestions, typo dictionary</text>
+
+  <path d="M 967 520 L 967 492 L 1060 492 L 1060 380" fill="none" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#marw)"/>
+</svg>
