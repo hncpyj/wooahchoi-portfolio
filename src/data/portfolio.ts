@@ -8,7 +8,7 @@ export const personalInfo = {
   intro:
     "Machine Learning Engineer with a production engineering foundation, specialising in NLP, information retrieval, and the evaluation of systems that are harder to verify than they look. MSc AI at Queen Mary University of London, where my dissertation applied mechanistic interpretability to a Transformer policy in partially observable RL. Previously built enterprise search and NLP in production, including the Supreme Court of Korea's e-litigation search.",
   about:
-    "MSc AI student at Queen Mary University of London, with nearly 3 years of industry experience as a Software Engineer at Konan Technology building enterprise search and NLP systems. My coursework spans Machine Learning, Neural Networks and NLP, Information Retrieval, Reinforcement Learning, and Conversational Agents — building depth in both theory and implementation.\n\nMy dissertation is a mechanistic analysis of a PPO-trained causal Transformer policy in a partially observable MiniGrid T-maze. Its central finding was methodological: the aggregate success metric hid a failure mode, because an agent that always turns the same way scores around 50% while having learned nothing about the instruction cue. I designed a worst-case metric, Smin = min(S_key, S_ball), that exposes those one-sided policies, and used causal interventions to test control rather than infer it from correlation. Difference-vector attribution assigned 33–58% of the retrieval difference to padding, yet exchanging the padding source reversed no decision while exchanging the real-transition source reversed both — correlation and causation pointing at different things on the same policy. That signature held in only three of six successful checkpoints, so equal behaviour did not imply equal mechanism. A parameter-matched LSTM also solved the task at Smin = 0.898, which moved the contribution from architecture comparison to the analysis and evaluation framework itself.\n\nI review for the FinNLP workshop at EMNLP 2026, the annual workshop of the ACL Special Interest Group on Financial and Economic NLP.\n\nAs co-founder of GridFlow Trade (selected for QMUL QIncubator), I built a UK electricity price forecasting pipeline: 48 domain-driven features on 55,000+ real half-hourly settlement periods, with XGBoost achieving MAE £4.10/MWh (R²=0.943) — a 76% error reduction over a Naive baseline.\n\nAt Konan Technology, I delivered production search and NLP systems for the Supreme Court of Korea, reducing litigation search latency from 5+ minutes to 8 seconds, and shipped query intelligence features across four enterprise clients.\n\nKaggle: Top ~17% in Google AI4Code · Top ~28% in RSNA 2022 Cervical Spine Fracture Detection.",
+    "MSc AI student at Queen Mary University of London, with nearly 3 years of industry experience as a Software Engineer at Konan Technology building enterprise search and NLP systems. My coursework spans Machine Learning, Neural Networks and NLP, Information Retrieval, Reinforcement Learning, and Conversational Agents — building depth in both theory and implementation.\n\nMy dissertation is a mechanistic analysis of a PPO-trained causal Transformer policy in a partially observable MiniGrid T-maze. Its central finding was methodological: the aggregate success metric hid a failure mode, because an agent that always turns the same way scores around 50% while having learned nothing about the instruction cue. I designed a worst-case metric, Smin = min(S_key, S_ball), that exposes those one-sided policies, and used causal interventions to test control rather than infer it from correlation. Difference-vector attribution assigned 33–58% of the retrieval difference to padding, yet exchanging the padding source reversed no decision while exchanging the real-transition source reversed both — correlation and causation pointing at different things on the same policy. That signature held in only three of six checkpoints, so equal behaviour did not imply equal mechanism. A parameter-matched LSTM also solved the task at Smin = 0.898, which moved the contribution from architecture comparison to the analysis and evaluation framework itself.\n\nThird author on a short paper accepted to FinNLP 2026 at EMNLP, on whether relevance-ranked web evidence is actually sufficient to verify financial claims. My part was reviewing annotation quality on the expert-audited claim–passage set and checking the manuscript before submission. I also review for the same workshop, the annual workshop of the ACL Special Interest Group on Financial and Economic NLP.\n\nAs co-founder of GridFlow Trade (selected for QMUL QIncubator), I built a UK electricity price forecasting pipeline: 48 domain-driven features on 55,000+ real half-hourly settlement periods, with XGBoost achieving MAE £4.10/MWh (R²=0.943) — a 76% error reduction over a Naive baseline.\n\nAt Konan Technology, I delivered production search and NLP systems for the Supreme Court of Korea, reducing litigation search latency from 5+ minutes to 8 seconds, and shipped query intelligence features across four enterprise clients.\n\nKaggle: Top ~17% in Google AI4Code · Top ~28% in RSNA 2022 Cervical Spine Fracture Detection.",
   introHighlight: [
     "Machine Learning Engineer",
     "NLP",
@@ -22,9 +22,10 @@ export const personalInfo = {
     "MSc AI",
     "QMUL QIncubator",
     "Konan Technology",
+    "accepted to FinNLP 2026 at EMNLP",
   ],
   aboutHighlightGreen: [
-    "1.000 through 32 bindings",
+    "Smin = 0.898",
     "MAE £4.10/MWh",
     "76% error reduction",
     "5+ minutes to 8 seconds",
@@ -306,6 +307,32 @@ export const projects = [
     ],
   },
   {
+    slug: "ir-search-engine",
+    title:
+      "Multi-Domain Neural Search Engine — Domain Routing, Hybrid Retrieval and RAG Grounding Evaluation",
+    description:
+      "A six-domain search engine with a domain-specialised BERT encoder behind each domain, a fine-tuned DistilBERT query router, hybrid BM25 and FAISS-HNSW retrieval fused with RRF, and ColBERTv2 late-interaction reranking. A RAG grounding layer was then added on top to answer a question the retrieval metrics cannot: whether a generated answer actually depends on the passages that were retrieved, or on what the model already knew.",
+    tech: [
+      "Python",
+      "BERT",
+      "DistilBERT",
+      "FAISS",
+      "BM25",
+      "ColBERTv2",
+      "RAG",
+      "LLM",
+      "Statistical Testing",
+    ],
+    status: "Active",
+    image: "/images/covers/ir-search-engine.svg",
+    stats: [
+      { label: "Domains, each with its own encoder", value: "6" },
+      { label: "Causal grounding conditions", value: "6" },
+      { label: "Metrics under significance testing", value: "21" },
+      { label: "Ablation ladder steps", value: "5" },
+    ],
+  },
+  {
     slug: "gridflow-trade",
     title: "GridFlow Trade — AI-Powered BESS Trading Platform",
     description:
@@ -313,12 +340,30 @@ export const projects = [
     tech: ["Python", "XGBoost", "LightGBM", "LSTM", "PostgreSQL", "Elexon API", "NESO API"],
     status: "Active",
     link: "https://www.gridflowtrade.com",
-    image: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=1200&q=80",
+    linkLabel: "Live app",
+    image: "/images/gridflow/overview.png",
     stats: [
-      { label: "MAE", value: "£4.10/MWh" },
+      { label: "MAE (held-out)", value: "£4.10/MWh" },
       { label: "R²", value: "0.943" },
       { label: "Error reduction vs Naive", value: "76%" },
-      { label: "Training samples", value: "55,000+" },
+      { label: "Records collected", value: "1.7M+" },
+    ],
+    gallery: [
+      {
+        src: "/images/gridflow/overview.png",
+        caption:
+          "The overview screen. Day-ahead price, imbalance price and wind forecast are pulled from NESO and Elexon, and the chart plots the XGBoost day-ahead forecast against the previous day's settled prices with the residual underneath. The header figures are computed live from the database rather than written into the page — this run shows a mean absolute error of £5.81/MWh for that day's forecast.",
+      },
+      {
+        src: "/images/gridflow/data-collection.png",
+        caption:
+          "The half of the project that took the time. Ten datasets, roughly 1.7M rows, on a continuous collection schedule since January 2023 — day-ahead and imbalance prices, generation by fuel (1.24M rows on its own), wind and solar forecasts, weather, carbon intensity, actual demand and system metrics. Each row shows its coverage window and distinct-date count, so gaps are visible instead of silently producing a model trained on holes. The upper timeline is the same day's prices against wind.",
+      },
+      {
+        src: "/images/gridflow/recommendations.png",
+        caption:
+          "What the forecast is actually for. A battery has to commit an action for each of the 48 half-hourly settlement periods in a UK trading day, so the schedule assigns charge / hold / discharge with the resulting power and state of charge, and totals the margin. The panel on the right surfaces the best discharge windows and a set of checks — all 48 periods covered, prices reconciled against Elexon — because a schedule with a silent gap in it is worse than no schedule.",
+      },
     ],
   },
   {
@@ -328,7 +373,7 @@ export const projects = [
       "Automated weekly AI stock analysis video pipeline using yfinance, OpenAI GPT-4, moviepy, and Stable Diffusion. Fetches market data, generates narrated scripts, synthesises visuals, and uploads to YouTube end-to-end.",
     tech: ["Python", "OpenAI GPT-4", "yfinance", "moviepy", "Stable Diffusion"],
     status: "Completed",
-    image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1200&q=80",
+    image: "/images/covers/stock-ai-youtube.svg",
     stats: [
       { label: "Pipeline steps automated", value: "5" },
       { label: "Human time per video", value: "~0 min" },
@@ -336,16 +381,36 @@ export const projects = [
   },
   {
     slug: "buildu",
-    title: "BuildU — AI University Application Advisor",
+    title: "BuildU — AI Writing and Application Dashboard",
     description:
-      "AI-powered university application advisor that analyses uploaded documents via OCR and generates personalised application strategies using GPT-4. Built with Next.js 15 and deployed on Vercel.",
+      "\"Build You\" — a personal AI dashboard for job applications and English writing. Six tools behind one login: CV feedback with tracked results, an AI-text humaniser, a word-level text diff, IELTS writing practice with band-level scoring, and browser speech-to-text. Next.js 15 on Vercel, GPT-4 for the analysis, Tesseract.js for OCR.",
     tech: ["Next.js 15", "OpenAI GPT-4", "Tesseract.js", "TypeScript", "Vercel"],
     status: "Completed",
-    image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&q=80",
+    link: "https://buildu.vercel.app/",
+    linkLabel: "Live app",
+    image: "/images/buildu/home.png",
     stats: [
-      { label: "OCR engine", value: "Tesseract.js" },
+      { label: "Tools shipped", value: "6" },
       { label: "LLM", value: "GPT-4" },
-      { label: "Deployment", value: "Vercel" },
+      { label: "OCR", value: "Tesseract.js" },
+      { label: "Built for", value: "My own job hunt" },
+    ],
+    gallery: [
+      {
+        src: "/images/buildu/home.png",
+        caption:
+          "Six tools behind one dashboard: CV feedback, results tracking, an AI-text humaniser, text compare, IELTS writing practice and speech-to-text. It started as one thing I needed during my own applications and kept growing a tool every time I hit the next annoyance — which is why it looks like a dashboard rather than a product.",
+      },
+      {
+        src: "/images/buildu/text-compare.png",
+        caption:
+          "Text compare, the piece I use most. Three panes — before, changes, after — with a word-level diff rather than a line diff, so a single substituted word shows as a strikethrough and its replacement rather than repainting the whole paragraph. Word and character counts on both sides, and find-and-replace across the pair. Rewriting the same paragraph five times is the actual job when you are drafting applications in a second language, and line diffs are useless for it.",
+      },
+      {
+        src: "/images/buildu/speech-to-text.png",
+        caption:
+          "Speech-to-text over the browser's own recognition API, with live transcription, a language selector and copy-out. No audio leaves the browser and there is no transcription bill, which for a personal tool is the right trade against accuracy.",
+      },
     ],
   },
   {
@@ -355,7 +420,7 @@ export const projects = [
       "Web scraping and aggregation platform collecting product data from 5 e-commerce sites via automated browser crawling. Built with Spring Boot, Selenium, and Jsoup. Awarded 2nd place.",
     tech: ["Spring Boot", "Selenium", "Jsoup", "Java", "PostgreSQL"],
     status: "Completed",
-    image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1200&q=80",
+    image: "/images/covers/invntz-hackathon.svg",
     stats: [
       { label: "Sites scraped", value: "5" },
       { label: "Hackathon result", value: "2nd place" },
@@ -368,7 +433,7 @@ export const projects = [
       "End-to-end pipeline that converts keyword inputs into narrative stories using LLM APIs, then generates picture-book style illustrations via image-generation APIs. Extended to image-to-video workflows for animated output.",
     tech: ["Python", "OpenAI", "Stable Diffusion", "LLM APIs", "Pipeline Design"],
     status: "Prototype",
-    image: "https://images.unsplash.com/photo-1547954575-855750c57bd3?w=1200&q=80",
+    image: "/images/covers/generative-storytelling.svg",
     stats: [
       { label: "Input", value: "Keywords" },
       { label: "Output", value: "Story + Illustrations" },
@@ -378,15 +443,15 @@ export const projects = [
     slug: "ate",
     title: "[ATE] Recipe & Ingredients Management",
     description:
-      "Full-stack application for managing recipes and tracking ingredients, including recipe CRUD, inventory tracking, and shopping list generation. Built with NestJS backend and React Native mobile client.",
+      "Full-stack application for managing recipes and tracking kitchen inventory, generating a shopping list from the gap between the two. I designed the data model and built the NestJS/TypeORM backend and its REST API against a Figma prototype. The project stalled when the front-end collaborator left mid-way with the login integration unfinished, so it never reached a usable build. The backend work stands; I intend to finish the client side myself.",
     tech: ["NestJS", "TypeORM", "PostgreSQL", "TypeScript", "React Native", "REST API"],
-    status: "In Development",
+    status: "Paused",
     github: "https://github.com/hncpyj",
-    image: "https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=1200&q=80",
+    image: "/images/covers/ate.svg",
     stats: [
-      { label: "Backend", value: "NestJS" },
-      { label: "Mobile", value: "React Native" },
-      { label: "DB", value: "PostgreSQL" },
+      { label: "My part", value: "Backend + data model" },
+      { label: "Stack", value: "NestJS · TypeORM" },
+      { label: "Status", value: "Stalled, revivable" },
     ],
   },
   {
@@ -397,7 +462,7 @@ export const projects = [
     tech: ["NestJS", "TypeScript", "PostgreSQL", "GraphQL", "AWS"],
     status: "Completed",
     github: "https://github.com/hncpyj",
-    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80",
+    image: "/images/covers/so-easy.svg",
     stats: [
       { label: "My role", value: "Search + Kanban" },
       { label: "API", value: "GraphQL" },
@@ -408,10 +473,17 @@ export const projects = [
     slug: "kaggle-ai4code",
     title: "[Kaggle] Google AI4Code — Notebook Cell Ordering",
     description:
-      "Transformer-based approach (CodeBERT, DistilBERT) for predicting the correct execution order of cells in Python notebooks. Included EDA, feature engineering, and iterative experiments benchmarking multiple architectures.",
+      "Predicting the next cell to be executed based on the comments and code in Python Jupyter notebooks. Ensemble of CodeBERT and DistilBERT with different weights (0.748 / 0.252) based on the results of running each model.",
     tech: ["Python", "PyTorch", "CodeBERT", "DistilBERT", "NLP", "scikit-learn"],
     status: "Completed",
-    image: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=1200&q=80",
+    image: "/images/kaggle/ai4code-banner.png",
+    gallery: [
+      {
+        src: "/images/kaggle/ai4code-banner.png",
+        caption:
+          "Google AI4Code — Understand Code in Python Notebooks. Organised by Google and X, $150,000 prize pool.",
+      },
+    ],
     stats: [
       { label: "Result", value: "Top ~17%" },
       { label: "Model", value: "CodeBERT" },
@@ -421,10 +493,17 @@ export const projects = [
     slug: "kaggle-rsna",
     title: "[Kaggle] RSNA 2022 Cervical Spine Fracture Detection",
     description:
-      "Medical imaging pipeline for detecting cervical spine fractures from CT scans. Applied data augmentation, normalization, and ROI extraction, followed by EfficientNetV2-based classification to predict seven fracture probabilities per patient.",
+      "Predicting the probability of a fracture in each of the seven cervical vertebrae. EDA, translation and summary of the EfficientNetV2 paper, data preprocessing, model training, and inference.",
     tech: ["Python", "PyTorch", "EfficientNetV2", "Computer Vision", "scikit-learn"],
     status: "Completed",
-    image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=1200&q=80",
+    image: "/images/kaggle/rsna-banner.png",
+    gallery: [
+      {
+        src: "/images/kaggle/rsna-banner.png",
+        caption:
+          "RSNA 2022 Cervical Spine Fracture Detection. Organised by the Radiological Society of North America, $30,000 prize pool.",
+      },
+    ],
     stats: [
       { label: "Result", value: "Top ~28%" },
       { label: "Model", value: "EfficientNetV2" },

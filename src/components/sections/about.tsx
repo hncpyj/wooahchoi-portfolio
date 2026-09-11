@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import { personalInfo } from "@/data/portfolio";
 import { useScrollAnimation } from "@/lib/hooks";
 import { cn } from "@/lib/utils";
-import { Code2, Server, Cloud, Database } from "lucide-react";
+import { Brain, Search, Microscope, Server } from "lucide-react";
 
 /** Highlight order: 진한 파란색 → 보라색 → 밝은 초록색 → 하늘색 */
 const HIGHLIGHT_COLORS = [
@@ -60,42 +60,53 @@ function paragraphWithHighlights(
   );
 }
 
+/**
+ * These four are the site's positioning statement, so they are ordered by what
+ * the work actually evidences: ML first, then the search depth underneath it,
+ * then the evaluation angle that is genuinely rare, then production.
+ *
+ * The production card stays. Backend is not a dilution of an ML profile — it is
+ * what lets a model reach users, and 8/21 screened postings ask for Docker/CI-CD,
+ * 6/21 for cloud, 5/21 for SQL. What was removed is the *web-app* framing that
+ * used to be here (NestJS, GraphQL, TypeORM, auth), which appeared in 0/21 and
+ * described a different job to the one the rest of this site evidences.
+ */
 const highlights = [
   {
-    icon: Server,
-    title: "Backend Architecture",
+    icon: Brain,
+    title: "Machine Learning",
     description:
-      "Designing scalable APIs and microservices with Spring and NestJS",
+      "PyTorch, transformers and reinforcement learning — from fine-tuning BERT for production NER to training a causal Transformer policy with PPO",
     color: "from-violet-500 to-purple-600",
     bg: "bg-violet-50 dark:bg-violet-500/10",
     borderColor: "border-violet-200 dark:border-violet-500/20",
   },
   {
-    icon: Database,
-    title: "Data Engineering",
+    icon: Search,
+    title: "Search & Retrieval",
     description:
-      "Optimizing database performance with PostgreSQL, Redis, and TypeORM",
+      "Indexing at 100M+ scale, ranking and scoring logic, query understanding and expansion — the retrieval layer the current wave of AI is built on",
     color: "from-blue-500 to-cyan-600",
     bg: "bg-blue-50 dark:bg-blue-500/10",
     borderColor: "border-blue-200 dark:border-blue-500/20",
   },
   {
-    icon: Cloud,
-    title: "Cloud & DevOps",
+    icon: Microscope,
+    title: "Evaluation & Interpretability",
     description:
-      "Deploying and managing infrastructure on AWS with Docker and CI/CD",
-    color: "from-emerald-500 to-teal-600",
-    bg: "bg-emerald-50 dark:bg-emerald-500/10",
-    borderColor: "border-emerald-200 dark:border-emerald-500/20",
-  },
-  {
-    icon: Code2,
-    title: "API Design",
-    description:
-      "Building RESTful and GraphQL APIs with authentication and authorization",
+      "Worst-case metrics, causal ablations and failure typologies — telling apart systems that work from systems that only score well",
     color: "from-amber-500 to-orange-600",
     bg: "bg-amber-50 dark:bg-amber-500/10",
     borderColor: "border-amber-200 dark:border-amber-500/20",
+  },
+  {
+    icon: Server,
+    title: "Production Engineering",
+    description:
+      "Java, Spring and Python services, data pipelines, Oracle and PostgreSQL at scale, Docker and CI/CD on AWS — models are worth what they are worth in production",
+    color: "from-emerald-500 to-teal-600",
+    bg: "bg-emerald-50 dark:bg-emerald-500/10",
+    borderColor: "border-emerald-200 dark:border-emerald-500/20",
   },
 ];
 

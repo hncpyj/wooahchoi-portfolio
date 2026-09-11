@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630" font-family="ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif">
+<defs><marker id="agenerative-storytelling" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#94a3b8"/></marker></defs>
+<rect width="1200" height="630" fill="#ffffff"/>
+<rect x="0" y="0" width="1200" height="8" fill="#7c3aed"/>
+<text x="72" y="118" font-size="17" font-weight="700" letter-spacing="2.4" fill="#7c3aed">GENERATIVE PIPELINE</text>
+<text x="72" y="182" font-size="44" font-weight="700" fill="#0f172a">Keywords in,</text>
+<text x="72" y="238" font-size="44" font-weight="700" fill="#0f172a">illustrated story out</text>
+<rect x="72" y="346" width="231" height="150" rx="12" fill="#f8fafc" stroke="#e2e8f0"/>
+<text x="187" y="417" font-size="19" font-weight="600" text-anchor="middle" fill="#0f172a">Keywords</text>
+<text x="187" y="443" font-size="15.5" font-weight="400" text-anchor="middle" fill="#64748b">a few words</text>
+<line x1="309" y1="421" x2="323" y2="421" stroke="#94a3b8" stroke-width="2" marker-end="url(#agenerative-storytelling)"/>
+<rect x="329" y="346" width="231" height="150" rx="12" fill="#f8fafc" stroke="#e2e8f0"/>
+<text x="444" y="417" font-size="19" font-weight="600" text-anchor="middle" fill="#0f172a">LLM</text>
+<text x="444" y="443" font-size="15.5" font-weight="400" text-anchor="middle" fill="#64748b">narrative generation</text>
+<line x1="566" y1="421" x2="580" y2="421" stroke="#94a3b8" stroke-width="2" marker-end="url(#agenerative-storytelling)"/>
+<rect x="586" y="346" width="231" height="150" rx="12" fill="#f8fafc" stroke="#e2e8f0"/>
+<text x="701" y="417" font-size="19" font-weight="600" text-anchor="middle" fill="#0f172a">Image generation</text>
+<text x="701" y="443" font-size="15.5" font-weight="400" text-anchor="middle" fill="#64748b">picture-book style</text>
+<line x1="823" y1="421" x2="837" y2="421" stroke="#94a3b8" stroke-width="2" marker-end="url(#agenerative-storytelling)"/>
+<rect x="843" y="346" width="284" height="150" rx="12" fill="#f5f3ff" stroke="#ddd6fe"/>
+<text x="985" y="417" font-size="20" font-weight="700" text-anchor="middle" fill="#5b21b6">Story + art</text>
+<text x="985" y="444" font-size="16" font-weight="500" text-anchor="middle" fill="#7c3aed">→ animation</text>
+</svg>

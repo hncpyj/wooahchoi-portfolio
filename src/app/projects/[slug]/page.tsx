@@ -77,6 +77,7 @@ const statusColor: Record<string, string> = {
   Prototype: "bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-300",
   Research: "bg-violet-100 text-violet-700 dark:bg-violet-500/15 dark:text-violet-300",
   "In Development": "bg-orange-100 text-orange-700 dark:bg-orange-500/15 dark:text-orange-300",
+  Paused: "bg-slate-100 text-slate-600 dark:bg-slate-500/15 dark:text-slate-300",
 };
 
 const projectDetails: Record<
@@ -116,6 +117,36 @@ const projectDetails: Record<
       },
     ],
   },
+  "ir-search-engine": {
+    overview:
+      "A search engine over six subject domains, each with the encoder that was pretrained on that literature, and a router that decides which one a query belongs to. That part began as MSc Information Retrieval coursework and was built as a team. Afterwards I added the part that interested me more: a generation layer, and a way to test whether the generated answer was actually using the passages the retriever had found.",
+    sections: [
+      {
+        heading: "Why one encoder is not enough",
+        body: "A single general-purpose embedding model treats a clinical trial abstract, a court judgment and an earnings filing as the same kind of text. They are not. Each domain has its own vocabulary, its own sense of which words carry the meaning, and models pretrained on that literature already encode it: SciBERT, BioBERT, FinBERT, LegalBERT, ClinicalBERT.\n\nSo the engine holds six indexes, one per domain, each built with its own encoder. That moves the difficulty to the front of the pipeline: something has to decide where a query goes before it can be answered. A fine-tuned DistilBERT router does that, and three routing strategies were compared against an oracle upper bound, so the cost of routing errors is measured rather than assumed.",
+      },
+      {
+        heading: "Retrieval",
+        body: "Lexical and dense retrieval fail in different places. BM25 misses a paraphrase; a dense encoder misses an exact identifier. Both run, and their result lists are combined with reciprocal rank fusion, which merges by rank rather than by score and therefore does not require the two systems' scores to be on a comparable scale.\n\nFAISS-HNSW carries the dense side. ColBERTv2 reranks the top of the fused list with late interaction, matching query and passage token by token instead of comparing two single vectors.\n\nEvery one of those stages is a claim that it earns its cost, so the system is evaluated as a five-step ablation ladder rather than as a finished pipeline: each component is switched off and the result recorded. I also annotated a cross-domain query set by hand, because the existing BEIR benchmarks are single-domain and cannot measure whether routing across domains works at all.",
+      },
+      {
+        heading: "The question the retrieval metrics cannot answer",
+        body: "Put a generator on top and the system produces answers. nDCG and recall say the retrieval is good, and the answers read well. Neither of those facts tells you that the answer came from the retrieved passages. A large language model knows a great deal already, and an answer that is correct from memory looks exactly like an answer that is correct from evidence.\n\nThis is the same problem as the one in my dissertation, where an agent that always turned the same way scored 50% on mean success while having learned nothing about the instruction cue. Aggregate accuracy could not see it. An intervention could.\n\nSo the grounding layer perturbs the context and watches what happens to the answer, across six conditions. Remove the passages entirely and the answer should change; if it does not, retrieval was decorative. Substitute the passages retrieved for a different query and the answer should change; if it does not, the generator is ignoring what it was given. Alter the key fact in the passages and the answer should follow the evidence rather than contradicting it. Alongside those sit controls that separate a grounding failure from a different problem, such as sensitivity to passage order.",
+      },
+      {
+        heading: "Scoring grounding",
+        body: "Three measures are reported per condition and per domain: a conditional grounding score, sentence-level faithfulness, and citation support, the last checking that the passage a sentence cites actually contains what the sentence claims.\n\nThe scores are not averaged across intervention families. A system that holds up under one perturbation and collapses under another is not grounded, and a mean would hide precisely that, in the same way mean success hid the one-sided policy in the dissertation.",
+      },
+      {
+        heading: "Telling a real difference from a coincidence",
+        body: "Twenty-one metrics, six domains and several conditions produce a large number of comparisons, and at that volume some of them will look significant by chance. Ignoring that is how a portfolio project ends up reporting an improvement that does not exist.\n\nProportions are compared with a two-proportion z-test, paired per-query differences with a paired Welch's t-test, and the whole family of comparisons is corrected with Benjamini-Hochberg. Effect sizes are reported as Cohen's h and d, because a difference can be statistically detectable and still too small to care about. Proportions carry Wilson score intervals, which behave sensibly near zero and one where the normal approximation does not, and any comparison with fewer than 30 samples is flagged as such instead of being quietly reported as a result. SciFact claims are checked against the gold qrels. Long evaluation runs checkpoint and resume, so a crash does not silently truncate a run into a smaller and more flattering sample.",
+      },
+      {
+        heading: "What was mine",
+        body: "The retrieval engine was coursework for the MSc Information Retrieval module and a team project. The generation layer, the six-condition grounding evaluation, and the statistical testing infrastructure were added afterwards, on my own, and are the part of this work I would want to be asked about.",
+      },
+    ],
+  },
   "venture-confirmation": {
     overview:
       "The Venture Confirmation System is the Korean government's register for certified venture businesses — companies apply through it, and the public searches it for scheme guidance, disclosures and support material. I built the search: the indexing path, the REST API, and the guide someone else needed in order to call it.\n\nMost of the interesting work on this one was in the plumbing rather than in the retrieval.",
@@ -130,11 +161,11 @@ const projectDetails: Record<
       },
       {
         heading: "The recursive delete, and why it matters",
-        body: "This is the least impressive line on my CV and one of the ones I would most happily defend.\n\nAn S3 object key is a path, not a filename — the documents here are keyed by type and upload date, so a key looks like pdf/202103/11/<file>. The download method recreates that structure locally, which means one indexing run does not leave a handful of files behind in a flat folder. It leaves a nested, date-partitioned tree.\n\nA delete call will not remove a directory that still has anything in it, so \"clean up after yourself\" is not one operation. It is a depth-first walk: recurse into each subdirectory, clear its contents, and only then remove the directory itself on the way back up.\n\nGet it wrong and nothing fails. The indexing job succeeds, the search works, the tests pass — and every run leaves debris behind until, weeks later, the disk fills up in production. The bugs I find most interesting are the ones that do not announce themselves, and this was an early, very small example of one.",
+        body: "An S3 object key is a path, not a filename — the documents here are keyed by type and upload date, so a key looks like pdf/202103/11/<file>. The download method recreates that structure locally, which means one indexing run does not leave a handful of files behind in a flat folder. It leaves a nested, date-partitioned tree.\n\nA delete call will not remove a directory that still has anything in it, so \"clean up after yourself\" is not one operation. It is a depth-first walk: recurse into each subdirectory, clear its contents, and only then remove the directory itself on the way back up.\n\nGet it wrong and nothing fails. The indexing job succeeds, the search works, the tests pass — and every run leaves debris behind until, weeks later, the disk fills up in production.",
       },
       {
         heading: "An API someone else has to call",
-        body: "The search is exposed as a REST API taking keyword, category, sort order, date range and paging; the site's search page is built on it. The deliverable was not just the endpoint but the guide — what each parameter does, what comes back, what happens at the edges — because someone who had not built it had to integrate against it.\n\nThat turned out to be the useful part of this project for me. Writing the interface down forces you to notice which of your parameters only make sense if you already know how the thing works internally, which is the same instinct that later made me care about whether a result set is explainable to the person looking at it.",
+        body: "The search is exposed as a REST API taking keyword, category, sort order, date range and paging; the site's search page is built on it. The deliverable was not just the endpoint but the guide — what each parameter does, what comes back, what happens at the edges — because someone who had not built it had to integrate against it.\n\nWriting the interface down is what forces you to notice which parameters only make sense if you already know how the thing works internally.",
       },
       {
         heading: "The query surface",
@@ -159,8 +190,8 @@ const projectDetails: Record<
         body: "A search box with nothing in it is a dead end, especially on an insurance site where users often do not know the term for the thing they want. So the empty state shows popular search terms as tappable chips.\n\nThey come from the search logs rather than an editor's guess, and they still rotate: checking the live site twice on the same day returned 보험금청구 · 자동이체 · 약관 · 주행거리 · 해지 once and 제지급 · 철회 · 배서 · 금리인하 · 모바일 the next time. That is the same principle as the recommended terms at Millie's Library and the related terms in the Supreme Court system — three different domains, one idea: the logs already know what people are looking for.",
       },
       {
-        heading: "The part I was bad at",
-        body: "I wanted to do this well and for a while I could not. The problems were not conceptually hard — they were front-end problems, script execution order and client-side state I had not had to reason about before, and I did not yet have a mental model for them. It was the first time the gap between wanting to build something well and knowing how was that wide.\n\nWhat I wrote down at the time was two things: clean code, and script execution order. They are really the same lesson — in a codebase where anything can run at any time, the discipline has to come from you rather than from the compiler. I took that into Millie's Library, and Millie's Library is where the testing discipline in the rest of my work came from.",
+        heading: "What I noted at the time",
+        body: "Two things, written down when the project closed: clean code, and script execution order. Both were front-end problems I had not had to reason about before this delivery.",
       },
     ],
   },
@@ -182,7 +213,11 @@ const projectDetails: Record<
       },
       {
         heading: "The feature that had no data",
-        body: "Personalised recommended search terms were not in the original scope. The engine had no such capability, there was no labelled data to train anything on, and the client asked for it regardless. Nobody on the project had an approach.\n\nI was taking a forecasting course at the time, and the idea came from there: treat search history as a time series rather than as a bag of terms, and use when someone searches as the grouping variable. Accounts that search at similar times of day turn out to behave similarly, which gives you groups without needing demographic data or an explicit profile, and each group's term demand can then be projected forward from its own history.\n\nIt shipped with the search relaunch, and the recommended-terms row is still in the app today. Of everything I built at Konan, this is the piece I would point at if someone asked whether I can produce a method rather than implement one.",
+        body: "Personalised recommended search terms were not in the original scope. The engine had no such capability, there was no labelled data to train anything on, and the client asked for it regardless. Nobody on the project had an approach.\n\nI was taking a forecasting course at the time, and the idea came from there: treat search history as a time series rather than as a bag of terms, and use when someone searches as the grouping variable. Accounts that search at similar times of day turn out to behave similarly, which gives you groups without needing demographic data or an explicit profile, and each group's term demand can then be projected forward from its own history.\n\nIt shipped with the search relaunch, and the recommended-terms row is still in the app today.",
+      },
+      {
+        heading: "What I took from it",
+        body: "Quality, and what it costs. The client's planner tested at QA depth: a fixed set of criteria re-run every time a variable changed, and a list of around a hundred search terms tried with the spacing varied each way. Thinking through side effects before changing anything became a habit on this project rather than an intention.\n\nChanging a ranking weight and watching the results reorder was also the part of the work I enjoyed most at the time.",
       },
       {
         heading: "Auto-completion",
@@ -222,7 +257,7 @@ const projectDetails: Record<
   },
   "gridflow-trade": {
     overview:
-      "GridFlow Trade is a battery energy storage (BESS) trading research platform targeting the UK Balancing Mechanism. The core deliverable is a leakage-resistant price forecasting pipeline that informs bid/offer price decisions in the 30-minute settlement market.",
+      "GridFlow Trade is a battery energy storage (BESS) trading research platform targeting the UK Balancing Mechanism. The core deliverable is a leakage-resistant price forecasting pipeline that informs bid/offer price decisions in the 30-minute settlement market.\n\nIt runs live at gridflowtrade.com against a database that has been collecting since January 2023.",
     sections: [
       {
         heading: "Problem",
@@ -239,6 +274,14 @@ const projectDetails: Record<
       {
         heading: "Results",
         body: "XGBoost achieved MAE £4.10/MWh with R²=0.943 on held-out settlement periods — a 76% error reduction over the Naïve baseline. The model was deployed as an XGBoost quantile regression for BM bid/offer price prediction. GridFlow Trade was selected for the QMUL QIncubator programme and pitched to an investor panel in April 2026.",
+      },
+      {
+        heading: "The data layer, which is most of the work",
+        body: "Ten datasets on a continuous collection schedule since January 2023 — roughly 1.7M rows in PostgreSQL. Day-ahead and imbalance prices, generation by fuel (1.24M rows on its own), wind and solar forecasts, demand forecasts and actual demand, weather, carbon intensity and system metrics, from NESO and Elexon.\n\nThe collection-status view is part of the app rather than a separate dashboard: every dataset shows its row count, its coverage window and its number of distinct dates, so a feed that has quietly stopped is visible on the front page rather than discovered later. A price model trained across an unnoticed gap still produces a number, and the number still looks fine.",
+      },
+      {
+        heading: "From a forecast to a schedule",
+        body: "A price forecast is not a decision. The scheduler turns it into an action for each of the 48 half-hourly settlement periods in a UK trading day — charge, hold or discharge — subject to the battery's power rating and its state of charge, since you cannot discharge energy you have not stored and every charge decision constrains the ones after it.\n\nThe output is the full 48-period table with the resulting SOC trajectory and margin, the best discharge windows, and a short set of checks: all 48 periods present, prices reconciled against Elexon. A schedule with a hole in it is worse than no schedule, because it looks complete.",
       },
     ],
   },
@@ -339,16 +382,16 @@ const projectDetails: Record<
       "Google AI4Code challenged competitors to restore the correct cell execution order of shuffled Python Jupyter notebooks — essentially a sequence ordering problem over code and markdown cells.",
     sections: [
       {
-        heading: "Approach",
-        body: "I fine-tuned CodeBERT and DistilBERT to predict pairwise cell orderings, then used a ranking aggregation step to produce the final sequence. EDA revealed strong signals in markdown headings, import statements, and variable reference patterns across cells.",
+        heading: "Task",
+        body: "Predicting the next cell to be executed based on the comments and code in Python Jupyter notebooks.",
       },
       {
-        heading: "Feature Engineering",
-        body: "Beyond the raw cell text, I extracted: cell type (code vs markdown), relative cell position in the original (as a training signal), cross-cell token overlap, and notebook-level metadata. Iterative experiments on a held-out local validation set guided architecture and hyperparameter choices.",
+        heading: "Approach",
+        body: "Ensemble of CodeBERT and DistilBERT with different weights (0.748 / 0.252) based on the results of running each model. Built on public baseline notebooks, credited in the submission notebook.",
       },
       {
         heading: "Result",
-        body: "Final standing: Top ~17% on the private leaderboard.",
+        body: "Top ~17% on the private leaderboard. Organised by Google and X, $150,000 prize pool.",
       },
     ],
   },
@@ -357,16 +400,16 @@ const projectDetails: Record<
       "The RSNA 2022 challenge required automated detection of cervical spine fractures in CT scan volumes, with separate binary predictions for each of the 7 cervical vertebrae plus an overall fracture label.",
     sections: [
       {
-        heading: "Preprocessing Pipeline",
-        body: "CT volumes were processed slice-by-slice. Preprocessing included HU windowing, normalisation, and data augmentation (random flip, rotation, brightness jitter). ROI extraction focused crops on the cervical spine region to reduce background noise.",
+        heading: "Task",
+        body: "Predicting the probability of a fracture in each of the seven cervical vertebrae, from CT scans.",
       },
       {
-        heading: "Model",
-        body: "EfficientNetV2 was used as the backbone for slice-level feature extraction. Slice features were aggregated across the volume with a lightweight temporal pooling layer to produce vertebra-level predictions. The model was trained with BCE loss with positive-class weighting to handle the significant class imbalance in fracture labels.",
+        heading: "Approach",
+        body: "EDA, translation and summary of the EfficientNetV2 paper, data preprocessing, model training, and inference. Built on a public EfficientNetV2 baseline notebook.",
       },
       {
         heading: "Result",
-        body: "Final standing: Top ~28% on the private leaderboard.",
+        body: "Top ~28% on the private leaderboard. Organised by the Radiological Society of North America, $30,000 prize pool.",
       },
     ],
   },
