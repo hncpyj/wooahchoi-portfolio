@@ -1,14 +1,14 @@
 export const personalInfo = {
   name: "WooAh Choi",
-  title: "Machine Learning & Backend Engineer",
+  title: "Machine Learning Engineer | AI Safety and Evaluation",
   email: "wooah.choi2@gmail.com",
   github: "https://github.com/hncpyj",
   blog: "https://backenddeveloper.tistory.com/",
   linkedin: "https://linkedin.com/in/wooah-choi",
   intro:
-    "Machine Learning Engineer with a production engineering foundation, specialising in NLP, information retrieval, and the evaluation of systems that are harder to verify than they look. MSc AI at Queen Mary University of London, where my dissertation applied mechanistic interpretability to a Transformer policy in partially observable RL. Previously built enterprise search and NLP in production, including the Supreme Court of Korea's e-litigation search.",
+    "Machine Learning Engineer with a production engineering foundation, working on AI safety and the evaluation of systems that are harder to verify than they look. MSc AI at Queen Mary University of London, where my dissertation applied mechanistic interpretability to a PPO-trained Transformer policy in partially observable RL. Sole author of a technical report on control boundaries for autonomous research agents. Previously built enterprise search and NLP in production, including the Supreme Court of Korea's e-litigation search.",
   about:
-    "MSc AI student at Queen Mary University of London, with nearly 3 years of industry experience as a Software Engineer at Konan Technology building enterprise search and NLP systems. My coursework spans Machine Learning, Neural Networks and NLP, Information Retrieval, Reinforcement Learning, and Conversational Agents — building depth in both theory and implementation.\n\nMy dissertation is a mechanistic analysis of a PPO-trained causal Transformer policy in a partially observable MiniGrid T-maze. Its central finding was methodological: the aggregate success metric hid a failure mode, because an agent that always turns the same way scores around 50% while having learned nothing about the instruction cue. I designed a worst-case metric, Smin = min(S_key, S_ball), that exposes those one-sided policies, and used causal interventions to test control rather than infer it from correlation. Difference-vector attribution assigned 33–58% of the retrieval difference to padding, yet exchanging the padding source reversed no decision while exchanging the real-transition source reversed both — correlation and causation pointing at different things on the same policy. That signature held in only three of six checkpoints, so equal behaviour did not imply equal mechanism. A parameter-matched LSTM also solved the task at Smin = 0.898, which moved the contribution from architecture comparison to the analysis and evaluation framework itself.\n\nThird author on a short paper accepted to FinNLP 2026 at EMNLP, on whether relevance-ranked web evidence is actually sufficient to verify financial claims. My part was reviewing annotation quality on the expert-audited claim–passage set and checking the manuscript before submission. I also review for the same workshop, the annual workshop of the ACL Special Interest Group on Financial and Economic NLP.\n\nAs co-founder of GridFlow Trade (selected for QMUL QIncubator), I built a UK electricity price forecasting pipeline: 48 domain-driven features on 55,000+ real half-hourly settlement periods, with XGBoost achieving MAE £4.10/MWh (R²=0.943) — a 76% error reduction over a Naive baseline.\n\nAt Konan Technology, I delivered production search and NLP systems for the Supreme Court of Korea, reducing litigation search latency from 5+ minutes to 8 seconds, and shipped query intelligence features across four enterprise clients.\n\nKaggle: Top ~17% in Google AI4Code · Top ~28% in RSNA 2022 Cervical Spine Fracture Detection.",
+    "MSc AI at Queen Mary University of London, with three years of industry experience as a Software Engineer at Konan Technology building enterprise search and NLP systems. My coursework spans Machine Learning, Neural Networks and NLP, Information Retrieval, Reinforcement Learning, and Conversational Agents — building depth in both theory and implementation.\n\nMost recently I built ResearchAgentLab, an autonomous research agent, and then a control architecture for it after watching it silently substitute a different experiment for the one I had approved. Protocol Before Code freezes approved intent in a machine-checkable protocol, constrains how much the model is allowed to generate, and checks scientific conformance independently of software correctness. In holdout and fault-injection evaluations, 0 of 18 drifted protocols passed and 18 of 18 behaviour-changing trusted-component mutations were blocked before execution; with the content-integrity check neutralised, 15 of those same 18 escaped the remaining stack. A frozen 192-pair oversight experiment found that adversarial curation moved an overseer's target selection from 13.0% to 27.1% while explicit approval stayed at 100% in both conditions. Written up as a sole-authored technical report.\n\nMy dissertation is a mechanistic analysis of a PPO-trained causal Transformer policy in a partially observable MiniGrid T-maze. Its central finding was methodological: the aggregate success metric hid a failure mode, because an agent that always turns the same way scores around 50% while having learned nothing about the instruction cue. I designed a worst-case metric, Smin = min(S_key, S_ball), that exposes those one-sided policies, and used causal interventions to test control rather than infer it from correlation. Difference-vector attribution assigned 33–58% of the retrieval difference to padding, yet exchanging the padding source reversed no decision while exchanging the real-transition source reversed both — correlation and causation pointing at different things on the same policy. That signature held in only three of six checkpoints, so equal behaviour did not imply equal mechanism. A parameter-matched LSTM also solved the task at Smin = 0.898, which moved the contribution from architecture comparison to the analysis and evaluation framework itself.\n\nThird author on a short paper accepted to FinNLP 2026 at EMNLP, on whether relevance-ranked web evidence is actually sufficient to verify financial claims. I was one of the two first-pass annotators, labelling 500 of the 750 claim–passage pairs under a blinded four-class protocol, including the 250-pair double-annotated block behind the paper's Cohen's kappa. I also review for the same workshop, the annual workshop of the ACL Special Interest Group on Financial and Economic NLP.\n\nAs co-founder of GridFlow Trade (selected for QMUL QIncubator), I built a UK electricity price forecasting pipeline: 48 domain-driven features on 55,000+ real half-hourly settlement periods, with XGBoost achieving MAE £4.10/MWh (R²=0.943) — a 76% error reduction over a Naive baseline.\n\nAt Konan Technology, I delivered production search and NLP systems for the Supreme Court of Korea, reducing litigation search latency from 5+ minutes to 8 seconds, and shipped query intelligence features across four enterprise clients.\n\nKaggle: Top ~17% in Google AI4Code · Top ~28% in RSNA 2022 Cervical Spine Fracture Detection.",
   introHighlight: [
     "Machine Learning Engineer",
     "NLP",
@@ -273,6 +273,31 @@ export const skills = {
 };
 
 export const projects = [
+  {
+    slug: "research-agent-lab",
+    title:
+      "ResearchAgentLab — Protocol Before Code: Control Boundaries for Autonomous Research Agents",
+    description:
+      "An autonomous research agent, and a control architecture built for it after it silently ran a different experiment from the one that had been approved. Protocol Before Code freezes approved scientific intent in a machine-checkable protocol, binds trusted components by content hash, limits how much the model is allowed to generate, and checks scientific conformance independently of software correctness. Stress-tested with generator-blind holdouts and fault injection.",
+    tech: [
+      "Python",
+      "FastAPI",
+      "SQLite",
+      "LLM",
+      "Agent Control",
+      "Evaluation",
+      "Fault Injection",
+    ],
+    status: "Active",
+    link: "https://github.com/hncpyj/research-agent-lab",
+    linkLabel: "GitHub",
+    stats: [
+      { label: "Drifted protocols that passed", value: "0 / 18" },
+      { label: "Apparatus mutations blocked", value: "18 / 18" },
+      { label: "Escaping without integrity check", value: "15 / 18" },
+      { label: "Target selection, benign to adversarial", value: "13.0% → 27.1%" },
+    ],
+  },
   {
     slug: "dissertation-mechanistic-interp",
     title:

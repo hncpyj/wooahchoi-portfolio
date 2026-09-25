@@ -20,40 +20,41 @@ export const metadata: Metadata = {
   // Without this, Next cannot resolve relative URLs in openGraph/twitter metadata
   // and logs a warning on every build.
   metadataBase: new URL("https://wooahchoi.com"),
-  title: "WooAh Choi | Machine Learning & Backend Engineer",
+  title: "WooAh Choi | Machine Learning Engineer, AI Safety and Evaluation",
   description:
-    "Portfolio of WooAh Choi — Machine Learning & Backend Engineer specializing in PyTorch, Transformers, Reinforcement Learning, XGBoost, NestJS, Spring, and scalable ML systems.",
+    "Portfolio of WooAh Choi — Machine Learning Engineer working on AI safety, agent control and the evaluation of systems that are harder to verify than they look. PyTorch, Transformers, reinforcement learning, NLP and information retrieval, with three years of production engineering.",
   keywords: [
     "Machine Learning Engineer",
-    "Backend Engineer",
+    "AI Safety",
+    "Evaluation",
+    "Agent Control",
+    "Mechanistic Interpretability",
     "Python",
     "PyTorch",
     "Reinforcement Learning",
     "Transformer",
+    "LLM",
     "BERT",
     "XGBoost",
     "NLP",
     "Information Retrieval",
-    "TypeScript",
     "Java",
-    "NestJS",
-    "Spring",
     "PostgreSQL",
     "AWS",
   ],
   authors: [{ name: "WooAh Choi" }],
   openGraph: {
-    title: "WooAh Choi | Machine Learning & Backend Engineer",
+    title: "WooAh Choi | Machine Learning Engineer, AI Safety and Evaluation",
     description:
-      "Machine Learning & Backend Engineer specializing in forecasting, NLP, reinforcement learning, and scalable ML systems.",
+      "Machine Learning Engineer working on AI safety, agent control and the evaluation of systems that are harder to verify than they look.",
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "WooAh Choi | Machine Learning & Backend Engineer",
+    title: "WooAh Choi | Machine Learning Engineer, AI Safety and Evaluation",
     description:
-      "Machine Learning & Backend Engineer specializing in forecasting, NLP, reinforcement learning, and scalable ML systems.",
+      "Machine Learning Engineer working on AI safety, agent control and the evaluation of systems that are harder to verify than they look.",
   },
   robots: {
     index: true,
