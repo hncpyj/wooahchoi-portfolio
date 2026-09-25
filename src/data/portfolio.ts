@@ -276,7 +276,7 @@ export const projects = [
   {
     slug: "research-agent-lab",
     title:
-      "ResearchAgentLab — Protocol Before Code: Control Boundaries for Autonomous Research Agents",
+      "ResearchAgentLab: Control Boundaries for Autonomous Research Agents",
     description:
       "An autonomous research agent, and a control architecture built for it after it silently ran a different experiment from the one that had been approved. Protocol Before Code freezes approved scientific intent in a machine-checkable protocol, binds trusted components by content hash, limits how much the model is allowed to generate, and checks scientific conformance independently of software correctness. Stress-tested with generator-blind holdouts and fault injection.",
     tech: [
