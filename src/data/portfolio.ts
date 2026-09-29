@@ -8,7 +8,7 @@ export const personalInfo = {
   intro:
     "Machine Learning Engineer with a production engineering foundation, working on AI safety and the evaluation of systems that are harder to verify than they look. MSc AI at Queen Mary University of London, where my dissertation applied mechanistic interpretability to a PPO-trained Transformer policy in partially observable RL. Sole author of a technical report on control boundaries for autonomous research agents. Previously built enterprise search and NLP in production, including the Supreme Court of Korea's e-litigation search.",
   about:
-    "MSc AI at Queen Mary University of London, with three years of industry experience as a Software Engineer at Konan Technology building enterprise search and NLP systems. My coursework spans Machine Learning, Neural Networks and NLP, Information Retrieval, Reinforcement Learning, and Conversational Agents — building depth in both theory and implementation.\n\nMost recently I built ResearchAgentLab, an autonomous research agent, and then a control architecture for it after watching it silently substitute a different experiment for the one I had approved. Protocol Before Code freezes approved intent in a machine-checkable protocol, constrains how much the model is allowed to generate, and checks scientific conformance independently of software correctness. In holdout and fault-injection evaluations, 0 of 18 drifted protocols passed and 18 of 18 behaviour-changing trusted-component mutations were blocked before execution; with the content-integrity check neutralised, 15 of those same 18 escaped the remaining stack. A frozen 192-pair oversight experiment found that adversarial curation moved an overseer's target selection from 13.0% to 27.1% while explicit approval stayed at 100% in both conditions. Written up as a sole-authored technical report.\n\nMy dissertation is a mechanistic analysis of a PPO-trained causal Transformer policy in a partially observable MiniGrid T-maze. Its central finding was methodological: the aggregate success metric hid a failure mode, because an agent that always turns the same way scores around 50% while having learned nothing about the instruction cue. I designed a worst-case metric, Smin = min(S_key, S_ball), that exposes those one-sided policies, and used causal interventions to test control rather than infer it from correlation. Difference-vector attribution assigned 33–58% of the retrieval difference to padding, yet exchanging the padding source reversed no decision while exchanging the real-transition source reversed both — correlation and causation pointing at different things on the same policy. That signature held in only three of six checkpoints, so equal behaviour did not imply equal mechanism. A parameter-matched LSTM also solved the task at Smin = 0.898, which moved the contribution from architecture comparison to the analysis and evaluation framework itself.\n\nThird author on a short paper accepted to FinNLP 2026 at EMNLP, on whether relevance-ranked web evidence is actually sufficient to verify financial claims. I was one of the two first-pass annotators, labelling 500 of the 750 claim–passage pairs under a blinded four-class protocol, including the 250-pair double-annotated block behind the paper's Cohen's kappa. I also review for the same workshop, the annual workshop of the ACL Special Interest Group on Financial and Economic NLP.\n\nAs co-founder of GridFlow Trade (selected for QMUL QIncubator), I built a UK electricity price forecasting pipeline: 48 domain-driven features on 55,000+ real half-hourly settlement periods, with XGBoost achieving MAE £4.10/MWh (R²=0.943) — a 76% error reduction over a Naive baseline.\n\nAt Konan Technology, I delivered production search and NLP systems for the Supreme Court of Korea, reducing litigation search latency from 5+ minutes to 8 seconds, and shipped query intelligence features across four enterprise clients.\n\nKaggle: Top ~17% in Google AI4Code · Top ~28% in RSNA 2022 Cervical Spine Fracture Detection.",
+    "MSc AI at Queen Mary University of London, with three years of industry experience as a Software Engineer at Konan Technology building enterprise search and NLP systems. My coursework spans Machine Learning, Neural Networks and NLP, Information Retrieval, Reinforcement Learning, and Conversational Agents — building depth in both theory and implementation.\n\nMost recently I built ResearchAgentLab, an autonomous research agent, and then a control architecture for it after watching it silently substitute a different experiment for the one I had approved. Protocol Before Code freezes approved intent in a machine-checkable protocol, constrains how much the model is allowed to generate, and checks scientific conformance independently of software correctness. In holdout and fault-injection evaluations, 0 of 18 drifted protocols passed and 18 of 18 behaviour-changing trusted-component mutations were blocked before execution; with the content-integrity check neutralised, 15 of those same 18 escaped the remaining stack. A frozen 192-pair oversight experiment found that adversarial curation moved an overseer's target selection from 13.0% to 27.1% while explicit approval stayed at 100% in both conditions. Written up as a sole-authored technical report.\n\nMy dissertation is a mechanistic analysis of a PPO-trained causal Transformer policy in a partially observable MiniGrid T-maze. Its central finding was methodological: the aggregate success metric hid a failure mode, because an agent that always turns the same way scores around 50% while having learned nothing about the instruction cue. I designed a worst-case metric, Smin = min(S_key, S_ball), that exposes those one-sided policies, and used causal interventions to test control rather than infer it from correlation. Difference-vector attribution assigned 33–58% of the retrieval difference to padding, yet exchanging the padding source reversed no decision while exchanging the real-transition source reversed both — correlation and causation pointing at different things on the same policy. That signature held in only three of six checkpoints, so equal behaviour did not imply equal mechanism. A parameter-matched LSTM also solved the task at Smin = 0.898, which moved the contribution from architecture comparison to the analysis and evaluation framework itself.\n\nThird author on a short paper accepted to FinNLP 2026 at EMNLP, on whether relevance-ranked web evidence is actually sufficient to verify financial claims. I was one of the two first-pass annotators, labelling 500 of the 750 claim–passage pairs under a blinded four-class protocol, including the 250-pair double-annotated block behind the paper's Cohen's kappa. I also review for the same workshop, the annual workshop of the ACL Special Interest Group on Financial and Economic NLP.\n\nAs co-founder of GridFlow Trade (selected for QMUL QIncubator), I built the UK day-ahead price forecasting product on 65,000+ real half-hourly settlement periods. The work I would point at is not the model. Early accuracy looked strong and was wrong: training showed MAE £7.4 while the same model served in production sat at £21.9, because training and inference were not seeing the same features. I rebuilt it as a single point-in-time feature pipeline shared by both paths and verified they produce identical features. The honest figure afterwards is MAE £24.2/MWh against a £34.2 naive baseline, a 29% error reduction on a 90-day held-out window averaged over five seeds. Benchmarking Naive, Ridge, LightGBM, XGBoost and a bidirectional LSTM on one leak-free split showed the tree models and Ridge were indistinguishable within seed noise, so the gains came from feature and evaluation design rather than model choice. I also audited 3.7 years of stored market data against the Elexon API and found a collector date bug that had corrupted 1,634 price and 1,634 system-margin records on every British Summer Time day.\n\nAt Konan Technology, I delivered production search and NLP systems for the Supreme Court of Korea, reducing litigation search latency from 5+ minutes to 8 seconds, and shipped query intelligence features across four enterprise clients.\n\nKaggle: Top ~17% in Google AI4Code · Top ~28% in RSNA 2022 Cervical Spine Fracture Detection.",
   introHighlight: [
     "Machine Learning Engineer",
     "NLP",
@@ -26,8 +26,8 @@ export const personalInfo = {
   ],
   aboutHighlightGreen: [
     "Smin = 0.898",
-    "MAE £4.10/MWh",
-    "76% error reduction",
+    "MAE £24.2/MWh",
+    "29% error reduction",
     "5+ minutes to 8 seconds",
     "Top ~17%",
     "Top ~28%",
@@ -361,17 +361,30 @@ export const projects = [
     slug: "gridflow-trade",
     title: "GridFlow Trade — AI-Powered BESS Trading Platform",
     description:
-      "UK electricity price forecasting pipeline for battery energy storage trading. XGBoost model on 55,000+ real half-hourly settlement periods achieves MAE £4.10/MWh (R²=0.943), a 76% error reduction over Naive baseline. Selected for QMUL QIncubator.",
-    tech: ["Python", "XGBoost", "LightGBM", "LSTM", "PostgreSQL", "Elexon API", "NESO API"],
+      "A production ML system for UK day-ahead power prices and battery trading, running the whole loop: live ingestion, validation, training, a versioned registry, batch and API serving, drift and service monitoring, automatic rollback or gated retraining, and walk-forward backtesting. The turning point was finding that the reported accuracy had been inflated by target leakage and train/serve skew, and rebuilding it as a single point-in-time feature pipeline shared by training and inference. The honest figure is MAE £24.2/MWh against a £34.2 naive baseline, 29% lower on a 90-day held-out window and 23% lower across a 12-month walk-forward. Public read-only demo on the live site. Selected for QMUL QIncubator.",
+    tech: [
+      "Python",
+      "XGBoost",
+      "LightGBM",
+      "PyTorch",
+      "MLflow",
+      "SciPy HiGHS",
+      "FastAPI",
+      "PostgreSQL",
+      "Docker",
+      "GitHub Actions",
+      "Elexon API",
+      "NESO API",
+    ],
     status: "Active",
     link: "https://www.gridflowtrade.com",
     linkLabel: "Live app",
     image: "/images/gridflow/overview.png",
     stats: [
-      { label: "MAE (held-out)", value: "£4.10/MWh" },
-      { label: "R²", value: "0.943" },
-      { label: "Error reduction vs Naive", value: "76%" },
-      { label: "Records collected", value: "1.7M+" },
+      { label: "MAE vs £34.2 naive, 90-day held-out", value: "£24.2/MWh" },
+      { label: "12-month walk-forward, better in", value: "11 / 12 months" },
+      { label: "Perfect-foresight revenue captured", value: "63% vs 46%" },
+      { label: "Corrupted records found and fixed", value: "3,268" },
     ],
     gallery: [
       {
@@ -388,6 +401,16 @@ export const projects = [
         src: "/images/gridflow/recommendations.png",
         caption:
           "What the forecast is actually for. A battery has to commit an action for each of the 48 half-hourly settlement periods in a UK trading day, so the schedule assigns charge / hold / discharge with the resulting power and state of charge, and totals the margin. The panel on the right surfaces the best discharge windows and a set of checks — all 48 periods covered, prices reconciled against Elexon — because a schedule with a silent gap in it is worse than no schedule.",
+      },
+      {
+        src: "/images/gridflow/forecast-accuracy.png",
+        caption:
+          "Forecast against outturn for a single day, with the absolute error drawn underneath rather than reported as one number. The model is selectable, so a forecast can be compared with the variant it is meant to beat instead of being scored on its own. Realised accuracy is tracked daily against the naive baseline, which is the check that caught the problem behind this project: the reported error had been inflated by target leakage and train/serve skew, and it only showed up once training and serving were measured against the same ground truth.",
+      },
+      {
+        src: "/images/gridflow/market-data.png",
+        caption:
+          "The data layer, open to inspection. Ten feeds from NESO and Elexon, each with its own row count for the selected window, so a thin dataset is visible before it reaches a model rather than after. Weather is collected per location, here north sea, London, Edinburgh and Manchester, because wind at the offshore sites and temperature in the demand centres move price for different reasons and a single national average loses both.",
       },
     ],
   },
