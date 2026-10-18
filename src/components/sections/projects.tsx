@@ -1,6 +1,8 @@
 "use client";
 
 import { projects } from "@/data/portfolio";
+import { resolveSkill } from "@/data/taxonomy";
+import { selectSkill } from "@/lib/skillFilter";
 import { useScrollAnimation } from "@/lib/hooks";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
@@ -155,27 +157,51 @@ export function Projects() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="flex-1 flex flex-col justify-end space-y-4">
-                  <div className="flex flex-wrap gap-2">
-                    {project.tech.map((t) => (
-                      <Badge
-                        key={t}
-                        variant="secondary"
-                        className={cn("text-xs border-0", accent.badgeBg)}
-                      >
-                        {t}
-                      </Badge>
-                    ))}
+                  {/* z-20 lifts the badges above the whole-card overlay link
+                      so a known skill can link into the skills filter. */}
+                  <div className="relative z-20 flex flex-wrap gap-2">
+                    {project.tech.map((t) => {
+                      const skillId = resolveSkill(t);
+                      const badge = (
+                        <Badge
+                          variant="secondary"
+                          className={cn(
+                            "text-xs border-0",
+                            accent.badgeBg,
+                            skillId &&
+                              "cursor-pointer hover:ring-2 hover:ring-cyan-400/60 transition-shadow"
+                          )}
+                        >
+                          {t}
+                        </Badge>
+                      );
+                      return skillId ? (
+                        <Link
+                          key={t}
+                          href={`/?skill=${encodeURIComponent(skillId)}#skills`}
+                          aria-label={`See all work using ${t}`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            selectSkill(skillId);
+                          }}
+                        >
+                          {badge}
+                        </Link>
+                      ) : (
+                        <span key={t}>{badge}</span>
+                      );
+                    })}
                   </div>
                   {/* z-20 keeps these above the whole-card overlay link */}
                   <div className="relative z-20 flex gap-2 pt-2 flex-wrap">
                     {"slug" in project && typeof project.slug === "string" && (
-                      <span
-                        aria-hidden
-                        className="inline-flex items-center h-9 px-3 text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors"
+                      <Link
+                        href={`/projects/${project.slug}`}
+                        className="inline-flex items-center h-9 px-3 text-sm font-medium text-muted-foreground hover:text-foreground group-hover:text-foreground transition-colors"
                       >
                         <ArrowRight className="mr-2 h-4 w-4" />
                         View Details
-                      </span>
+                      </Link>
                     )}
                     {"github" in project && typeof project.github === "string" && (
                       <Button asChild variant="ghost" size="sm">

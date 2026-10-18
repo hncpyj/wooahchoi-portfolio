@@ -1,9 +1,10 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { SKILLS, getSkill, type SkillCategory } from "@/data/taxonomy";
+import { SKILLS, getSkill, resolveSkill, type SkillCategory } from "@/data/taxonomy";
+import { SKILL_EVENT } from "@/lib/skillFilter";
 import {
   facetCounts,
   filterWork,
@@ -68,6 +69,28 @@ const ORDERED_BY_CATEGORY = (() => {
 
 export function Skills() {
   const [selected, setSelected] = useState<string[]>([]);
+
+  // Preselect from ?skill=... so a tech badge on a project card can link
+  // straight into this filter. Read from location rather than useSearchParams
+  // so the section does not need its own Suspense boundary.
+  useEffect(() => {
+    const raw = new URLSearchParams(window.location.search).getAll("skill");
+    if (raw.length === 0) return;
+    const ids = raw
+      .map((r) => (getSkill(r) ? r : resolveSkill(r)))
+      .filter((id): id is string => Boolean(id));
+    if (ids.length > 0) setSelected(Array.from(new Set(ids)));
+  }, []);
+
+  // A project badge selects a skill without a route change.
+  useEffect(() => {
+    const onPick = (e: Event) => {
+      const id = (e as CustomEvent<string>).detail;
+      if (id) setSelected([id]);
+    };
+    window.addEventListener(SKILL_EVENT, onPick);
+    return () => window.removeEventListener(SKILL_EVENT, onPick);
+  }, []);
 
   const counts = useMemo(() => refinedCounts(selected), [selected]);
   const results = useMemo(
