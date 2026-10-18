@@ -1,0 +1,254 @@
+---
+title: "[Machine Learning] Feature Extraction"
+date: "2022-10-02"
+source_url: "https://backenddeveloper.tistory.com/183"
+original_slug: "183"
+category: "Data Science"
+subcategory: "Machine Learning"
+migration_status: "en_translated_pending_qa"
+asset_path: "/blog-assets/machine-learning-feature-extraction"
+lang: "en"
+verification_status: "translation_reviewed_render_pending"
+---
+
+### Feature Extraction Using Linear Transformations
+
+#### What Is Feature Extraction?
+
+Input data may be represented as $x_i$, with output data represented as $y_i$.
+
+For the given data, we seek a transformation function Φ (phi) that operates on an n-dimensional random vector.
+
+![](/blog-assets/machine-learning-feature-extraction/01-cDRCP5.png)
+
+Once the transformation function Φ has been found, the input data can be transformed and represented as an m-dimensional feature vector, $y_\{new\}$.
+
+Feature extraction serves two main purposes.
+
+1) To remove unnecessary information and extract essential information for tasks such as classification and clustering.
+
+2) To reduce the original n-dimensional data to m dimensions, lowering computational and memory requirements and improving the efficiency and performance of the analysis system.
+
+#### What Is a Transformation Function (**Embedding Function**, Transformation Function)?
+
+![](/blog-assets/machine-learning-feature-extraction/02-cckpir.png)
+
+Feature extraction transforms an n-dimensional input into an m-dimensional feature vector.
+Depending on the properties of Φ, transformations can be divided into two types.
+
+1. Linear Transformation
+
+An n-dimensional column vector x is multiplied by a transformation matrix W (n × m) to obtain m-dimensional features.
+
+To make this equation easier to understand, we can indicate the vector dimensions alongside the transformation matrix.
+
+The goal is to find W so that the feature vector y follows the desired distribution.
+
+First, feature extraction based on linear transformations does not depend strongly on the characteristics of the data and can be described in six ways.
+
+1) Feature extraction from the perspective of dimensionality reduction
+
+High-dimensional data requires considerable processing resources. If much of that data is unnecessary, those resources are wasted. Looking at the relationship between dimensionality and performance, increasing the number of dimensions does not always improve performance. Performance may initially increase and then decline after a certain point. This is known as the curse of dimensionality.
+
+![](/blog-assets/machine-learning-feature-extraction/03-S29H1.png)
+
+To obtain y, transpose each column vector and multiply it by x.
+
+![](/blog-assets/machine-learning-feature-extraction/04-2Avmq.png)
+
+**The feature value y_i is the projection of x onto column vector w_i of W. Here, w_i is a unit vector.**
+
+2) Transforming two-dimensional data x into a one-dimensional feature y
+
+Project vector x onto w → y = w^t x (where w is a unit vector).
+
+![](/blog-assets/machine-learning-feature-extraction/05-bwbXI3.png)
+
+3) Feature extraction from three-dimensional data → two dimensions
+
+![](/blog-assets/machine-learning-feature-extraction/06-bAZy79.png)
+
+y is a two-dimensional vector obtained by projecting x onto the plane spanned by column vectors w_1 and w_2.
+
+![](/blog-assets/machine-learning-feature-extraction/07-dT3zuW.png)
+
+4) Feature extraction from n-dimensional data → m dimensions
+
+![](/blog-assets/machine-learning-feature-extraction/08-mwahP.png)
+
+5) Feature extraction for the full dataset X
+
+![](/blog-assets/machine-learning-feature-extraction/09-npOcP.png)
+
+Applying a linear transformation to each individual data point and collecting the results across the entire dataset gives W_T X.
+
+![](/blog-assets/machine-learning-feature-extraction/10-kyBic.png)
+
+The shaded lower portion of the diagram on the left is Y.
+
+The diagram on the right shows that the full dataset can also be projected onto the corresponding axes.
+
+Feature extraction through linear transformation projects the given data in directions determined by transformation matrix W to obtain lower-dimensional feature values.
+
+6) Feature distributions under different transformation matrices
+
+![](/blog-assets/machine-learning-feature-extraction/11-bcSTDf.png)
+
+Different transformation matrices produce different distributions of feature values.
+
+Wa projects onto the lower plane spanned by x1 and x2.
+
+Wb projects onto the rear plane spanned by x2 and x3.
+
+Wc projects onto the left plane spanned by x3 and x1.
+
+Examining feature extraction with different transformation matrices provides insight into what makes a good feature extraction method.
+
+Good feature extraction means adjusting transformation matrix W appropriately to produce a feature distribution suited to the classification or analysis objective.
+
+![](/blog-assets/machine-learning-feature-extraction/12-u7MUV.png)
+
+Two representative statistical feature extraction methods based on linear transformations are Principal Component Analysis (PCA) and Linear Discriminant Analysis (LDA).
+
+When a random transformation is applied to the input, the resulting distribution may look scattered and poorly separated, as shown below.
+
+![](/blog-assets/machine-learning-feature-extraction/13-cSfWaB.png)
+
+- Principal Component Analysis (PCA) is an unsupervised learning method that does not use class information.
+
+![](/blog-assets/machine-learning-feature-extraction/14-bsyjMI.png)
+
+- Linear Discriminant Analysis (LDA) is a supervised learning method that uses class information.
+
+![](/blog-assets/machine-learning-feature-extraction/15-moqVK.png)
+
+2. Nonlinear Transformation
+
+A complex nonlinear function Φ(x) is used to map an n-dimensional vector to an m-dimensional vector.
+
+There are two broad approaches: manual feature engineering and representation learning.
+
+**1) Manual Feature Extraction**
+
+The developer manually designs features to match the characteristics of the input data and the analysis objective.
+
+For example:
+
+- **Digit recognition** has used grid-based features.
+
+![](/blog-assets/machine-learning-feature-extraction/16-Uu0VU.png)
+
+- **Image analysis** has used features such as edges and horizontal or vertical components.
+- **Document analysis** has used features such as word occurrence frequencies.
+
+**2) Approaches to Feature Extraction**
+
+With the growing use of deep learning, representation learning has become a common approach to feature extraction.
+
+Representation learning expresses the nonlinear transformation function used for feature extraction through a machine learning model, such as a neural network.
+
+It is widely used because training allows the transformation function to be optimized for the analysis task. Representative models include CNNs, ResNet, DenseNet, and EffiNet.
+
+### Principal Component Analysis
+
+#### Objective
+
+The goal is to preserve as much of the information in the original data X as possible after dimensionality reduction.
+
+It seeks to retain the distinctive information in the data while removing unnecessary information.
+
+When reducing two-dimensional data to one dimension, how much information is retained depends on the direction of projection.
+
+![](/blog-assets/machine-learning-feature-extraction/17-byB4pH.png)
+
+A good dimensionality reduction method projects the data onto the direction in which it is spread out the most.
+
+The linear transformation should therefore follow the direction of maximum variance.
+
+To find the direction of maximum variance, we can find the largest eigenvalue and its corresponding eigenvector of the covariance matrix.
+
+We perform eigenanalysis on the covariance matrix, select the m eigenvectors corresponding to the largest eigenvalues in descending order, and use them to construct matrix W.
+
+#### Steps of the PCA Algorithm
+
+![](/blog-assets/machine-learning-feature-extraction/18-ui3K8.png)
+
+1) Calculate the mean $\mu_x$ and covariance $\Sigma_x$ of the input dataset X; the covariance matrix has dimensions n × n.
+
+![](/blog-assets/machine-learning-feature-extraction/19-chWIeA.png)
+
+2) Through eigenanalysis, express the covariance matrix using the eigenvalue matrix Λ (lambda) and eigenvector matrix U.
+
+![](/blog-assets/machine-learning-feature-extraction/20-bOht7c.png)
+
+The important point here is that $\Lambda_1$ corresponds to $U_1$, and $\Lambda_2$ corresponds to $U_2$.
+
+Because the data is two-dimensional, there are two eigenvalues and two corresponding eigenvectors.
+
+3) Select the m largest eigenvalues in descending order, \{$\lambda_1$, $\lambda_2$, ..., $\lambda_m$\}.
+
+4) Construct transformation matrix W with the eigenvectors corresponding to the selected eigenvalues as its column vectors.
+
+![](/blog-assets/machine-learning-feature-extraction/21-AUCN7.png)
+
+5) Obtain feature data Y by applying the linear transformation defined by W.
+
+![](/blog-assets/machine-learning-feature-extraction/22-zSDUn.png)
+
+![](/blog-assets/machine-learning-feature-extraction/23-cM31tn.png)
+
+#### Example of Applying PCA
+
+![](/blog-assets/machine-learning-feature-extraction/24-b7dcVa.png)
+
+These show the results of applying first-, second-, and third-dimensional principal component analysis to the original data, in order.
+
+In the final case, extracting features using the first, second, and third principal component vectors does not reduce dimensionality, but it removes correlations between the data components. This is called a diagonalizing transformation.
+
+#### Mathematical Applications
+
+![](/blog-assets/machine-learning-feature-extraction/25-bhHXbs.png)
+
+- Proportion of information lost
+
+![](/blog-assets/machine-learning-feature-extraction/26-bkmkQ3.png)
+
+The proportion of information that can be represented using m features.
+
+By examining the proportion of the total represented by the discarded $\Lambda_m$, we can determine the share of information lost.
+
+- Number of eigenvectors to select (feature dimensionality), m
+
+![](/blog-assets/machine-learning-feature-extraction/27-dCI441.png)
+
+Let m be the number of selected eigenvectors (the feature dimensionality).
+
+If theta is set to 0.98, we can find a representation that loses less than 2% of the total information.
+
+#### Example: Representing Face Images
+
+An n-dimensional face image can be represented using m basis vectors. Column vectors are needed for dimensionality reduction, and these column vectors are called basis vectors. These particular basis vectors are known as eigenfaces.
+
+Eigenfaces are images representing the eigenvectors found by applying PCA to face images.
+
+![](/blog-assets/machine-learning-feature-extraction/28-JLwr9.png)
+
+y is a lower-dimensional representation of the image, so some information has been lost. Consider reducing an originally n-dimensional image to 69 dimensions and then reconstructing it.
+
+![](/blog-assets/machine-learning-feature-extraction/29-pULfv.png)
+
+To see how similar y is to x, multiply both sides by w. The result, x, is the reconstructed image. It is obtained by multiplying w by the feature values y and summing the results. Comparing the reconstruction with the original shows that it is not exactly the same but is reasonably similar.
+
+#### Characteristics and Limitations of PCA
+
+![](/blog-assets/machine-learning-feature-extraction/30-cvskct.png)
+
+PCA is commonly used when there is a large amount of data that is difficult to label, or when there is no specific objective.
+
+PCA is unsupervised and does not make use of class labels. As a result, it may discard information that is important for classification.
+
+LDA was introduced to make use of class information.
+
+A limitation of PCA, and of linear transformations in this context, is that they cannot represent the structure of the data.
+
+![](/blog-assets/machine-learning-feature-extraction/31-cr2vMM.png)

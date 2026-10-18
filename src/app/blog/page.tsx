@@ -46,8 +46,8 @@ export default function BlogPage() {
         ) : (
           <ul className="space-y-8">
             {posts.map((post) => (
-              <li key={post.slug} className="group border-b pb-8 last:border-0">
-                <Link href={`/blog/${post.slug}`} className="block space-y-2">
+              <li key={`${post.lang}-${post.slug}`} className="group border-b pb-8 last:border-0">
+                <Link href={post.lang === "en" ? `/blog/en/${post.slug}` : `/blog/${post.slug}`} className="block space-y-2">
                   <div className="flex items-center gap-3 text-sm text-muted-foreground">
                     <time dateTime={post.date}>{formatDate(post.date)}</time>
                     {post.category && (
@@ -56,11 +56,18 @@ export default function BlogPage() {
                         <span>{post.subcategory || post.category}</span>
                       </>
                     )}
-                    {post.lang === "ko" && (
+                    {post.lang === "ko" ? (
                       <>
                         <span>·</span>
                         <span className="text-xs bg-orange-100 dark:bg-orange-500/15 text-orange-700 dark:text-orange-300 px-1.5 py-0.5 rounded">
                           KO
+                        </span>
+                      </>
+                    ) : (
+                      <>
+                        <span>·</span>
+                        <span className="text-xs bg-violet-100 dark:bg-violet-500/15 text-violet-700 dark:text-violet-300 px-1.5 py-0.5 rounded">
+                          EN
                         </span>
                       </>
                     )}

@@ -28,7 +28,7 @@ function readPostsFromDir(dir: string, lang: "ko" | "en"): BlogPostMeta[] {
   if (!fs.existsSync(dir)) return [];
   const files = fs.readdirSync(dir).filter((f) => f.endsWith(".mdx"));
   return files.map((filename) => {
-    const slug = filename.replace(/\.mdx$/, "");
+    const slug = filename.replace(/(?:\.[a-z]{2})?\.mdx$/, "");
     const fullPath = path.join(dir, filename);
     const raw = fs.readFileSync(fullPath, "utf-8");
     const { data, content } = matter(raw);
@@ -66,8 +66,14 @@ export function getPostBySlug(
   lang: "ko" | "en" = "ko"
 ): BlogPost | null {
   const dir = lang === "ko" ? BLOG_KO_DIR : BLOG_EN_DIR;
-  const fullPath = path.join(dir, `${slug}.mdx`);
-  if (!fs.existsSync(fullPath)) return null;
+  const candidates =
+    lang === "en"
+      ? [`${slug}.en.mdx`, `${slug}.mdx`]
+      : [`${slug}.mdx`];
+  const fullPath = candidates
+    .map((c) => path.join(dir, c))
+    .find((p) => fs.existsSync(p));
+  if (!fullPath) return null;
   const raw = fs.readFileSync(fullPath, "utf-8");
   const { data, content } = matter(raw);
   return {
