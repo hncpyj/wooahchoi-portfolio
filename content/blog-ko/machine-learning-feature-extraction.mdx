@@ -8,6 +8,7 @@ subcategory: "Machine Learning"
 migration_status: "ko_complete"
 asset_path: "/blog-assets/machine-learning-feature-extraction"
 lang: "ko"
+verification_status: "fidelity_verified"
 ---
 
 ### 선형 변환에 대한 특징추출
@@ -32,7 +33,8 @@ lang: "ko"
 
 ![](/blog-assets/machine-learning-feature-extraction/02-cckpir.png)
 
-n차원의 입력값을 받아서 m차원의 특징벡터로 변환하는 것을 특징추출이라고 한다. Φ의 특징에 따라서 두 종류로 나눌 수 있다.
+n차원의 입력값을 받아서 m차원의 특징벡터로 변환하는 것을 특징추출이라고 한다.
+Φ의 특징에 따라서 두 종류로 나눌 수 있다.
 
 1. 선형 변환
 
@@ -54,7 +56,7 @@ y를 구하기 위해서는 각각의 열벡터에 트랜스포즈 해서 x를 �
 
 ![](/blog-assets/machine-learning-feature-extraction/04-2Avmq.png)
 
-x를 W의 열벡터 w_i 위로 사영한 값을 특징값 y_i라고 한다. 여기서 w_i는 단위벡터다.
+**x를 W의 열벡터 w_i 위로 사영한 값을 특징값 y_i라고 한다. 여기서 w_i는 단위벡터다.**
 
 2) 2차원 데이터 x를 1차원 특징 y로 변환
 
@@ -82,7 +84,7 @@ y는 x를 열벡터 w_1, w_2가 이루는 2차원 평면 위로의 사영으로 
 
 ![](/blog-assets/machine-learning-feature-extraction/10-kyBic.png)
 
-왼쪽 그림에서 아래 색칠된 부분이 Y다.
+왼쪽 그림에서 아래 색칠된 부분이 Y다
 
 오른쪽 그림에서 전체 데이터 집합에서도 해당 축에 대해서 사영하면 프로젝션 할 수 있다.
 
@@ -108,79 +110,98 @@ Wc는 x3과 x1로 이루어진 왼쪽 평면으로 사영된다.
 
 선형변환을 사용하는 대표적인 통계적 특징추출 방법은 크게 주성분분석법(PCA), 선형판별분석법(LDA) 두 가지가 있다.
 
-입력값에 대해서 랜덤으로 사용했을 때 아래처럼 구분없이 무분별하게 나온다.
+입력값에 대해서 랜덤으로 사용했을 때 아래처럼 구분없이 무분별하게 나온다
 
 ![](/blog-assets/machine-learning-feature-extraction/13-cSfWaB.png)
 
-- 주성분분석법(PCA: Principal Component Analysis)은 클래스 정보를 사용하지 않는 비지도 학습이다.
+- 주성분분석법(PCA:Principal Component Analysis)은 클래스 정보를 사용하지 않는 비지도 학습이다
 
 ![](/blog-assets/machine-learning-feature-extraction/14-bsyjMI.png)
 
-- 선형판별분석법(LDA: Linear Discriminant Analysis)은 클래스 정보를 사용하는 지도학습이다.
+- 선형판별분석법(LDA:Linear Discriminant Analysis)은 클래스 정보를 사용하는 지도학습이다.
 
 ![](/blog-assets/machine-learning-feature-extraction/15-moqVK.png)
 
 2. 비선형 변환
 
-복잡한 비선형함수 Φ(x)를 이용해서 n차원 벡터를 m차원 특징벡터로 변환하는 것이다.
+복잡한 비선형함수 Φ(x)를 이용해서 n차원 벡터를 m차원 벡터로 매핑하는 것이다.
+
+사용 방법은 크게 수작업과 표현학습 두가지로 구분할 수 있다.
+
+**1) 수작업에 의한 특징추출**
+
+입력 데이터의 특성과 분석 목적에 맞도록 특징을 개발자가 직접 설계한다.
+
+예를 들어,
+
+- **숫자인식**을 위한 특징을 뽑을 때 격자특징을 사용했다.
 
 ![](/blog-assets/machine-learning-feature-extraction/16-Uu0VU.png)
 
-비선형함수 Φ(x)는 n차원 입력을 받아서 m차원을 출력으로 하는 함수다. 이것의 대표적인 예시가 자기부호화기(Autoencoder)다.
+- **영상 분석**을 위해서는 엣지, 가로/세로 방향 성분 등의 특징을 추출했다.
+- **문서 분석**을 위해서 단어의 발생 빈도 등의 특징을 추출했다.
 
-#### 고유값 분해
+**2) 특징추출을 위한 접근법**
 
-고유값(eigenvalue)과 고유벡터(eigenvector)를 이용한 분해를 고유값 분해라고 한다.
+최근 딥러닝이 활발해지면서 특징추출의 접근법으로 표현학습을 많이 사용한다.
 
-n x n 정방행렬 A의 고유값(eigenvalue) λ와 고유벡터(eigenvector) v는 아래의 관계를 만족한다.
+표현학습은 특징추출을 위한 비선형 변환함수를 신경망 등의 머신러닝 모델로 표현한 것이다.
+
+학습을 통해서 분석이 잘 되도록 변환함수의 최적화가 가능하기 때문에 많이 사용되며 대표적으로 CNN, ResNet, DenseNet, EffiNet 등의 모델이 있다.
+
+### 주성분 분석법
+
+#### 목적
+
+변환 전의 데이터 X가 가지고 있는 정보를 차원 축소 후에도 최대한 유지하는 것이 목표다.
+
+데이터의 고유한 정보가 가지는 차이점을 최대한 유지하면서 불필요한 정보를 제거한다.
+
+2차원이었던 데이터를 1차원으로 만들 때 사영하는 방향에 따라서 정보를 얼마나 담아내는지가 결정된다.
 
 ![](/blog-assets/machine-learning-feature-extraction/17-byB4pH.png)
 
+최대한 데이터를 넓게 퍼져있는 방향으로 사영시키는 것이 좋은 차원축소 방법이다.
+
+데이터의 분산이 가장 큰 방향으로 선형변환을 수행해야 한다.
+
+분산이 가장 큰 방향을 찾기 위해서는 공분산행렬의 최대 고유값과 고유벡터를 찾으면 된다
+
+공분산행렬에 대해서 고유값 분석을 해서 고유값의 분산이 가장 큰 값부터 순서대로 이에 대응하는 m개의 고유벡터를 찾아서 행렬 W를 구성한다.
+
+#### PCA 알고리즘 수행 단계
+
 ![](/blog-assets/machine-learning-feature-extraction/18-ui3K8.png)
 
-#### 주성분분석(PCA: Principal Component Analysis)
-
-주성분분석은 데이터에서 분산이 큰 방향(주성분)을 찾고 그 방향으로 차원을 줄이는 것이다.
-
-주성분 분석은 다음과 같은 절차로 이루어진다.
-
-1. 공분산 행렬 계산
-2. 고유값 분해
-3. 큰 고유값에 해당하는 고유벡터 선택
-4. 선택된 고유벡터로 이루어진 변환행렬 W 생성
-5. 특징 추출: y = W^T x
-
-#### 공분산 행렬
-
-공분산(covariance): 두 변수의 공동 분산으로 두 변수의 관계를 나타낸다.
+1) 입력 데이터 집합 X의 평균 $\mu_x$와 공분산 $\Sigma_x$ 계산하면 입력의 차원이 nxn이 된다
 
 ![](/blog-assets/machine-learning-feature-extraction/19-chWIeA.png)
 
-**공분산 행렬** Σ는 n개의 변수에 대해서 정의되는 n x n 행렬이다.
+2) 고유값 분석을 통해 공분산의 합을 고유값행렬 Λ(람다)와 고유벡터행렬 U로 계산한다.
 
 ![](/blog-assets/machine-learning-feature-extraction/20-bOht7c.png)
 
-그러면 표본공분산행렬 S의 (i,j) 요소는 변수 i와 j의 표본공분산이다.
+여기서 중요한건 $\Lambda_1$에 대응하는게 $U_1$이고 $\Lambda_2$에 대응하는게 $U_2$다.
 
-#### 주성분
+2차원이니까 고유값이 두개가 나오고 그때 고유벡터가 두개 만들어진다.
 
-주성분은 공분산 행렬 Σ의 고유값 분해를 통해서 찾을 수 있다.
+3) 고유값이 큰 것부터 순서대로 m개의 고유값\{$\lambda_1$, $\lambda_2$, ..., $\lambda_m$\}을 선택한다
+
+4) 선택한 고유값에 대응되는 고유벡터를 열벡터로 가지는 변환행렬 W를 생성한다.
 
 ![](/blog-assets/machine-learning-feature-extraction/21-AUCN7.png)
 
+5) W에 의한 선형변환으로 특징 데이터 Y를 얻는다.
+
 ![](/blog-assets/machine-learning-feature-extraction/22-zSDUn.png)
-
-고유값의 크기 순으로 정렬한 고유벡터가 주성분이다.
-
-1주성분 > 2주성분 > 3주성분 순으로 데이터 분산에 기여한다.
-
-#### 주성분 분석에서의 특징추출
 
 ![](/blog-assets/machine-learning-feature-extraction/23-cM31tn.png)
 
-#### 실습 예제 (2차원 → 1차원)
+#### PCA 적용의 예
 
 ![](/blog-assets/machine-learning-feature-extraction/24-b7dcVa.png)
+
+순서대로 원본 데이터에 대해 1차 2차 3차원 주성분 분석을 실행한 결과다.
 
 마지막 1, 2, 3차 주성분 벡터에 의한 특징추출에서는 차원의 축소는 없지만 데이터간의 상관관계가 사라졌다. 이것을 대각화변환이라고 한다.
 
@@ -194,19 +215,21 @@ n x n 정방행렬 A의 고유값(eigenvalue) λ와 고유벡터(eigenvector) v�
 
 m개의 특징으로 표현 가능한 정보의 비율
 
-전체중에 손실되는 $Λ_m$의 비율을 보면 손실되는 정보량의 비중을 찾을 수 있다.
+전체중에 손실되는 $\Lambda_m$의 비율을 보면 손실되는 정보량의 비중을 찾을 수 있다.
 
 - 선택할 고유벡터의 수(특징의 차수) m
 
 ![](/blog-assets/machine-learning-feature-extraction/27-dCI441.png)
 
-선택할 고유벡터 수(특징의 차수)를 m이라고 두고 세타를 0.98이라고 두게 되면 전체 손실되는 양의 2% 미만인 것을 찾을 수 있다.
+선택할 고유벡터 수(특징의 차수) 를 m이라고 두고
+
+세타를 0.98이라고 두게 되면 전체 손실되는 양의 2%미만인 것을 찾을 수 있다.
 
 #### 얼굴 영상의 표현 예시
 
 n차원의 얼굴 영상을 m개의 기저벡터를 사용해서 표현한다. 차원을 축소하기 위해 열벡터가 필요하고 이 열벡터는 기저벡터라고 한다. 이 기저벡터를 아이겐페이스라고 부른다.
 
-얼굴영상에서 PCA를 적용해서 찾아진 고유벡터를 영상으로 표현한 것이 아이겐페이스다.
+얼굴영상에서 pca를 적용해서 찾아진 고유벡터를 영상으로 표현한 것이 아이겐페이스다.
 
 ![](/blog-assets/machine-learning-feature-extraction/28-JLwr9.png)
 
