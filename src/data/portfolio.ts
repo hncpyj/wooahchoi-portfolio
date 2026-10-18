@@ -278,7 +278,7 @@ export const projects = [
     title:
       "ResearchAgentLab: Control Boundaries for Autonomous Research Agents",
     description:
-      "An autonomous research agent, and a control architecture built for it after it silently ran a different experiment from the one that had been approved. Protocol Before Code freezes approved scientific intent in a machine-checkable protocol, binds trusted components by content hash, limits how much the model is allowed to generate, and checks scientific conformance independently of software correctness. Stress-tested with generator-blind holdouts and fault injection.",
+      "An autonomous research agent, and the control architecture I built for it after it silently ran a different experiment from the one I had approved.",
     tech: [
       "Python",
       "FastAPI",
@@ -338,7 +338,7 @@ export const projects = [
     title:
       "Multi-Domain Neural Search Engine: Domain Routing, Hybrid Retrieval and RAG Grounding Evaluation",
     description:
-      "A six-domain search engine: one dense index per domain, a fine-tuned DistilBERT query router, hybrid BM25 and FAISS-HNSW retrieval fused with RRF, and ColBERTv2 late-interaction reranking. I started on domain-named encoders such as SciBERT, BioBERT and FinBERT, then replaced all five specialist domains with BAAI/bge-base-en-v1.5 after finding those are masked language models never trained to put a query near its relevant passage, and FinBERT is a sentiment classifier. The retrieval engine was an MSc Information Retrieval team project and I wrote the code; the grounding layer and the statistical testing were added independently afterwards, to answer a question the retrieval metrics cannot: whether a generated answer actually depends on the passages retrieved, or on what the model already knew.",
+      "A six-domain search engine with query routing, hybrid retrieval and reranking, plus a grounding layer that tests whether a generated answer actually used the passages retrieved or only what the model already knew.",
     tech: [
       "Python",
       "bge-base-en-v1.5",
@@ -363,7 +363,7 @@ export const projects = [
     slug: "gridflow-trade",
     title: "GridFlow Trade: AI-Powered BESS Trading Platform",
     description:
-      "A production ML system for UK power prices and battery trading, running the whole loop: live ingestion, validation, training, a versioned registry, batch and API serving, drift and service monitoring, automatic rollback or gated retraining, and walk-forward backtesting. The turning point was finding that the reported accuracy had been inflated by target leakage and train/serve skew, and rebuilding it as a single point-in-time feature pipeline shared by training and inference. On the market index the honest figure is MAE £24.2/MWh against a £34.2 naive baseline, 29% lower on a 90-day held-out window and 23% lower across a 12-month walk-forward. I later extended it to the GB hourly day-ahead auction price, published every day before the 09:20 gate using only what existed at that point. Lowering error stopped raising battery profit at one stage, and what worked was removing the daily average from the target so the model learns the within-day shape; ranking and dispatch-imitation objectives both did worse than plain regression, and 11 of 12 further ideas were rejected against criteria set before each run. Public read-only demo on the live site. Selected for QMUL QIncubator.",
+      "A production ML system forecasting UK power prices and scheduling a battery against them. The result I would point at is finding that my own reported accuracy had been inflated by leakage, and rebuilding so training and serving see identical features.",
     tech: [
       "Python",
       "XGBoost",
@@ -433,7 +433,7 @@ export const projects = [
     slug: "brokebite",
     title: "BrokeBite: Evidence-Backed Cheap-Eats Map for London",
     description:
-      "A map of where you can still eat cheaply in London. The hard part is not the map, it is that a food price goes stale and a stale price is worse than no price, so every entry carries its evidence, who checked it and when. Menu images and PDFs are captured with their source URL, retrieval time and SHA-256 hash before anything is published, submissions enter a moderation queue and never reach the map automatically, and community verdicts are advisory signals that an admin still has to act on. Every moderation decision appends actor, target, before and after state, reason and request id to a ledger that database triggers refuse to update or delete. The public APIs fail closed: missing configuration returns 503 and an upstream failure returns 502, and neither ever falls back to sample venues.",
+      "A map of where you can still eat cheaply in London. The hard part is not the map, it is that every price goes stale, so each entry carries its evidence, who checked it and when.",
     tech: [
       "Next.js",
       "TypeScript",
@@ -459,7 +459,7 @@ export const projects = [
     slug: "weather-gap",
     title: "Weather Gap: Hourly and Weekly Forecast App",
     description:
-      "A weather app built around the gap between forecast and felt conditions. Hourly temperature is plotted across yesterday, today and tomorrow on one axis so the change is visible rather than implied, alongside precipitation probability, a seven-day outlook and current conditions. Falls back to a searchable city when GPS is unavailable.",
+      "A weather app that plots yesterday, today and tomorrow on one axis, so the change is visible rather than implied.",
     tech: ["React", "TypeScript", "Weather API", "Vercel"],
     status: "Completed",
     link: "https://weather-gap.vercel.app",
@@ -547,7 +547,7 @@ export const projects = [
     slug: "ate",
     title: "[ATE] Recipe & Ingredients Management",
     description:
-      "Full-stack application for managing recipes and tracking kitchen inventory, generating a shopping list from the gap between the two. I designed the data model and built the NestJS/TypeORM backend and its REST API against a Figma prototype. The project stalled when the front-end collaborator left mid-way with the login integration unfinished, so it never reached a usable build. The backend work stands; I intend to finish the client side myself.",
+      "Full-stack recipe and kitchen-inventory app that builds a shopping list from the gap between the two. I designed the data model and built the NestJS backend; the client side is unfinished.",
     tech: ["NestJS", "TypeORM", "PostgreSQL", "TypeScript", "React Native", "REST API"],
     status: "Paused",
     github: "https://github.com/hncpyj",

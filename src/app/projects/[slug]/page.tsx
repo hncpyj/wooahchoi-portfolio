@@ -87,6 +87,68 @@ const projectDetails: Record<
     sections: { heading: string; body: string }[];
   }
 > = {
+  "research-agent-lab": {
+    overview:
+      "An autonomous research agent that plans a study, writes the code, runs it and reports. I kept it, and then built a control layer around it, because on one run it quietly replaced the experiment I had approved with a different one and reported the result as though nothing had changed. The code was valid. The science was not the science I asked for.",
+    sections: [
+      {
+        heading: "The failure that is hard to see",
+        body: "A generated experiment can be wrong in two unrelated ways. It can be wrong as software, which tests catch, or it can be a perfectly working implementation of a different question from the one that was approved. Nothing in a normal stack looks for the second kind. The run completes, the numbers are real, the plots render, and the only thing that changed is what was actually measured.\n\nThat is the failure this project is built around. Protocol Before Code treats the human-approved intent as an authority boundary and requires every later artifact to stay traceable to it.",
+      },
+      {
+        heading: "How the boundary is enforced",
+        body: "Approved intent is recorded first: question, hypothesis, variables, constraints and analysis plan. That specification is then hashed, so the reviewed version is fixed before any generated code can become authoritative.\n\nImplementation artifacts and candidate pools are bound to that frozen design by content hash, and how much the model is allowed to generate is capped rather than left open. Scientific conformance is then checked separately from software correctness, and accepted results have to trace back to the same frozen manifest. Where the system cannot decide, it escalates to a person instead of guessing.",
+      },
+      {
+        heading: "What the evaluation shows, and what it does not",
+        body: "On a generator-blind holdout, 18 of 18 behaviour-changing mutations to trusted components were caught before execution, and 0 of 18 drifted protocols passed. Removing the content-integrity layer let 15 of those same 18 mutations through the rest of the stack, which is how the marginal value of that one safeguard was isolated rather than assumed.\n\nA separate frozen 192-pair oversight experiment found that adversarial curation moved an overseer's target selection from 13.0% to 27.1%, while explicit approval stayed at 100% in both conditions. Approval rates alone would have shown nothing.\n\nThese are internal development and holdout evaluations. They are not a claim of general reliability, and the project's own evidence record says so.",
+      },
+      {
+        heading: "Why it is local-first",
+        body: "The runnable research application stays on the machine it runs on. A hosted beta exists, but the implementation, the evidence record and the local setup are meant to be read first, because a control system you cannot inspect is asking for the same trust the control system was built to stop granting.",
+      },
+    ],
+  },
+  brokebite: {
+    overview:
+      "A map of where you can still eat cheaply in London. The map is the easy half. The hard half is that a food price decays, and a confidently displayed stale price is worse than showing nothing, so the whole system is built around evidence, checking and expiry rather than around listings.",
+    sections: [
+      {
+        heading: "Every price carries its evidence",
+        body: "Menu images and PDFs are captured before anything is published, and the tracked manifest records each source URL, retrieval time, byte size and SHA-256 hash. A capture fails when the expected menu text is missing, so a bot-check page or an unrelated redirect cannot quietly become the evidence behind a price.\n\nOn the public side every entry shows its price, how it was verified and when it was last checked, with an explicit ageing state. There is a button on each venue asking whether it is still this price, because the people standing in front of the counter are better sensors than any scraper.",
+      },
+      {
+        heading: "Nothing publishes itself",
+        body: "Submissions always enter as pending and never appear on the map automatically. They can be inspected and published, rejected, or sent to a community checking queue.\n\nCommunity verdicts are advisory signals only. They do not publish anything, because the only reviewer identity available is an anonymous fingerprint and that is not a basis for granting publication rights. An authenticated, allowlisted admin makes the decision, with a written reason and an idempotency key, and publication of the observation and activation of the venue happen in one database transaction.",
+      },
+      {
+        heading: "An audit log that cannot be edited",
+        body: "Every moderation and report-resolution action appends the actor, the target, the before and after state, the reason, the request id and the timestamp to a moderation ledger. Database triggers reject updates and deletes against that table, so the record of who published what, and why, is not something the operator can quietly revise later.",
+      },
+      {
+        heading: "Failing closed",
+        body: "The public data APIs return 503 when configuration is missing and 502 when an upstream query fails, and neither response falls back to sample venues or leaks private research leads. The map starts empty and says it is unavailable while staying pannable.\n\nThat behaviour is deliberate. A map that invents plausible-looking venues when its backend is down is more damaging than a map that admits it has nothing, because the failure is invisible to the person relying on it.",
+      },
+      {
+        heading: "Keeping less",
+        body: "Submission photos are re-encoded without embedded metadata and kept for no more than 90 days, purged by a daily scheduled job that removes the storage objects before the database rows. Anonymous abuse-prevention identifiers are separate and short-lived per action type, and are removed after 90 days while the aggregate verdicts remain.\n\nEvidence contributors and affected people can file an account-free request, and a request linked from a checking card removes that evidence from the public queue immediately.",
+      },
+    ],
+  },
+  "weather-gap": {
+    overview:
+      "A weather app built around a small complaint: most forecasts tell you today's number, which is not what you actually want to know. What you want is whether it is colder than yesterday, and whether tomorrow is worth waiting for.",
+    sections: [
+      {
+        heading: "Three days on one axis",
+        body: "Yesterday, today and tomorrow are plotted as three lines on the same hourly axis, with now marked on it. The comparison is the point, so it is drawn rather than left for the reader to do from memory, and precipitation probability sits underneath the same axis instead of in a separate card.",
+      },
+      {
+        heading: "Degrading without a location",
+        body: "GPS fails often enough that treating it as required makes the app useless at exactly the moment someone opens it. When location is unavailable the app says so plainly, falls back to London and leaves a city search in place, so there is always a usable screen rather than a permission prompt and an empty state.",
+      },
+    ],
+  },
   "dissertation-mechanistic-interp": {
     overview:
       "A mechanistic study of how a PPO-trained causal Transformer policy solves a partially observable MiniGrid T-maze, where the instruction cue is no longer visible at the point the decision is made. The headline result is methodological rather than architectural: the aggregate success metric hid a failure mode, and a worst-case metric plus causal interventions were needed to tell genuine memory use apart from a shortcut.",
@@ -119,7 +181,7 @@ const projectDetails: Record<
   },
   "ir-search-engine": {
     overview:
-      "A search engine over six subject domains, each with the encoder that was pretrained on that literature, and a router that decides which one a query belongs to. That part began as MSc Information Retrieval coursework and was built as a team. Afterwards I added the part that interested me more: a generation layer, and a way to test whether the generated answer was actually using the passages the retriever had found.",
+      "A search engine over six subject domains, one dense index each, with a router that decides which one a query belongs to. That part began as MSc Information Retrieval coursework and was built as a team. Afterwards I added the part that interested me more: a generation layer, and a way to test whether the generated answer was actually using the passages the retriever had found.",
     sections: [
       {
         heading: "Why one encoder is not enough",
@@ -139,7 +201,7 @@ const projectDetails: Record<
       },
       {
         heading: "Telling a real difference from a coincidence",
-        body: "Twenty-one metrics, six domains and several conditions produce a large number of comparisons, and at that volume some of them will look significant by chance. Ignoring that is how a portfolio project ends up reporting an improvement that does not exist.\n\nProportions are compared with a two-proportion z-test, paired per-query differences with a paired Welch's t-test, and the whole family of comparisons is corrected with Benjamini-Hochberg. Effect sizes are reported as Cohen's h and d, because a difference can be statistically detectable and still too small to care about. Proportions carry Wilson score intervals, which behave sensibly near zero and one where the normal approximation does not, and any comparison with fewer than 30 samples is flagged as such instead of being quietly reported as a result. SciFact claims are checked against the gold qrels. Long evaluation runs checkpoint and resume, so a crash does not silently truncate a run into a smaller and more flattering sample.",
+        body: "Twenty-one metrics, six domains and several conditions produce a large number of comparisons, and at that volume some of them will look significant by chance. Ignoring that is how a portfolio project ends up reporting an improvement that does not exist.\n\nProportions are compared with a two-proportion z-test, paired per-query differences with a paired t-test when the query and seed match across conditions and Welch's t-test when they do not, and the whole family of comparisons is corrected with Benjamini-Hochberg. Effect sizes are reported as Cohen's h and d, because a difference can be statistically detectable and still too small to care about. Proportions carry Wilson score intervals, which behave sensibly near zero and one where the normal approximation does not, and any comparison with fewer than 30 samples is flagged as such instead of being quietly reported as a result. SciFact claims are checked against the gold qrels. Long evaluation runs checkpoint and resume, so a crash does not silently truncate a run into a smaller and more flattering sample.",
       },
       {
         heading: "What was mine",

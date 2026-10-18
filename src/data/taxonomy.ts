@@ -135,7 +135,7 @@ export const SKILLS: CanonicalSkill[] = [
     category: "Data",
     aliases: ["statistical testing", "statistics", "a/b testing", "ab testing", "hypothesis testing", "significance testing"],
     evidence: "project",
-    note: "Two-proportion z-test, paired Welch's t-test, Benjamini-Hochberg FDR correction, Cohen's h and d, Wilson score intervals in the multi-domain search engine. Backed by the Statistics and Data Science double major.",
+    note: "Two-proportion z-test, paired t-test and Welch's t-test, Benjamini-Hochberg FDR correction, Cohen's h and d, Wilson score intervals in the multi-domain search engine. Backed by the Statistics and Data Science double major.",
   },
   { id: "time-series", label: "Time-Series Analysis", category: "Data", aliases: ["time series", "time-series analysis"], evidence: "experience", note: "Search-log analysis for recommended and popular keywords; GridFlow price forecasting." },
   { id: "data-viz", label: "Data Visualisation", category: "Data", aliases: ["visualisation", "visualization", "dashboard", "line chart", "bubble chart", "dendrogram"], evidence: "experience", note: "Search analytics dashboards for Supreme Court administrators." },
