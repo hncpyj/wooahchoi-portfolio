@@ -49,8 +49,9 @@ export function Navigation() {
       <nav className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
         <Link
           href={to("#home")}
-          className="text-xl font-bold tracking-tight bg-gradient-to-r from-violet-600 to-blue-600 bg-clip-text text-transparent"
+          className="flex items-center gap-2 text-xl font-bold tracking-tight bg-gradient-to-r from-violet-600 to-blue-600 bg-clip-text text-transparent"
         >
+          <img src="/logo.webp" alt="" aria-hidden="true" className="h-6 w-auto" />
           Wooah<span className="text-violet-400">.</span>
         </Link>
 

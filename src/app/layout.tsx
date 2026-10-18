@@ -56,6 +56,10 @@ export const metadata: Metadata = {
     description:
       "Machine Learning Engineer working on AI safety, agent control and the evaluation of systems that are harder to verify than they look.",
   },
+  icons: {
+    icon: "/logo.webp",
+    apple: "/logo.webp",
+  },
   robots: {
     index: true,
     follow: true,
