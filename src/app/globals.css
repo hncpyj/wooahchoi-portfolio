@@ -73,3 +73,9 @@ html {
   opacity: 1;
   transform: translateY(0);
 }
+
+article .katex-display {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}

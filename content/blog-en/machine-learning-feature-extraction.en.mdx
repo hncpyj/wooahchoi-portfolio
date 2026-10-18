@@ -17,11 +17,11 @@ verification_status: "translation_reviewed_render_pending"
 
 Input data may be represented as $x_i$, with output data represented as $y_i$.
 
-For the given data, we seek a transformation function Φ (phi) that operates on an n-dimensional random vector.
+For the given data, we seek a transformation function $\Phi$ (phi) that operates on an n-dimensional random vector.
 
 ![](/blog-assets/machine-learning-feature-extraction/01-cDRCP5.png)
 
-Once the transformation function Φ has been found, the input data can be transformed and represented as an m-dimensional feature vector, $y_\{new\}$.
+Once the transformation function $\Phi$ has been found, the input data can be transformed and represented as an m-dimensional feature vector, $y_{\mathrm{new}}$.
 
 Feature extraction serves two main purposes.
 
@@ -34,11 +34,11 @@ Feature extraction serves two main purposes.
 ![](/blog-assets/machine-learning-feature-extraction/02-cckpir.png)
 
 Feature extraction transforms an n-dimensional input into an m-dimensional feature vector.
-Depending on the properties of Φ, transformations can be divided into two types.
+Depending on the properties of $\Phi$, transformations can be divided into two types.
 
 1. Linear Transformation
 
-An n-dimensional column vector x is multiplied by a transformation matrix W (n × m) to obtain m-dimensional features.
+An n-dimensional column vector x is multiplied by a transformation matrix $W \in \mathbb{R}^{n \times m}$ to obtain m-dimensional features.
 
 To make this equation easier to understand, we can indicate the vector dimensions alongside the transformation matrix.
 
@@ -56,11 +56,11 @@ To obtain y, transpose each column vector and multiply it by x.
 
 ![](/blog-assets/machine-learning-feature-extraction/04-2Avmq.png)
 
-**The feature value y_i is the projection of x onto column vector w_i of W. Here, w_i is a unit vector.**
+**The feature value $y_i$ is the projection of x onto column vector $w_i$ of W. Here, $w_i$ is a unit vector.**
 
 2) Transforming two-dimensional data x into a one-dimensional feature y
 
-Project vector x onto w → y = w^t x (where w is a unit vector).
+Project vector x onto w → $y = w^\top x$ (where w is a unit vector).
 
 ![](/blog-assets/machine-learning-feature-extraction/05-bwbXI3.png)
 
@@ -80,7 +80,7 @@ y is a two-dimensional vector obtained by projecting x onto the plane spanned by
 
 ![](/blog-assets/machine-learning-feature-extraction/09-npOcP.png)
 
-Applying a linear transformation to each individual data point and collecting the results across the entire dataset gives W_T X.
+Applying a linear transformation to each individual data point and collecting the results across the entire dataset gives $W^\top X$.
 
 ![](/blog-assets/machine-learning-feature-extraction/10-kyBic.png)
 
@@ -96,11 +96,11 @@ Feature extraction through linear transformation projects the given data in dire
 
 Different transformation matrices produce different distributions of feature values.
 
-Wa projects onto the lower plane spanned by x1 and x2.
+$W_a$ projects onto the lower plane spanned by $x_1$ and $x_2$.
 
-Wb projects onto the rear plane spanned by x2 and x3.
+$W_b$ projects onto the rear plane spanned by $x_2$ and $x_3$.
 
-Wc projects onto the left plane spanned by x3 and x1.
+$W_c$ projects onto the left plane spanned by $x_3$ and $x_1$.
 
 Examining feature extraction with different transformation matrices provides insight into what makes a good feature extraction method.
 
@@ -124,7 +124,7 @@ When a random transformation is applied to the input, the resulting distribution
 
 2. Nonlinear Transformation
 
-A complex nonlinear function Φ(x) is used to map an n-dimensional vector to an m-dimensional vector.
+A complex nonlinear function $\Phi(x)$ is used to map an n-dimensional vector to an m-dimensional vector.
 
 There are two broad approaches: manual feature engineering and representation learning.
 
@@ -177,7 +177,7 @@ We perform eigenanalysis on the covariance matrix, select the m eigenvectors cor
 
 ![](/blog-assets/machine-learning-feature-extraction/19-chWIeA.png)
 
-2) Through eigenanalysis, express the covariance matrix using the eigenvalue matrix Λ (lambda) and eigenvector matrix U.
+2) Through eigenanalysis, express the covariance matrix using the eigenvalue matrix $\Lambda$ (lambda) and eigenvector matrix U.
 
 ![](/blog-assets/machine-learning-feature-extraction/20-bOht7c.png)
 
@@ -185,7 +185,7 @@ The important point here is that $\Lambda_1$ corresponds to $U_1$, and $\Lambda_
 
 Because the data is two-dimensional, there are two eigenvalues and two corresponding eigenvectors.
 
-3) Select the m largest eigenvalues in descending order, \{$\lambda_1$, $\lambda_2$, ..., $\lambda_m$\}.
+3) Select the m largest eigenvalues in descending order, $\{\lambda_1, \lambda_2, \ldots, \lambda_m\}$.
 
 4) Construct transformation matrix W with the eigenvectors corresponding to the selected eigenvalues as its column vectors.
 
