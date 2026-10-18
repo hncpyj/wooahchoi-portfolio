@@ -413,6 +413,16 @@ export const projects = [
           "Forecast against outturn for a single day, with the absolute error drawn underneath rather than reported as one number. The model is selectable, so a forecast can be compared with the variant it is meant to beat instead of being scored on its own. Realised accuracy is tracked daily against the naive baseline, which is the check that caught the problem behind this project: the reported error had been inflated by target leakage and train/serve skew, and it only showed up once training and serving were measured against the same ground truth.",
       },
       {
+        src: "/images/gridflow/forecast-accuracy-auction.png",
+        caption:
+          "The same accuracy view for the day-ahead auction price, scored while the day is still filling in: 20 of 48 settlement periods published so far, MAE \u00a314.62 against those. Scoring only what has settled, rather than waiting for a clean full day, is what makes the number honest on the day it matters.",
+      },
+      {
+        src: "/images/gridflow/market-data-auction.png",
+        caption:
+          "The day-ahead price feed in the same data browser. Auction prices arrive two to four days late, so the forecast is only allowed to use them up to D-5 and every stored forecast records the last price date it actually had. Negative prices are visible in the range band, which is normal in a market with this much wind on the system.",
+      },
+      {
         src: "/images/gridflow/market-data.png",
         caption:
           "The data layer, open to inspection. Ten feeds from NESO and Elexon, each with its own row count for the selected window, so a thin dataset is visible before it reaches a model rather than after. Weather is collected per location, here north sea, London, Edinburgh and Manchester, because wind at the offshore sites and temperature in the demand centres move price for different reasons and a single national average loses both.",
