@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 import { getAllPosts, getPostBySlug } from "@/lib/blog";
 import LangSwitch from "@/components/LangSwitch";
 
@@ -91,7 +93,15 @@ export default function BlogPostPage({ params }: PageProps) {
         </header>
 
         <article className="prose prose-neutral dark:prose-invert max-w-none prose-img:rounded-lg prose-img:shadow-md prose-pre:bg-neutral-900 prose-code:text-violet-600 dark:prose-code:text-violet-400">
-          <MDXRemote source={post.content} />
+          <MDXRemote
+            source={post.content}
+            options={{
+              mdxOptions: {
+                remarkPlugins: [remarkMath],
+                rehypePlugins: [rehypeKatex],
+              },
+            }}
+          />
         </article>
       </div>
     </div>

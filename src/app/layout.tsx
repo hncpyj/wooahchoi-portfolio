@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import "./globals.css";
+import "katex/dist/katex.min.css";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
