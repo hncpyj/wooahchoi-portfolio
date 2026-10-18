@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { getAllPosts, getPostBySlug } from "@/lib/blog";
+import LangSwitch from "@/components/LangSwitch";
 
 interface PageProps {
   params: { slug: string };
@@ -35,15 +36,26 @@ export default function BlogPostPage({ params }: PageProps) {
   const post = getPostBySlug(params.slug, "ko") ?? getPostBySlug(params.slug, "en");
   if (!post) notFound();
 
+  const enPost = getPostBySlug(params.slug, "en");
+
   return (
     <div className="min-h-screen pt-24 pb-16 px-4">
       <div className="max-w-3xl mx-auto space-y-8">
-        <Link
-          href="/blog"
-          className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
-        >
-          ← Blog
-        </Link>
+        <div className="flex items-center justify-between">
+          <Link
+            href="/blog"
+            className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
+          >
+            ← Blog
+          </Link>
+          {enPost && (
+            <LangSwitch
+              current="ko"
+              koHref={`/blog/${params.slug}`}
+              enHref={`/blog/en/${params.slug}`}
+            />
+          )}
+        </div>
 
         <header className="space-y-3">
           <div className="flex items-center gap-3 text-sm text-muted-foreground">
