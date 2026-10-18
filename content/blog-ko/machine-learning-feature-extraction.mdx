@@ -1,0 +1,231 @@
+---
+title: "[Machine Learning] 특징추출(feature extraction)"
+date: "2022-10-02"
+source_url: "https://backenddeveloper.tistory.com/183"
+original_slug: "183"
+category: "Data Science"
+subcategory: "Machine Learning"
+migration_status: "ko_complete"
+asset_path: "/blog-assets/machine-learning-feature-extraction"
+lang: "ko"
+---
+
+### 선형 변환에 대한 특징추출
+
+#### 특징추출이란?
+
+입력 데이터가 $x_i$로 주어지고 출력 데이터가 $y_i$로 주어질 수도 있다.
+
+주어진 데이터에 대해서 n차원의 랜덤벡터를 통해 변환함수 Φ(파이)를 찾게 된다.
+
+![](/blog-assets/machine-learning-feature-extraction/01-cDRCP5.png)
+
+변환함수의 Φ를 찾으면 입력 데이터를 $y_\{new\}$라는 m차원의 특징벡터로 변환해서 표현된다.
+
+특징추출은 크게 두가지의 목적을 가지고 수행된다.
+
+1) 분류를 하거나 군집 등의 분석을 할 때 불필요한 정보들을 제거하고 핵심적인 정보만 추출하기 위함이다.
+
+2) 원래의 n차원의 데이터를 m차원으로 차원축소해서 계산량을 줄이고 메모리를 감소시켜서 분석 시스템의 효율과 성능을 향상시키기 위함이다.
+
+#### 변환함수(**Embedding Function**, Transformation Function)란?
+
+![](/blog-assets/machine-learning-feature-extraction/02-cckpir.png)
+
+n차원의 입력값을 받아서 m차원의 특징벡터로 변환하는 것을 특징추출이라고 한다. Φ의 특징에 따라서 두 종류로 나눌 수 있다.
+
+1. 선형 변환
+
+n차원 열벡터 x에 대해서 변환행렬 W(n x m)을 곱해서 m차원의 특징을 획득하는 것이다.
+
+이 수식을 쉽게 이해하기 위해서는 변환행렬에 벡터의 크기를 함께 표시해주면 된다.
+
+특징벡터 y가 원하는 분포가 되도록 W를 찾는 것이 목적이다.
+
+먼저 선형변환에 의한 특징추출은 데이터의 특징에 크게 의존하지 않으며 6가지로 나눌 수 있다.
+
+1) 차원 축소 관점에서의 특징추출
+
+데이터의 차원이 크면 처리하는데 많은 자원이 소모된다. 하지만 많은 데이터 중 불필요한 데이터가 섞여있으면 자원이 낭비된다. 차원과 성능의 관계를 봤을 때 차원이 커질수록 성능이 늘어나기만 하는 것이 아닌 조금 올라가다가 어느 지점에서 오히려 성능이 떨어지는 것을 확인할 수 있다. 이것을 차원의 저주라고 한다.
+
+![](/blog-assets/machine-learning-feature-extraction/03-S29H1.png)
+
+y를 구하기 위해서는 각각의 열벡터에 트랜스포즈 해서 x를 곱한다.
+
+![](/blog-assets/machine-learning-feature-extraction/04-2Avmq.png)
+
+x를 W의 열벡터 w_i 위로 사영한 값을 특징값 y_i라고 한다. 여기서 w_i는 단위벡터다.
+
+2) 2차원 데이터 x를 1차원 특징 y로 변환
+
+벡터 x를 w 위로 사영 → y = w^t x (단, w는 단위벡터다)
+
+![](/blog-assets/machine-learning-feature-extraction/05-bwbXI3.png)
+
+3) 3차원 데이터 → 2차원 특징추출
+
+![](/blog-assets/machine-learning-feature-extraction/06-bAZy79.png)
+
+y는 x를 열벡터 w_1, w_2가 이루는 2차원 평면 위로의 사영으로 얻어지는 2차원 벡터다.
+
+![](/blog-assets/machine-learning-feature-extraction/07-dT3zuW.png)
+
+4) n차원 데이터 → m차원 특징추출
+
+![](/blog-assets/machine-learning-feature-extraction/08-mwahP.png)
+
+5) 전체 데이터 집합 X에 대한 특징추출
+
+![](/blog-assets/machine-learning-feature-extraction/09-npOcP.png)
+
+하나의 데이터에 대해서 선형변환 한 것을 모아 전체데이터에 대해서 실행한 것이 W_T X다.
+
+![](/blog-assets/machine-learning-feature-extraction/10-kyBic.png)
+
+왼쪽 그림에서 아래 색칠된 부분이 Y다.
+
+오른쪽 그림에서 전체 데이터 집합에서도 해당 축에 대해서 사영하면 프로젝션 할 수 있다.
+
+주어진 데이터를 변환행렬 W에 의해 정해진 방향으로 사영해서 차원이 낮은 특징값을 얻는 것이 선형변환에 의한 특징추출이다.
+
+6) 변환행렬에 따른 특징의 분포
+
+![](/blog-assets/machine-learning-feature-extraction/11-bcSTDf.png)
+
+변환행렬이 다르기 때문에 서로 얻어지는 특징값 결과도 다르다.
+
+Wa는 x1과 x2로 이루어진 아래쪽 평면으로 사영된다.
+
+Wb는 x2과 x3로 이루어진 뒤쪽 평면으로 사영된다.
+
+Wc는 x3과 x1로 이루어진 왼쪽 평면으로 사영된다.
+
+다양한 변환행렬에 대한 특징추출을 보면 좋은 특징추출에 대한 인사이트를 얻을 수 있다.
+
+좋은 특징추출이란 변환행렬 W를 적절하게 조절해서 분류/분석 목적에 맞게 특징 분포를 만드는 것이다.
+
+![](/blog-assets/machine-learning-feature-extraction/12-u7MUV.png)
+
+선형변환을 사용하는 대표적인 통계적 특징추출 방법은 크게 주성분분석법(PCA), 선형판별분석법(LDA) 두 가지가 있다.
+
+입력값에 대해서 랜덤으로 사용했을 때 아래처럼 구분없이 무분별하게 나온다.
+
+![](/blog-assets/machine-learning-feature-extraction/13-cSfWaB.png)
+
+- 주성분분석법(PCA: Principal Component Analysis)은 클래스 정보를 사용하지 않는 비지도 학습이다.
+
+![](/blog-assets/machine-learning-feature-extraction/14-bsyjMI.png)
+
+- 선형판별분석법(LDA: Linear Discriminant Analysis)은 클래스 정보를 사용하는 지도학습이다.
+
+![](/blog-assets/machine-learning-feature-extraction/15-moqVK.png)
+
+2. 비선형 변환
+
+복잡한 비선형함수 Φ(x)를 이용해서 n차원 벡터를 m차원 특징벡터로 변환하는 것이다.
+
+![](/blog-assets/machine-learning-feature-extraction/16-Uu0VU.png)
+
+비선형함수 Φ(x)는 n차원 입력을 받아서 m차원을 출력으로 하는 함수다. 이것의 대표적인 예시가 자기부호화기(Autoencoder)다.
+
+#### 고유값 분해
+
+고유값(eigenvalue)과 고유벡터(eigenvector)를 이용한 분해를 고유값 분해라고 한다.
+
+n x n 정방행렬 A의 고유값(eigenvalue) λ와 고유벡터(eigenvector) v는 아래의 관계를 만족한다.
+
+![](/blog-assets/machine-learning-feature-extraction/17-byB4pH.png)
+
+![](/blog-assets/machine-learning-feature-extraction/18-ui3K8.png)
+
+#### 주성분분석(PCA: Principal Component Analysis)
+
+주성분분석은 데이터에서 분산이 큰 방향(주성분)을 찾고 그 방향으로 차원을 줄이는 것이다.
+
+주성분 분석은 다음과 같은 절차로 이루어진다.
+
+1. 공분산 행렬 계산
+2. 고유값 분해
+3. 큰 고유값에 해당하는 고유벡터 선택
+4. 선택된 고유벡터로 이루어진 변환행렬 W 생성
+5. 특징 추출: y = W^T x
+
+#### 공분산 행렬
+
+공분산(covariance): 두 변수의 공동 분산으로 두 변수의 관계를 나타낸다.
+
+![](/blog-assets/machine-learning-feature-extraction/19-chWIeA.png)
+
+**공분산 행렬** Σ는 n개의 변수에 대해서 정의되는 n x n 행렬이다.
+
+![](/blog-assets/machine-learning-feature-extraction/20-bOht7c.png)
+
+그러면 표본공분산행렬 S의 (i,j) 요소는 변수 i와 j의 표본공분산이다.
+
+#### 주성분
+
+주성분은 공분산 행렬 Σ의 고유값 분해를 통해서 찾을 수 있다.
+
+![](/blog-assets/machine-learning-feature-extraction/21-AUCN7.png)
+
+![](/blog-assets/machine-learning-feature-extraction/22-zSDUn.png)
+
+고유값의 크기 순으로 정렬한 고유벡터가 주성분이다.
+
+1주성분 > 2주성분 > 3주성분 순으로 데이터 분산에 기여한다.
+
+#### 주성분 분석에서의 특징추출
+
+![](/blog-assets/machine-learning-feature-extraction/23-cM31tn.png)
+
+#### 실습 예제 (2차원 → 1차원)
+
+![](/blog-assets/machine-learning-feature-extraction/24-b7dcVa.png)
+
+마지막 1, 2, 3차 주성분 벡터에 의한 특징추출에서는 차원의 축소는 없지만 데이터간의 상관관계가 사라졌다. 이것을 대각화변환이라고 한다.
+
+#### 수학적 사용
+
+![](/blog-assets/machine-learning-feature-extraction/25-bhHXbs.png)
+
+- 손실되는 정보량의 비중
+
+![](/blog-assets/machine-learning-feature-extraction/26-bkmkQ3.png)
+
+m개의 특징으로 표현 가능한 정보의 비율
+
+전체중에 손실되는 $Λ_m$의 비율을 보면 손실되는 정보량의 비중을 찾을 수 있다.
+
+- 선택할 고유벡터의 수(특징의 차수) m
+
+![](/blog-assets/machine-learning-feature-extraction/27-dCI441.png)
+
+선택할 고유벡터 수(특징의 차수)를 m이라고 두고 세타를 0.98이라고 두게 되면 전체 손실되는 양의 2% 미만인 것을 찾을 수 있다.
+
+#### 얼굴 영상의 표현 예시
+
+n차원의 얼굴 영상을 m개의 기저벡터를 사용해서 표현한다. 차원을 축소하기 위해 열벡터가 필요하고 이 열벡터는 기저벡터라고 한다. 이 기저벡터를 아이겐페이스라고 부른다.
+
+얼굴영상에서 PCA를 적용해서 찾아진 고유벡터를 영상으로 표현한 것이 아이겐페이스다.
+
+![](/blog-assets/machine-learning-feature-extraction/28-JLwr9.png)
+
+y는 차원이 축소돼서 정보가 손실된 영상이다. 원래 n차원으로 되어있는것을 69차원으로 축소했다가 복원해보자.
+
+![](/blog-assets/machine-learning-feature-extraction/29-pULfv.png)
+
+y는 x랑 얼마나 유사할지 살펴보면 양변에 w를 곱했을 때 x는 복원된 영상이고 이걸 만드는 방법이 w랑 y를 특징값들을 곱해서 더해준 것이다. 복원된 것을 원래의 것과 비교해보면 원본이랑 완벽하게 똑같지는 않지만 비슷하게 재현된 것을 확인할 수 있다.
+
+#### 주성분분석의 특성과 문제점
+
+![](/blog-assets/machine-learning-feature-extraction/30-cvskct.png)
+
+데이터 양이 많아서 라벨링하기 힘들거나 특별한 목적이 없는경우에 주로 주성분분석을 사용한다.
+
+주성분분석은 비지도학습이고 클래스 레이블 정보를 활용하지 않는다. 그렇기 때문에 분류의 핵심 정보를 손실할 가능성이 있다.
+
+따라서 클래스 정보를 이용하기 위해 등장한게 선형판별분석법(LDA)이다.
+
+주성분분석법 즉, 선형변환의 한계는 데이터의 구조를 나타내지 못한다.
+
+![](/blog-assets/machine-learning-feature-extraction/31-cr2vMM.png)

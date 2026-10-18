@@ -1,0 +1,46 @@
+{
+  "version": "1.0",
+  "updated": "2026-10-18",
+  "pilot_verified": true,
+  "posts": [
+    {
+      "tistory_id": "183",
+      "slug": "machine-learning-feature-extraction",
+      "title": "[Machine Learning] 특징추출(feature extraction)",
+      "tistory_url": "https://backenddeveloper.tistory.com/183",
+      "published_date": "2022-10-02",
+      "category": "Data Science",
+      "subcategory": "Machine Learning",
+      "archive_path": "blog/archive/tistory-original/183/original.html",
+      "article_body_path": "blog/archive/tistory-original/183/article_body.html",
+      "ko_mdx_path": "portfolio/content/blog-ko/machine-learning-feature-extraction.mdx",
+      "en_mdx_path": null,
+      "asset_dir": "portfolio/public/blog-assets/machine-learning-feature-extraction",
+      "asset_count": 31,
+      "heading_count": 12,
+      "image_count": 31,
+      "broken_images": 0,
+      "migration_status": "ko_complete",
+      "qa": {
+        "structural": {
+          "images_verified": true,
+          "headings_verified": true,
+          "broken_images": 0
+        },
+        "visual": {
+          "blog_index_renders": true,
+          "post_page_renders": true,
+          "images_load": true,
+          "typography_correct": true
+        },
+        "notes": "MDX curly-brace escape required for LaTeX math: { → \\{ and } → \\} within $...$ expressions. Image URLs migrated from signed Kakao CDN (blog.kakaocdn.net) to local assets via Daum proxy (img1.daumcdn.net) for download."
+      }
+    }
+  ],
+  "summary": {
+    "total_tistory_posts": "156+",
+    "migrated_ko": 1,
+    "migrated_en": 0,
+    "pending": "155+"
+  }
+}
