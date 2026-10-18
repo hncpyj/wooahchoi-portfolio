@@ -65,7 +65,7 @@ function paragraphWithHighlights(
  * the work actually evidences: ML first, then the search depth underneath it,
  * then the evaluation angle that is genuinely rare, then production.
  *
- * The production card stays. Backend is not a dilution of an ML profile — it is
+ * The production card stays. Backend is not a dilution of an ML profile, it is
  * what lets a model reach users, and 8/21 screened postings ask for Docker/CI-CD,
  * 6/21 for cloud, 5/21 for SQL. What was removed is the *web-app* framing that
  * used to be here (NestJS, GraphQL, TypeORM, auth), which appeared in 0/21 and
@@ -76,7 +76,7 @@ const highlights = [
     icon: Brain,
     title: "Machine Learning",
     description:
-      "PyTorch, transformers and reinforcement learning — from fine-tuning BERT for production NER to training a causal Transformer policy with PPO",
+      "PyTorch, transformers and reinforcement learning, from fine-tuning BERT for production NER to training a causal Transformer policy with PPO",
     color: "from-violet-500 to-purple-600",
     bg: "bg-violet-50 dark:bg-violet-500/10",
     borderColor: "border-violet-200 dark:border-violet-500/20",
@@ -85,7 +85,7 @@ const highlights = [
     icon: Search,
     title: "Search & Retrieval",
     description:
-      "Indexing at 100M+ scale, ranking and scoring logic, query understanding and expansion — the retrieval layer the current wave of AI is built on",
+      "Indexing at 100M+ scale, ranking and scoring logic, query understanding and expansion, the retrieval layer the current wave of AI is built on",
     color: "from-blue-500 to-cyan-600",
     bg: "bg-blue-50 dark:bg-blue-500/10",
     borderColor: "border-blue-200 dark:border-blue-500/20",
@@ -94,7 +94,7 @@ const highlights = [
     icon: Microscope,
     title: "Evaluation & Interpretability",
     description:
-      "Worst-case metrics, causal ablations and failure typologies — telling apart systems that work from systems that only score well",
+      "Worst-case metrics, causal ablations and failure typologies, telling apart systems that work from systems that only score well",
     color: "from-amber-500 to-orange-600",
     bg: "bg-amber-50 dark:bg-amber-500/10",
     borderColor: "border-amber-200 dark:border-amber-500/20",
@@ -103,7 +103,7 @@ const highlights = [
     icon: Server,
     title: "Production Engineering",
     description:
-      "Java, Spring and Python services, data pipelines, Oracle and PostgreSQL at scale, Docker and CI/CD on AWS — models are worth what they are worth in production",
+      "Java, Spring and Python services, data pipelines, Oracle and PostgreSQL at scale, Docker and CI/CD on AWS, models are worth what they are worth in production",
     color: "from-emerald-500 to-teal-600",
     bg: "bg-emerald-50 dark:bg-emerald-500/10",
     borderColor: "border-emerald-200 dark:border-emerald-500/20",

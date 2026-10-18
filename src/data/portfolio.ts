@@ -8,7 +8,7 @@ export const personalInfo = {
   intro:
     "Machine Learning Engineer with a production engineering foundation, working on AI safety and the evaluation of systems that are harder to verify than they look. MSc AI at Queen Mary University of London, where my dissertation applied mechanistic interpretability to a PPO-trained Transformer policy in partially observable RL. Sole author of a technical report on control boundaries for autonomous research agents. Previously built enterprise search and NLP in production, including the Supreme Court of Korea's e-litigation search.",
   about:
-    "MSc AI at Queen Mary University of London, with three years of industry experience as a Software Engineer at Konan Technology building enterprise search and NLP systems. My coursework spans Machine Learning, Neural Networks and NLP, Information Retrieval, Reinforcement Learning, and Conversational Agents — building depth in both theory and implementation.\n\nMost recently I built ResearchAgentLab, an autonomous research agent, and then a control architecture for it after watching it silently substitute a different experiment for the one I had approved. Protocol Before Code freezes approved intent in a machine-checkable protocol, constrains how much the model is allowed to generate, and checks scientific conformance independently of software correctness. In holdout and fault-injection evaluations, 0 of 18 drifted protocols passed and 18 of 18 behaviour-changing trusted-component mutations were blocked before execution; with the content-integrity check neutralised, 15 of those same 18 escaped the remaining stack. A frozen 192-pair oversight experiment found that adversarial curation moved an overseer's target selection from 13.0% to 27.1% while explicit approval stayed at 100% in both conditions. Written up as a sole-authored technical report.\n\nMy dissertation is a mechanistic analysis of a PPO-trained causal Transformer policy in a partially observable MiniGrid T-maze. Its central finding was methodological: the aggregate success metric hid a failure mode, because an agent that always turns the same way scores around 50% while having learned nothing about the instruction cue. I designed a worst-case metric, Smin = min(S_key, S_ball), that exposes those one-sided policies, and used causal interventions to test control rather than infer it from correlation. Difference-vector attribution assigned 33–58% of the retrieval difference to padding, yet exchanging the padding source reversed no decision while exchanging the real-transition source reversed both — correlation and causation pointing at different things on the same policy. That signature held in only three of six checkpoints, so equal behaviour did not imply equal mechanism. A parameter-matched LSTM also solved the task at Smin = 0.898, which moved the contribution from architecture comparison to the analysis and evaluation framework itself.\n\nThird author on a short paper accepted to FinNLP 2026 at EMNLP, on whether relevance-ranked web evidence is actually sufficient to verify financial claims. I was one of the two first-pass annotators, labelling 500 of the 750 claim–passage pairs under a blinded four-class protocol, including the 250-pair double-annotated block behind the paper's Cohen's kappa. I also review for the same workshop, the annual workshop of the ACL Special Interest Group on Financial and Economic NLP.\n\nAs co-founder of GridFlow Trade (selected for QMUL QIncubator), I built the UK day-ahead price forecasting product on 65,000+ real half-hourly settlement periods. The work I would point at is not the model. Early accuracy looked strong and was wrong: training showed MAE £7.4 while the same model served in production sat at £21.9, because training and inference were not seeing the same features. I rebuilt it as a single point-in-time feature pipeline shared by both paths and verified they produce identical features. The honest figure afterwards is MAE £24.2/MWh against a £34.2 naive baseline, a 29% error reduction on a 90-day held-out window averaged over five seeds. Benchmarking Naive, Ridge, LightGBM, XGBoost and a bidirectional LSTM on one leak-free split showed the tree models and Ridge were indistinguishable within seed noise, so the gains came from feature and evaluation design rather than model choice. I also audited 3.7 years of stored market data against the Elexon API and found a collector date bug that had corrupted 1,634 price and 1,634 system-margin records on every British Summer Time day.\n\nAt Konan Technology, I delivered production search and NLP systems for the Supreme Court of Korea, reducing litigation search latency from 5+ minutes to 8 seconds, and shipped query intelligence features across four enterprise clients.\n\nKaggle: Top ~17% in Google AI4Code · Top ~28% in RSNA 2022 Cervical Spine Fracture Detection.",
+    "MSc AI at Queen Mary University of London, with three years of industry experience as a Software Engineer at Konan Technology building enterprise search and NLP systems. My coursework spans Machine Learning, Neural Networks and NLP, Information Retrieval, Reinforcement Learning, and Conversational Agents, building depth in both theory and implementation.\n\nMost recently I built ResearchAgentLab, an autonomous research agent, and then a control architecture for it after watching it silently substitute a different experiment for the one I had approved. Protocol Before Code freezes approved intent in a machine-checkable protocol, constrains how much the model is allowed to generate, and checks scientific conformance independently of software correctness. In holdout and fault-injection evaluations, 0 of 18 drifted protocols passed and 18 of 18 behaviour-changing trusted-component mutations were blocked before execution; with the content-integrity check neutralised, 15 of those same 18 escaped the remaining stack. A frozen 192-pair oversight experiment found that adversarial curation moved an overseer's target selection from 13.0% to 27.1% while explicit approval stayed at 100% in both conditions. Written up as a sole-authored technical report.\n\nMy dissertation is a mechanistic analysis of a PPO-trained causal Transformer policy in a partially observable MiniGrid T-maze. Its central finding was methodological: the aggregate success metric hid a failure mode, because an agent that always turns the same way scores around 50% while having learned nothing about the instruction cue. I designed a worst-case metric, Smin = min(S_key, S_ball), that exposes those one-sided policies, and used causal interventions to test control rather than infer it from correlation. Difference-vector attribution assigned 33–58% of the retrieval difference to padding, yet exchanging the padding source reversed no decision while exchanging the real-transition source reversed both, correlation and causation pointing at different things on the same policy. That signature held in only three of six checkpoints, so equal behaviour did not imply equal mechanism. A parameter-matched LSTM also solved the task at Smin = 0.898, which moved the contribution from architecture comparison to the analysis and evaluation framework itself.\n\nThird author on a short paper accepted to FinNLP 2026 at EMNLP, on whether relevance-ranked web evidence is actually sufficient to verify financial claims. I was one of the two first-pass annotators, labelling 500 of the 750 claim–passage pairs under a blinded four-class protocol, including the 250-pair double-annotated block behind the paper's Cohen's kappa. I also review for the same workshop, the annual workshop of the ACL Special Interest Group on Financial and Economic NLP.\n\nAs co-founder of GridFlow Trade (selected for QMUL QIncubator), I built the UK day-ahead price forecasting product on 65,000+ real half-hourly settlement periods. The work I would point at is not the model. Early accuracy looked strong and was wrong: training showed MAE £7.4 while the same model served in production sat at £21.9, because training and inference were not seeing the same features. I rebuilt it as a single point-in-time feature pipeline shared by both paths and verified they produce identical features. The honest figure afterwards is MAE £24.2/MWh against a £34.2 naive baseline, a 29% error reduction on a 90-day held-out window averaged over five seeds. Benchmarking Naive, Ridge, LightGBM, XGBoost and a bidirectional LSTM on one leak-free split showed the tree models and Ridge were indistinguishable within seed noise, so the gains came from feature and evaluation design rather than model choice. I also audited 3.7 years of stored market data against the Elexon API and found a collector date bug that had corrupted 1,634 price and 1,634 system-margin records on every British Summer Time day.\n\nAt Konan Technology, I delivered production search and NLP systems for the Supreme Court of Korea, reducing litigation search latency from 5+ minutes to 8 seconds, and shipped query intelligence features across four enterprise clients.\n\nKaggle: Top ~17% in Google AI4Code · Top ~28% in RSNA 2022 Cervical Spine Fracture Detection.",
   introHighlight: [
     "Machine Learning Engineer",
     "NLP",
@@ -38,9 +38,9 @@ export const experiences = [
   {
     company: "Konan Technology",
     role: "Software Engineer, AI Solution Development Team",
-    period: "Nov 2020 — Jun 2023",
+    period: "Nov 2020, Jun 2023",
     description:
-      "Built and improved enterprise search and NLP systems across four clients, cutting Supreme Court litigation search latency from 5+ minutes to 8 seconds. Applied BERT-based NER, SFX/SRL query analysis, fastText, and vector search; shipped query intelligence features including related terms, recommendations, popular queries, and typo correction.\n\nAlongside the four builds below, I supported 14 shorter engagements across finance, government, healthcare, manufacturing, energy and policing — engine installs and integrations, escalation support, and internal training on the search stack. These included a redundant, high-availability search deployment for the Export-Import Bank of Korea, where the topology the client specified was not achievable under the constraints in place; I prepared the technical case, presented it, and we agreed an alternative that met the availability requirement.",
+      "Built and improved enterprise search and NLP systems across four clients, cutting Supreme Court litigation search latency from 5+ minutes to 8 seconds. Applied BERT-based NER, SFX/SRL query analysis, fastText, and vector search; shipped query intelligence features including related terms, recommendations, popular queries, and typo correction.\n\nAlongside the four builds below, I supported 14 shorter engagements across finance, government, healthcare, manufacturing, energy and policing, engine installs and integrations, escalation support, and internal training on the search stack. These included a redundant, high-availability search deployment for the Export-Import Bank of Korea, where the topology the client specified was not achievable under the constraints in place; I prepared the technical case, presented it, and we agreed an alternative that met the availability requirement.",
     projects: [
       {
         slug: "supreme-court",
@@ -65,7 +65,7 @@ export const experiences = [
           {
             src: "/images/supreme-court/thesaurus.png",
             caption:
-              "The part of this work I would point at first. Expanding a query term does not mean fetching synonyms — in law it means walking a hierarchy. Here 손해 (damages) expands into hyponyms (lost profit, medical expenses, direct, consequential, foreseeable, irrecoverable) and separately into related concepts (intent to cause damage, damage security, mitigation duty). A user searching the general term still reaches judgments that only ever use the specific one, which is exactly the omission problem a court system cannot tolerate.",
+              "The part of this work I would point at first. Expanding a query term does not mean fetching synonyms, in law it means walking a hierarchy. Here 손해 (damages) expands into hyponyms (lost profit, medical expenses, direct, consequential, foreseeable, irrecoverable) and separately into related concepts (intent to cause damage, damage security, mitigation duty). A user searching the general term still reaches judgments that only ever use the specific one, which is exactly the omission problem a court system cannot tolerate.",
           },
           {
             src: "/images/supreme-court/keyword-map.png",
@@ -80,7 +80,7 @@ export const experiences = [
           {
             src: "/images/supreme-court/literature-autocomplete.png",
             caption:
-              "Auto-completion over the literature corpus. The suggestions are whole article titles containing the typed term, not prefix matches on a static dictionary — on the systems I delivered these candidates came from search-log analysis, so they tracked what users were actually looking for.",
+              "Auto-completion over the literature corpus. The suggestions are whole article titles containing the typed term, not prefix matches on a static dictionary, on the systems I delivered these candidates came from search-log analysis, so they tracked what users were actually looking for.",
           },
           {
             src: "/images/supreme-court/statutes.png",
@@ -90,12 +90,12 @@ export const experiences = [
           {
             src: "/images/supreme-court/treaties.png",
             caption:
-              "Treaties, again with a different schema — bilateral versus multilateral, counterpart country, subject area, continent, effective date versus gazette date. Five corpora, five field sets, one query-understanding layer in front of them.",
+              "Treaties, again with a different schema, bilateral versus multilateral, counterpart country, subject area, continent, effective date versus gazette date. Five corpora, five field sets, one query-understanding layer in front of them.",
           },
           {
             src: "/images/supreme-court/rules-precedents.png",
             caption:
-              "Rules, established practice and registry precedents. Note the field-scoped tabs — title (7) / body (157) / appendix (0) / forms (3) / rule number (19) — which is the same idea as scoping a query to the field the entity actually lives in, surfaced to the user as a choice.",
+              "Rules, established practice and registry precedents. Note the field-scoped tabs, title (7) / body (157) / appendix (0) / forms (3) / rule number (19), which is the same idea as scoping a query to the field the entity actually lives in, surfaced to the user as a choice.",
           },
         ],
         description:
@@ -132,27 +132,27 @@ export const experiences = [
           {
             src: "/images/millie/recommended-terms.png",
             caption:
-              "The recommended-search-terms row, and the piece of this project I am proudest of. It was not in the original scope, the engine had no such feature, and there was no labelled data to build one from — the client asked for it anyway. What I built groups accounts by when in the day they search, then forecasts each group's term demand from its own search history, so the row is driven by search behaviour rather than editorially curated. The feature is still in the app.",
+              "The recommended-search-terms row, and the piece of this project I am proudest of. It was not in the original scope, the engine had no such feature, and there was no labelled data to build one from, the client asked for it anyway. What I built groups accounts by when in the day they search, then forecasts each group's term demand from its own search history, so the row is driven by search behaviour rather than editorially curated. The feature is still in the app.",
           },
           {
             src: "/images/millie/popular-terms.png",
             caption:
-              "Popular search terms with rise/fall/steady markers, timestamped to the aggregation window. Note rows 1 and 9 (오디세이 / 오디세이아) and 2 and 8 (히가시노 게이고 / 히가시노게이고): spelling and spacing variants are counted separately rather than merged. That is the raw form the log analysis needs — which variant users actually type is exactly the signal the typo-correction dictionary is extracted from, and merging them before counting would throw it away.",
+              "Popular search terms with rise/fall/steady markers, timestamped to the aggregation window. Note rows 1 and 9 (오디세이 / 오디세이아) and 2 and 8 (히가시노 게이고 / 히가시노게이고): spelling and spacing variants are counted separately rather than merged. That is the raw form the log analysis needs, which variant users actually type is exactly the signal the typo-correction dictionary is extracted from, and merging them before counting would throw it away.",
           },
           {
             src: "/images/millie/autocomplete.png",
             caption:
-              "Auto-completion on the partial term 이토록. The matches are whole titles containing the term, and the term is highlighted wherever it falls — mid-title in 누군가를 이토록 사랑한 적 and 심리학이 이토록 재미있을 줄이야, not just at the start. Korean prefix matching alone would have missed both. The candidate dictionary is rebuilt by a batch job that exports title and category fields ordered by recent opens, so ranking inside the suggestion list follows real demand.",
+              "Auto-completion on the partial term 이토록. The matches are whole titles containing the term, and the term is highlighted wherever it falls, mid-title in 누군가를 이토록 사랑한 적 and 심리학이 이토록 재미있을 줄이야, not just at the start. Korean prefix matching alone would have missed both. The candidate dictionary is rebuilt by a batch job that exports title and category fields ordered by recent opens, so ranking inside the suggestion list follows real demand.",
           },
           {
             src: "/images/millie/unified-results.png",
             caption:
-              "Unified search across five collections — books, webtoons/webnovels, Millie Road, posts, shelves — each with its own count and its own tab. One query, five differently-shaped result sets, ranked independently and then presented together.",
+              "Unified search across five collections, books, webtoons/webnovels, Millie Road, posts, shelves, each with its own count and its own tab. One query, five differently-shaped result sets, ranked independently and then presented together.",
           },
           {
             src: "/images/millie/author-results.png",
             caption:
-              "An author query returns a curated collection card above the books. Ranking here is not pure text relevance — 97 titles match 히가시노 and the order they come back in is decided by the ranking layer, which weighs field matches against engagement signals such as recent opens, shelf adds, completion percentage and review count. Tuning those weights against a fixed list of about a hundred test queries is the work behind the 38% ranking-quality improvement.",
+              "An author query returns a curated collection card above the books. Ranking here is not pure text relevance, 97 titles match 히가시노 and the order they come back in is decided by the ranking layer, which weighs field matches against engagement signals such as recent opens, shelf adds, completion percentage and review count. Tuning those weights against a fixed list of about a hundred test queries is the work behind the 38% ranking-quality improvement.",
           },
         ],
         description:
@@ -166,24 +166,24 @@ export const experiences = [
         linkLabel: "Live search",
         stats: [
           { label: "Result categories", value: "6" },
-          { label: "Shipped", value: "2022 — still live" },
+          { label: "Shipped", value: "2022, still live" },
           { label: "Layer", value: "Full-stack" },
         ],
         gallery: [
           {
             src: "/images/heungkuk/architecture.svg",
             caption:
-              "Where this delivery sits. The search engine is the same one behind my other Konan deliveries; what was mine here was everything in front of it — the JSP/JSTL page, the AJAX layer that requests each category, the incremental rendering, and the log-derived popular terms and completion candidates that populate the empty state.",
+              "Where this delivery sits. The search engine is the same one behind my other Konan deliveries; what was mine here was everything in front of it, the JSP/JSTL page, the AJAX layer that requests each category, the incremental rendering, and the log-derived popular terms and completion candidates that populate the empty state.",
           },
           {
             src: "/images/heungkuk/results-and-popular-terms.png",
             caption:
-              "The page still running today, on a query for 보험 (insurance): popular-term chips above, recent searches, then 468 results split by category with a count on each tab. The chips are worth a second look — they read 제지급 · 철회 · 배서 · 금리인하 · 모바일 here, and a different five when I checked earlier the same day. They are derived from the search logs and rotate with them, which is the whole point of not hard-coding an empty state.\n\nThe menu results underneath show what Korean morphological indexing buys you: 보험 is highlighted inside 장기보험증권, 자동차보험금지급확인서 and 휴면보험금신청 — mid-word, in compounds the user never typed. Substring matching would find some of these by accident and miss the rest.",
+              "The page still running today, on a query for 보험 (insurance): popular-term chips above, recent searches, then 468 results split by category with a count on each tab. The chips are worth a second look, they read 제지급 · 철회 · 배서 · 금리인하 · 모바일 here, and a different five when I checked earlier the same day. They are derived from the search logs and rotate with them, which is the whole point of not hard-coding an empty state.\n\nThe menu results underneath show what Korean morphological indexing buys you: 보험 is highlighted inside 장기보험증권, 자동차보험금지급확인서 and 휴면보험금신청, mid-word, in compounds the user never typed. Substring matching would find some of these by accident and miss the rest.",
           },
           {
             src: "/images/heungkuk/documents-glossary.png",
             caption:
-              "Two of the six categories have shapes the others do not. Forms are PDFs, indexed by their extracted text and returned as downloads rather than pages. Glossary entries (104 of them for this query) expand inline, so a user who searched a term they did not understand gets the definition without leaving the results — with the query highlighted through the definition body as well. Each of these needed its own template and its own rendering path in the page.",
+              "Two of the six categories have shapes the others do not. Forms are PDFs, indexed by their extracted text and returned as downloads rather than pages. Glossary entries (104 of them for this query) expand inline, so a user who searched a term they did not understand gets the definition without leaving the results, with the query highlighted through the definition body as well. Each of these needed its own template and its own rendering path in the page.",
           },
         ],
         description:
@@ -219,12 +219,12 @@ export const experiences = [
           {
             src: "/images/venture/search-filters.png",
             caption:
-              "The live search on a query for 벤처확인 (venture certification): 276 results across three collections, with the count on each tab — including 벤처공시 (disclosures) at 0. Above it, the controls: refine within results, popular terms, sort by relevance or recency, and a period filter of all / 1 day / 1 week / 1 month / 1 year / custom. The period filter is a domain requirement rather than a nicety — government application windows expire, and a two-year-old notice about one is worse than no result.",
+              "The live search on a query for 벤처확인 (venture certification): 276 results across three collections, with the count on each tab, including 벤처공시 (disclosures) at 0. Above it, the controls: refine within results, popular terms, sort by relevance or recency, and a period filter of all / 1 day / 1 week / 1 month / 1 year / custom. The period filter is a domain requirement rather than a nicety, government application windows expire, and a two-year-old notice about one is worse than no result.",
           },
           {
             src: "/images/venture/refine-within-results.png",
             caption:
-              "Refine within results, doing its job. The box now holds 수수료 (fee) with the checkbox ticked, so the second term is applied to the 276 results from the first query rather than to the whole corpus: 276 → 28, and both terms stay highlighted in every hit. The user narrowed instead of starting over — which is also why both queries have to be carried in the request state rather than just the latest one.",
+              "Refine within results, doing its job. The box now holds 수수료 (fee) with the checkbox ticked, so the second term is applied to the 276 results from the first query rather than to the whole corpus: 276 → 28, and both terms stay highlighted in every hit. The user narrowed instead of starting over, which is also why both queries have to be carried in the request state rather than just the latest one.",
           },
         ],
         description:
@@ -289,8 +289,10 @@ export const projects = [
       "Fault Injection",
     ],
     status: "Active",
-    link: "https://github.com/hncpyj/research-agent-lab",
-    linkLabel: "GitHub",
+    link: "https://www.researchagentlab.com",
+    linkLabel: "Live site",
+    image: "/images/research-agent-lab/preview.png",
+    github: "https://github.com/hncpyj/research-agent-lab",
     stats: [
       { label: "Drifted protocols that passed", value: "0 / 18" },
       { label: "Apparatus mutations blocked", value: "18 / 18" },
@@ -301,7 +303,7 @@ export const projects = [
   {
     slug: "dissertation-mechanistic-interp",
     title:
-      "Dissertation: Causal Cue Retrieval and Greedy Route Execution — A Mechanistic Analysis of a Transformer Policy",
+      "Causal Cue Retrieval and Greedy Route Execution: A Mechanistic Analysis of a Transformer Policy",
     description:
       "Mechanistic interpretability of a PPO-trained causal Transformer in a partially observable MiniGrid T-maze. Designed a worst-case cue metric that exposed one-sided shortcut policies hidden by aggregate success, then used causal interventions to verify genuine cue-dependent branch control rather than inferring it from correlation.",
     tech: ["PyTorch", "RL (PPO)", "Mechanistic Interpretability", "MiniGrid", "Python"],
@@ -311,7 +313,7 @@ export const projects = [
       {
         src: "/images/dissertation/architecture-comparison.png",
         caption:
-          "All three policies are trained under one shared PPO protocol — same task, same encodings, same cue-balanced schedule — so any difference comes from the architecture rather than the setup. The matched LSTM is included as a fairness control at equal parameter count, and it can solve the full task.",
+          "All three policies are trained under one shared PPO protocol, same task, same encodings, same cue-balanced schedule, so any difference comes from the architecture rather than the setup. The matched LSTM is included as a fairness control at equal parameter count, and it can solve the full task.",
       },
       {
         src: "/images/dissertation/training-dynamics.png",
@@ -321,7 +323,7 @@ export const projects = [
       {
         src: "/images/dissertation/causal-interventions.png",
         caption:
-          "Causal interventions on 1,000 held-out episodes. Under normal operation the policy is confident in the correct branch. Blocking retrieval pushes it to no branch preference (0.43 / 0.57), and patching in the opposite memory flips the decision outright (0.03 / 0.09) — evidence that the retrieved cue is used, not merely present.",
+          "Causal interventions on 1,000 held-out episodes. Under normal operation the policy is confident in the correct branch. Blocking retrieval pushes it to no branch preference (0.43 / 0.57), and patching in the opposite memory flips the decision outright (0.03 / 0.09), evidence that the retrieved cue is used, not merely present.",
       },
     ],
     stats: [
@@ -334,12 +336,12 @@ export const projects = [
   {
     slug: "ir-search-engine",
     title:
-      "Multi-Domain Neural Search Engine — Domain Routing, Hybrid Retrieval and RAG Grounding Evaluation",
+      "Multi-Domain Neural Search Engine: Domain Routing, Hybrid Retrieval and RAG Grounding Evaluation",
     description:
-      "A six-domain search engine with a domain-specialised BERT encoder behind each domain, a fine-tuned DistilBERT query router, hybrid BM25 and FAISS-HNSW retrieval fused with RRF, and ColBERTv2 late-interaction reranking. A RAG grounding layer was then added on top to answer a question the retrieval metrics cannot: whether a generated answer actually depends on the passages that were retrieved, or on what the model already knew.",
+      "A six-domain search engine: one dense index per domain, a fine-tuned DistilBERT query router, hybrid BM25 and FAISS-HNSW retrieval fused with RRF, and ColBERTv2 late-interaction reranking. I started on domain-named encoders such as SciBERT, BioBERT and FinBERT, then replaced all five specialist domains with BAAI/bge-base-en-v1.5 after finding those are masked language models never trained to put a query near its relevant passage, and FinBERT is a sentiment classifier. The retrieval engine was an MSc Information Retrieval team project and I wrote the code; the grounding layer and the statistical testing were added independently afterwards, to answer a question the retrieval metrics cannot: whether a generated answer actually depends on the passages retrieved, or on what the model already knew.",
     tech: [
       "Python",
-      "BERT",
+      "bge-base-en-v1.5",
       "DistilBERT",
       "FAISS",
       "BM25",
@@ -351,7 +353,7 @@ export const projects = [
     status: "Active",
     image: "/images/covers/ir-search-engine.svg",
     stats: [
-      { label: "Domains, each with its own encoder", value: "6" },
+      { label: "Domains, each with its own index", value: "6" },
       { label: "Causal grounding conditions", value: "6" },
       { label: "Metrics under significance testing", value: "21" },
       { label: "Ablation ladder steps", value: "5" },
@@ -359,9 +361,9 @@ export const projects = [
   },
   {
     slug: "gridflow-trade",
-    title: "GridFlow Trade — AI-Powered BESS Trading Platform",
+    title: "GridFlow Trade: AI-Powered BESS Trading Platform",
     description:
-      "A production ML system for UK day-ahead power prices and battery trading, running the whole loop: live ingestion, validation, training, a versioned registry, batch and API serving, drift and service monitoring, automatic rollback or gated retraining, and walk-forward backtesting. The turning point was finding that the reported accuracy had been inflated by target leakage and train/serve skew, and rebuilding it as a single point-in-time feature pipeline shared by training and inference. The honest figure is MAE £24.2/MWh against a £34.2 naive baseline, 29% lower on a 90-day held-out window and 23% lower across a 12-month walk-forward. Public read-only demo on the live site. Selected for QMUL QIncubator.",
+      "A production ML system for UK power prices and battery trading, running the whole loop: live ingestion, validation, training, a versioned registry, batch and API serving, drift and service monitoring, automatic rollback or gated retraining, and walk-forward backtesting. The turning point was finding that the reported accuracy had been inflated by target leakage and train/serve skew, and rebuilding it as a single point-in-time feature pipeline shared by training and inference. On the market index the honest figure is MAE £24.2/MWh against a £34.2 naive baseline, 29% lower on a 90-day held-out window and 23% lower across a 12-month walk-forward. I later extended it to the GB hourly day-ahead auction price, published every day before the 09:20 gate using only what existed at that point. Lowering error stopped raising battery profit at one stage, and what worked was removing the daily average from the target so the model learns the within-day shape; ranking and dispatch-imitation objectives both did worse than plain regression, and 11 of 12 further ideas were rejected against criteria set before each run. Public read-only demo on the live site. Selected for QMUL QIncubator.",
     tech: [
       "Python",
       "XGBoost",
@@ -375,32 +377,35 @@ export const projects = [
       "GitHub Actions",
       "Elexon API",
       "NESO API",
+      "LCCC",
+      "LEAR",
     ],
     status: "Active",
     link: "https://www.gridflowtrade.com",
     linkLabel: "Live app",
     image: "/images/gridflow/overview.png",
     stats: [
-      { label: "MAE vs £34.2 naive, 90-day held-out", value: "£24.2/MWh" },
-      { label: "12-month walk-forward, better in", value: "11 / 12 months" },
-      { label: "Perfect-foresight revenue captured", value: "63% vs 46%" },
+      { label: "Auction MAE, 2-year walk-forward", value: "£21.5 to £10.3" },
+      { label: "Battery profit captured, naive to deployed", value: "69.7% to 85.9%" },
+      { label: "Market index MAE vs £34.2 naive", value: "£24.2/MWh" },
+      { label: "Modelling ideas rejected against pre-set criteria", value: "11 / 12" },
       { label: "Corrupted records found and fixed", value: "3,268" },
     ],
     gallery: [
       {
         src: "/images/gridflow/overview.png",
         caption:
-          "The overview screen. Day-ahead price, imbalance price and wind forecast are pulled from NESO and Elexon, and the chart plots the XGBoost day-ahead forecast against the previous day's settled prices with the residual underneath. The header figures are computed live from the database rather than written into the page — this run shows a mean absolute error of £5.81/MWh for that day's forecast.",
+          "The overview screen. Day-ahead price, imbalance price and wind forecast are pulled from NESO and Elexon, and the chart plots the XGBoost day-ahead forecast against the previous day's settled prices with the residual underneath. The header figures are computed live from the database rather than written into the page, this run shows a mean absolute error of £5.81/MWh for that day's forecast.",
       },
       {
         src: "/images/gridflow/data-collection.png",
         caption:
-          "The half of the project that took the time. Ten datasets, roughly 1.7M rows, on a continuous collection schedule since January 2023 — day-ahead and imbalance prices, generation by fuel (1.24M rows on its own), wind and solar forecasts, weather, carbon intensity, actual demand and system metrics. Each row shows its coverage window and distinct-date count, so gaps are visible instead of silently producing a model trained on holes. The upper timeline is the same day's prices against wind.",
+          "The half of the project that took the time. Ten datasets, roughly 1.7M rows, on a continuous collection schedule since January 2023, day-ahead and imbalance prices, generation by fuel (1.24M rows on its own), wind and solar forecasts, weather, carbon intensity, actual demand and system metrics. Each row shows its coverage window and distinct-date count, so gaps are visible instead of silently producing a model trained on holes. The upper timeline is the same day's prices against wind.",
       },
       {
         src: "/images/gridflow/recommendations.png",
         caption:
-          "What the forecast is actually for. A battery has to commit an action for each of the 48 half-hourly settlement periods in a UK trading day, so the schedule assigns charge / hold / discharge with the resulting power and state of charge, and totals the margin. The panel on the right surfaces the best discharge windows and a set of checks — all 48 periods covered, prices reconciled against Elexon — because a schedule with a silent gap in it is worse than no schedule.",
+          "What the forecast is actually for. A battery has to commit an action for each of the 48 half-hourly settlement periods in a UK trading day, so the schedule assigns charge / hold / discharge with the resulting power and state of charge, and totals the margin. The panel on the right surfaces the best discharge windows and a set of checks, all 48 periods covered, prices reconciled against Elexon, because a schedule with a silent gap in it is worse than no schedule.",
       },
       {
         src: "/images/gridflow/forecast-accuracy.png",
@@ -412,6 +417,47 @@ export const projects = [
         caption:
           "The data layer, open to inspection. Ten feeds from NESO and Elexon, each with its own row count for the selected window, so a thin dataset is visible before it reaches a model rather than after. Weather is collected per location, here north sea, London, Edinburgh and Manchester, because wind at the offshore sites and temperature in the demand centres move price for different reasons and a single national average loses both.",
       },
+    ],
+  },
+  {
+    slug: "brokebite",
+    title: "BrokeBite: Evidence-Backed Cheap-Eats Map for London",
+    description:
+      "A map of where you can still eat cheaply in London. The hard part is not the map, it is that a food price goes stale and a stale price is worse than no price, so every entry carries its evidence, who checked it and when. Menu images and PDFs are captured with their source URL, retrieval time and SHA-256 hash before anything is published, submissions enter a moderation queue and never reach the map automatically, and community verdicts are advisory signals that an admin still has to act on. Every moderation decision appends actor, target, before and after state, reason and request id to a ledger that database triggers refuse to update or delete. The public APIs fail closed: missing configuration returns 503 and an upstream failure returns 502, and neither ever falls back to sample venues.",
+    tech: [
+      "Next.js",
+      "TypeScript",
+      "Supabase",
+      "PostgreSQL",
+      "PostGIS",
+      "MapLibre GL",
+      "Row-Level Security",
+      "Vercel",
+    ],
+    status: "Active",
+    link: "https://brokebite.com",
+    linkLabel: "Live site",
+    image: "/images/brokebite/preview.png",
+    stats: [
+      { label: "Coverage", value: "Greater London" },
+      { label: "Evidence binding", value: "SHA-256 per capture" },
+      { label: "Photo retention", value: "90 days, purged by cron" },
+      { label: "Moderation ledger", value: "Append-only" },
+    ],
+  },
+  {
+    slug: "weather-gap",
+    title: "Weather Gap: Hourly and Weekly Forecast App",
+    description:
+      "A weather app built around the gap between forecast and felt conditions. Hourly temperature is plotted across yesterday, today and tomorrow on one axis so the change is visible rather than implied, alongside precipitation probability, a seven-day outlook and current conditions. Falls back to a searchable city when GPS is unavailable.",
+    tech: ["React", "TypeScript", "Weather API", "Vercel"],
+    status: "Completed",
+    link: "https://weather-gap.vercel.app",
+    linkLabel: "Live site",
+    image: "/images/weather-gap/preview.png",
+    stats: [
+      { label: "Forecast range", value: "7 days" },
+      { label: "Hourly window", value: "Yesterday to tomorrow" },
     ],
   },
   {
@@ -429,9 +475,9 @@ export const projects = [
   },
   {
     slug: "buildu",
-    title: "BuildU — AI Writing and Application Dashboard",
+    title: "BuildU: AI Writing and Application Dashboard",
     description:
-      "\"Build You\" — a personal AI dashboard for job applications and English writing. Six tools behind one login: CV feedback with tracked results, an AI-text humaniser, a word-level text diff, IELTS writing practice with band-level scoring, and browser speech-to-text. Next.js 15 on Vercel, GPT-4 for the analysis, Tesseract.js for OCR.",
+      "\"Build You\", a personal AI dashboard for job applications and English writing. Six tools behind one login: CV feedback with tracked results, an AI-text humaniser, a word-level text diff, IELTS writing practice with band-level scoring, and browser speech-to-text. Next.js 15 on Vercel, GPT-4 for the analysis, Tesseract.js for OCR.",
     tech: ["Next.js 15", "OpenAI GPT-4", "Tesseract.js", "TypeScript", "Vercel"],
     status: "Completed",
     link: "https://buildu.vercel.app/",
@@ -447,12 +493,12 @@ export const projects = [
       {
         src: "/images/buildu/home.png",
         caption:
-          "Six tools behind one dashboard: CV feedback, results tracking, an AI-text humaniser, text compare, IELTS writing practice and speech-to-text. It started as one thing I needed during my own applications and kept growing a tool every time I hit the next annoyance — which is why it looks like a dashboard rather than a product.",
+          "Six tools behind one dashboard: CV feedback, results tracking, an AI-text humaniser, text compare, IELTS writing practice and speech-to-text. It started as one thing I needed during my own applications and kept growing a tool every time I hit the next annoyance, which is why it looks like a dashboard rather than a product.",
       },
       {
         src: "/images/buildu/text-compare.png",
         caption:
-          "Text compare, the piece I use most. Three panes — before, changes, after — with a word-level diff rather than a line diff, so a single substituted word shows as a strikethrough and its replacement rather than repainting the whole paragraph. Word and character counts on both sides, and find-and-replace across the pair. Rewriting the same paragraph five times is the actual job when you are drafting applications in a second language, and line diffs are useless for it.",
+          "Text compare, the piece I use most. Three panes, before, changes, after, with a word-level diff rather than a line diff, so a single substituted word shows as a strikethrough and its replacement rather than repainting the whole paragraph. Word and character counts on both sides, and find-and-replace across the pair. Rewriting the same paragraph five times is the actual job when you are drafting applications in a second language, and line diffs are useless for it.",
       },
       {
         src: "/images/buildu/speech-to-text.png",
@@ -463,7 +509,7 @@ export const projects = [
   },
   {
     slug: "invntz-hackathon",
-    title: "Invntz Hackathon — E-commerce Aggregator",
+    title: "Invntz Hackathon: E-commerce Aggregator",
     description:
       "Web scraping and aggregation platform collecting product data from 5 e-commerce sites via automated browser crawling. Built with Spring Boot, Selenium, and Jsoup. Awarded 2nd place.",
     tech: ["Spring Boot", "Selenium", "Jsoup", "Java", "PostgreSQL"],
@@ -504,7 +550,7 @@ export const projects = [
   },
   {
     slug: "so-easy",
-    title: "SO Easy — Shared Office Booking Platform",
+    title: "SO Easy: Shared Office Booking Platform",
     description:
       "Team project: platform connecting shared office providers with businesses seeking flexible workspaces. My contributions: search engine implementation and kanban board feature. Includes availability, booking management, and payment integration.",
     tech: ["NestJS", "TypeScript", "PostgreSQL", "GraphQL", "AWS"],
@@ -519,7 +565,7 @@ export const projects = [
   },
   {
     slug: "kaggle-ai4code",
-    title: "[Kaggle] Google AI4Code — Notebook Cell Ordering",
+    title: "[Kaggle] Google AI4Code: Notebook Cell Ordering",
     description:
       "Predicting the next cell to be executed based on the comments and code in Python Jupyter notebooks. Ensemble of CodeBERT and DistilBERT with different weights (0.748 / 0.252) based on the results of running each model.",
     tech: ["Python", "PyTorch", "CodeBERT", "DistilBERT", "NLP", "scikit-learn"],
@@ -529,7 +575,7 @@ export const projects = [
       {
         src: "/images/kaggle/ai4code-banner.png",
         caption:
-          "Google AI4Code — Understand Code in Python Notebooks. Organised by Google and X, $150,000 prize pool.",
+          "Google AI4Code, Understand Code in Python Notebooks. Organised by Google and X, $150,000 prize pool.",
       },
     ],
     stats: [

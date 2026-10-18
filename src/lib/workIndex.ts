@@ -27,7 +27,7 @@ function tagsFor(key: string, raw: string[]): string[] {
 
 /**
  * One index over everything: personal projects and paid client work.
- * Experience matters here — the Konan deliveries are the strongest evidence
+ * Experience matters here, the Konan deliveries are the strongest evidence
  * for the search and NLP skills, and they are not "projects" on this site.
  *
  * Paid client work is listed first, for the same reason the chips are sorted
@@ -84,7 +84,7 @@ export function filterWork(selected: string[]): WorkDoc[] {
 }
 
 /**
- * Counts if one more facet were added to the current selection — so a chip can
+ * Counts if one more facet were added to the current selection, so a chip can
  * show what it would leave, and dead ends can be disabled before they are
  * clicked.
  */

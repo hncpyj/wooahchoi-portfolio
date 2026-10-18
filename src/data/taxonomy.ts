@@ -10,10 +10,10 @@
  * The free-text search will reuse this dictionary for query expansion.
  *
  * `evidence` records where the skill is actually backed up:
- *   experience  — paid production work
- *   project     — a project on this site
- *   coursework  — taught modules or assignments, no shipped artefact
- *   none        — NEEDS_REVIEW, nothing to point at yet
+ *   experience , paid production work
+ *   project    , a project on this site
+ *   coursework , taught modules or assignments, no shipped artefact
+ *   none       , NEEDS_REVIEW, nothing to point at yet
  */
 
 export type SkillCategory =
@@ -53,7 +53,7 @@ export const SKILLS: CanonicalSkill[] = [
     category: "ML/AI",
     aliases: ["hugging face", "huggingface"],
     evidence: "project",
-    note: "Kaggle work. Not used at Konan — the BERT fine-tuning there ran on an internal stack.",
+    note: "Kaggle work. Not used at Konan, the BERT fine-tuning there ran on an internal stack.",
   },
 
   { id: "transformer", label: "Transformers", category: "ML/AI", aliases: ["transformer", "transformers", "causal transformer"], evidence: "experience" },
@@ -147,7 +147,7 @@ export const SKILLS: CanonicalSkill[] = [
   { id: "gitlab", label: "GitLab", category: "Infrastructure", parent: "cicd", aliases: ["gitlab", "gitlab ci/cd"], evidence: "experience" },
   { id: "cicd", label: "CI/CD", category: "Infrastructure", aliases: ["ci/cd"], evidence: "experience", note: "Jenkins pipelines on GitLab for unit/integration testing and production deployment." },
   { id: "github-actions", label: "GitHub Actions", category: "Infrastructure", parent: "cicd", aliases: ["github actions"], evidence: "project", note: "Confirmed from GitHub PR history. Jenkins on GitLab was the Konan setup; Actions is the personal-project side." },
-  { id: "git", label: "Git", category: "Infrastructure", aliases: ["git", "svn"], evidence: "experience", note: "Universal, so it carries little signal as a filter — kept because it belongs in a skills inventory." },
+  { id: "git", label: "Git", category: "Infrastructure", aliases: ["git", "svn"], evidence: "experience", note: "Universal, so it carries little signal as a filter, kept because it belongs in a skills inventory." },
   { id: "aws", label: "AWS", category: "Infrastructure", aliases: ["aws", "aws s3", "aws (ec2, s3, rds, lambda)", "ec2", "s3", "rds", "lambda"], evidence: "experience" },
   { id: "vercel", label: "Vercel", category: "Infrastructure", aliases: ["vercel"], evidence: "project" },
   { id: "linux", label: "Linux", category: "Infrastructure", aliases: ["linux"], evidence: "experience" },
@@ -156,10 +156,10 @@ export const SKILLS: CanonicalSkill[] = [
 /**
  * Listed on the site previously with nothing to point at, and no natural home.
  * Either find evidence or drop them from the CV.
- * Git and SVN are excluded deliberately — too generic to work as facets.
+ * Git and SVN are excluded deliberately, too generic to work as facets.
  */
-/** Now surfaced as real facets with evidence: "none" — see the notes on each. */
-/** Dropped after review: Redis, MongoDB, Nginx — no work to point at. Remove
+/** Now surfaced as real facets with evidence: "none", see the notes on each. */
+/** Dropped after review: Redis, MongoDB, Nginx, no work to point at. Remove
  *  them from the CV too. */
 export const NEEDS_EVIDENCE: string[] = [];
 

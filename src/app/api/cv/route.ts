@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
  * The CV is no longer generated from portfolio.ts.
  *
  * It used to be rendered on the fly with jsPDF, which meant the downloaded file
- * silently drifted from the real CV — most seriously, it omitted the entire
+ * silently drifted from the real CV, most seriously, it omitted the entire
  * `skills.ml` block, so an ML engineering CV downloaded with no ML skills on it,
  * and had no Education or Academic Service sections at all.
  *

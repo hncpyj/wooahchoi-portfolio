@@ -76,8 +76,8 @@ export function Blog({ posts: initialPosts }: BlogSectionProps) {
           </h2>
           <div className="w-16 h-1 bg-gradient-to-r from-orange-500 to-amber-500 mx-auto rounded-full" />
           <p className="text-muted-foreground">
-            Writing about backend development, system design, and engineering
-            practices
+            Writing about machine learning, evaluation, production ML systems
+            and what I got wrong along the way
           </p>
         </div>
 

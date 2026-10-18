@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://wooahchoi.com"),
   title: "WooAh Choi | Machine Learning Engineer, AI Safety and Evaluation",
   description:
-    "Portfolio of WooAh Choi — Machine Learning Engineer working on AI safety, agent control and the evaluation of systems that are harder to verify than they look. PyTorch, Transformers, reinforcement learning, NLP and information retrieval, with three years of production engineering.",
+    "Portfolio of WooAh Choi, Machine Learning Engineer working on AI safety, agent control and the evaluation of systems that are harder to verify than they look. PyTorch, Transformers, reinforcement learning, NLP and information retrieval, with three years of production engineering.",
   keywords: [
     "Machine Learning Engineer",
     "AI Safety",

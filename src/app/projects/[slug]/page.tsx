@@ -105,15 +105,15 @@ const projectDetails: Record<
       },
       {
         heading: "Causal interventions",
-        body: "Correlational evidence — a probe decoding the cue from a hidden state — shows only that the information is present, not that the policy uses it. To test use rather than presence I applied three intervention families: retrieval blocking, opposite-memory patching, and norm-preserving source exchange, the last controlling for the possibility that an effect is merely an activation-magnitude artefact. Ridge-decoded probes targeted the retrieval output and the gated feature at the decision timesteps.",
+        body: "Correlational evidence, a probe decoding the cue from a hidden state, shows only that the information is present, not that the policy uses it. To test use rather than presence I applied three intervention families: retrieval blocking, opposite-memory patching, and norm-preserving source exchange, the last controlling for the possibility that an effect is merely an activation-magnitude artefact. Ridge-decoded probes targeted the retrieval output and the gated feature at the decision timesteps.",
       },
       {
         heading: "Results, including the inconvenient one",
-        body: "Difference-vector attribution assigned 33–58% of the key–ball retrieval difference to padding. But exchanging the padding-derived source reversed no decision, while exchanging the real-transition source reversed both — at exactly preserved norm, so the effect was not an artefact of activation magnitude. Correlation and causation pointed at different sources on the same policy, which is the result the dissertation is built around.\n\nTwo things complicate it, and both are reported. The symmetric real-only signature appeared in only three of six checkpoints, so equal behaviour did not imply equal mechanism. And a parameter-matched LSTM (h = 304, 2.90M parameters) also solved the task, at Smin = 0.898. That removed the architecture-comparison claim I started with, so the contribution moved to where the evidence actually supported it: the analysis and the measurement framework, not a ranking of architectures.\n\nThe one clean architectural separation came from a preregistered fixed-length follow-up that isolates retrospective load from navigation. The Transformer held 1.000 accuracy through 32 stored bindings and 0.9997 at 64. At eight bindings with a retrospective query, the matched LSTM reached 0.688 against the Transformer's 0.997 — a paired gap of +0.308 (95% CI [+0.294, +0.326]), positive in all six held-out seeds, and still +0.243 against an LSTM four times the size.\n\nThe separation is specific, and the dissertation says so: prospective queries do not separate the architectures the same way (the matched LSTM reaches 0.878 at eight bindings there). The supported claim is timing-moderated load sensitivity in this task, not a general ranking of architectures.",
+        body: "Difference-vector attribution assigned 33–58% of the key–ball retrieval difference to padding. But exchanging the padding-derived source reversed no decision, while exchanging the real-transition source reversed both, at exactly preserved norm, so the effect was not an artefact of activation magnitude. Correlation and causation pointed at different sources on the same policy, which is the result the dissertation is built around.\n\nTwo things complicate it, and both are reported. The symmetric real-only signature appeared in only three of six checkpoints, so equal behaviour did not imply equal mechanism. And a parameter-matched LSTM (h = 304, 2.90M parameters) also solved the task, at Smin = 0.898. That removed the architecture-comparison claim I started with, so the contribution moved to where the evidence actually supported it: the analysis and the measurement framework, not a ranking of architectures.\n\nThe one clean architectural separation came from a preregistered fixed-length follow-up that isolates retrospective load from navigation. The Transformer held 1.000 accuracy through 32 stored bindings and 0.9997 at 64. At eight bindings with a retrospective query, the matched LSTM reached 0.688 against the Transformer's 0.997, a paired gap of +0.308 (95% CI [+0.294, +0.326]), positive in all six held-out seeds, and still +0.243 against an LSTM four times the size.\n\nThe separation is specific, and the dissertation says so: prospective queries do not separate the architectures the same way (the matched LSTM reaches 0.878 at eight bindings there). The supported claim is timing-moderated load sensitivity in this task, not a general ranking of architectures.",
       },
       {
         heading: "What is reusable",
-        body: "A branch-level failure decomposition separating Type-I (readout) from Type-II (aggregation) failures, locked checkpoint selection, and a causal context-ablation taxonomy. Together these separate real memory use from shortcut behaviour in any task with a similar branch structure — the same problem that golden sets and adversarial cases address in LLM evaluation.",
+        body: "A branch-level failure decomposition separating Type-I (readout) from Type-II (aggregation) failures, locked checkpoint selection, and a causal context-ablation taxonomy. Together these separate real memory use from shortcut behaviour in any task with a similar branch structure, the same problem that golden sets and adversarial cases address in LLM evaluation.",
       },
     ],
   },
@@ -149,11 +149,11 @@ const projectDetails: Record<
   },
   "venture-confirmation": {
     overview:
-      "The Venture Confirmation System is the Korean government's register for certified venture businesses — companies apply through it, and the public searches it for scheme guidance, disclosures and support material. I built the search: the indexing path, the REST API, and the guide someone else needed in order to call it.\n\nMost of the interesting work on this one was in the plumbing rather than in the retrieval.",
+      "The Venture Confirmation System is the Korean government's register for certified venture businesses, companies apply through it, and the public searches it for scheme guidance, disclosures and support material. I built the search: the indexing path, the REST API, and the guide someone else needed in order to call it.\n\nMost of the interesting work on this one was in the plumbing rather than in the retrieval.",
     sections: [
       {
         heading: "The documents were not on the server",
-        body: "The records themselves come out of the database, but their attachments — application forms, guidance documents, the files hanging off notices and FAQ entries — live in S3, not on the machine doing the indexing. That changes the shape of the job. Reading a local file either works or throws; fetching an object over a network can hang, half-succeed, or fail for one file in a batch of hundreds while the rest are fine.\n\nSo the first thing I wrote was the S3 download method, called per file from the indexing connector, with failures caught per file so one bad object does not take the whole run down with it. Only then does extraction start.",
+        body: "The records themselves come out of the database, but their attachments, application forms, guidance documents, the files hanging off notices and FAQ entries, live in S3, not on the machine doing the indexing. That changes the shape of the job. Reading a local file either works or throws; fetching an object over a network can hang, half-succeed, or fail for one file in a batch of hundreds while the rest are fine.\n\nSo the first thing I wrote was the S3 download method, called per file from the indexing connector, with failures caught per file so one bad object does not take the whole run down with it. Only then does extraction start.",
       },
       {
         heading: "Making a PDF into text",
@@ -161,33 +161,33 @@ const projectDetails: Record<
       },
       {
         heading: "The recursive delete, and why it matters",
-        body: "An S3 object key is a path, not a filename — the documents here are keyed by type and upload date, so a key looks like pdf/202103/11/<file>. The download method recreates that structure locally, which means one indexing run does not leave a handful of files behind in a flat folder. It leaves a nested, date-partitioned tree.\n\nA delete call will not remove a directory that still has anything in it, so \"clean up after yourself\" is not one operation. It is a depth-first walk: recurse into each subdirectory, clear its contents, and only then remove the directory itself on the way back up.\n\nGet it wrong and nothing fails. The indexing job succeeds, the search works, the tests pass — and every run leaves debris behind until, weeks later, the disk fills up in production.",
+        body: "An S3 object key is a path, not a filename, the documents here are keyed by type and upload date, so a key looks like pdf/202103/11/<file>. The download method recreates that structure locally, which means one indexing run does not leave a handful of files behind in a flat folder. It leaves a nested, date-partitioned tree.\n\nA delete call will not remove a directory that still has anything in it, so \"clean up after yourself\" is not one operation. It is a depth-first walk: recurse into each subdirectory, clear its contents, and only then remove the directory itself on the way back up.\n\nGet it wrong and nothing fails. The indexing job succeeds, the search works, the tests pass, and every run leaves debris behind until, weeks later, the disk fills up in production.",
       },
       {
         heading: "An API someone else has to call",
-        body: "The search is exposed as a REST API taking keyword, category, sort order, date range and paging; the site's search page is built on it. The deliverable was not just the endpoint but the guide — what each parameter does, what comes back, what happens at the edges — because someone who had not built it had to integrate against it.\n\nWriting the interface down is what forces you to notice which parameters only make sense if you already know how the thing works internally.",
+        body: "The search is exposed as a REST API taking keyword, category, sort order, date range and paging; the site's search page is built on it. The deliverable was not just the endpoint but the guide, what each parameter does, what comes back, what happens at the edges, because someone who had not built it had to integrate against it.\n\nWriting the interface down is what forces you to notice which parameters only make sense if you already know how the thing works internally.",
       },
       {
         heading: "The query surface",
-        body: "Sort by relevance or by newest, filter by all time / 1 day / 1 week / 1 month / 1 year / custom range, and refine within results — a second query applied to the current result set rather than to the whole corpus, so a user narrows instead of starting over.\n\nThe period filter earns its place on a site like this rather than being a generic extra: government notices expire, and a two-year-old announcement about an application window is arguably worse than no result at all. Each category also carries its own count, zero counts included, so the shape of the result set is visible before anything is opened.",
+        body: "Sort by relevance or by newest, filter by all time / 1 day / 1 week / 1 month / 1 year / custom range, and refine within results, a second query applied to the current result set rather than to the whole corpus, so a user narrows instead of starting over.\n\nThe period filter earns its place on a site like this rather than being a generic extra: government notices expire, and a two-year-old announcement about an application window is arguably worse than no result at all. Each category also carries its own count, zero counts included, so the shape of the result set is visible before anything is opened.",
       },
     ],
   },
   "heungkuk-fire": {
     overview:
-      "Heungkuk Fire & Marine is a Korean insurer. This delivery was the search on their main site — and unlike my other Konan projects, the engine was not the hard part. Everything the user touches was: the page, the AJAX layer, the result rendering, and the empty state. It was my first full-stack delivery, and the project where I found out that the parts of engineering I was weakest at were the parts users actually touch.\n\nIt shipped in 2022 and the search is still running.",
+      "Heungkuk Fire & Marine is a Korean insurer. This delivery was the search on their main site, and unlike my other Konan projects, the engine was not the hard part. Everything the user touches was: the page, the AJAX layer, the result rendering, and the empty state. It was my first full-stack delivery, and the project where I found out that the parts of engineering I was weakest at were the parts users actually touch.\n\nIt shipped in 2022 and the search is still running.",
     sections: [
       {
         heading: "What was actually mine",
-        body: "The search platform already existed — I had worked on it for other clients. What did not exist was this site's search experience. I built the JSP/JSTL pages, the JavaScript that talks to the search API, and the rendering of six differently-shaped result categories: site menus, insurance products, FAQ entries, downloadable PDF forms, the insurance glossary, and everything else.\n\nEach category has its own count, and the counts are shown even when they are zero. That sounds trivial and is not: it tells the user the shape of the result set before they open anything, so nobody taps through three empty tabs to find out their query only matched notices.",
+        body: "The search platform already existed, I had worked on it for other clients. What did not exist was this site's search experience. I built the JSP/JSTL pages, the JavaScript that talks to the search API, and the rendering of six differently-shaped result categories: site menus, insurance products, FAQ entries, downloadable PDF forms, the insurance glossary, and everything else.\n\nEach category has its own count, and the counts are shown even when they are zero. That sounds trivial and is not: it tells the user the shape of the result set before they open anything, so nobody taps through three empty tabs to find out their query only matched notices.",
       },
       {
         heading: "Continuous scrolling instead of paging",
-        body: "The requirement was that results keep loading as the user scrolls, rather than replacing the page with the next set. So paging moved into AJAX: the current page stays where it is and the next block of results is appended below.\n\nWhat made it harder than it sounds is that scroll position, request state and rendered output all have to stay consistent with each other while the user keeps scrolling — and the same path is exercised again when they switch category or search again. Auto-completion has the same shape of problem on a shorter timescale. This is where most of the JavaScript work on this project went, and almost none of it is visible when it is right.",
+        body: "The requirement was that results keep loading as the user scrolls, rather than replacing the page with the next set. So paging moved into AJAX: the current page stays where it is and the next block of results is appended below.\n\nWhat made it harder than it sounds is that scroll position, request state and rendered output all have to stay consistent with each other while the user keeps scrolling, and the same path is exercised again when they switch category or search again. Auto-completion has the same shape of problem on a shorter timescale. This is where most of the JavaScript work on this project went, and almost none of it is visible when it is right.",
       },
       {
         heading: "The empty state",
-        body: "A search box with nothing in it is a dead end, especially on an insurance site where users often do not know the term for the thing they want. So the empty state shows popular search terms as tappable chips.\n\nThey come from the search logs rather than an editor's guess, and they still rotate: checking the live site twice on the same day returned 보험금청구 · 자동이체 · 약관 · 주행거리 · 해지 once and 제지급 · 철회 · 배서 · 금리인하 · 모바일 the next time. That is the same principle as the recommended terms at Millie's Library and the related terms in the Supreme Court system — three different domains, one idea: the logs already know what people are looking for.",
+        body: "A search box with nothing in it is a dead end, especially on an insurance site where users often do not know the term for the thing they want. So the empty state shows popular search terms as tappable chips.\n\nThey come from the search logs rather than an editor's guess, and they still rotate: checking the live site twice on the same day returned 보험금청구 · 자동이체 · 약관 · 주행거리 · 해지 once and 제지급 · 철회 · 배서 · 금리인하 · 모바일 the next time. That is the same principle as the recommended terms at Millie's Library and the related terms in the Supreme Court system, three different domains, one idea: the logs already know what people are looking for.",
       },
       {
         heading: "What I noted at the time",
@@ -197,19 +197,19 @@ const projectDetails: Record<
   },
   "millie-library": {
     overview:
-      "Millie's Library is one of Korea's largest subscription e-book services. It was replacing the search behind the app, and the brief was not only \"make search work\" — two of the things the client wanted, ranking control and personalised recommended search terms, did not exist in the engine and had to be designed from scratch. I delivered the indexing pipeline, the ranking logic, and the search-log analytics the keyword features are derived from, then stayed through launch and stabilisation.",
+      "Millie's Library is one of Korea's largest subscription e-book services. It was replacing the search behind the app, and the brief was not only \"make search work\", two of the things the client wanted, ranking control and personalised recommended search terms, did not exist in the engine and had to be designed from scratch. I delivered the indexing pipeline, the ranking logic, and the search-log analytics the keyword features are derived from, then stayed through launch and stabilisation.",
     sections: [
       {
         heading: "Indexing that stays current",
-        body: "A catalogue this size cannot be rebuilt from scratch every time a book's metadata changes, and it cannot be left stale either — a title that just went live has to be findable immediately. So indexing runs in two modes: a periodic full index that guarantees consistency, and a dynamic index that applies incremental changes as they arrive. The pipeline handles over 100M indexed points and was designed with headroom past 1B records.\n\nThe other half of index quality is language. Korean is agglutinative, so substring matching gives you both false positives and misses; the win came from morphological analysis with a much wider dictionary than the previous setup had.",
+        body: "A catalogue this size cannot be rebuilt from scratch every time a book's metadata changes, and it cannot be left stale either, a title that just went live has to be findable immediately. So indexing runs in two modes: a periodic full index that guarantees consistency, and a dynamic index that applies incremental changes as they arrive. The pipeline handles over 100M indexed points and was designed with headroom past 1B records.\n\nThe other half of index quality is language. Korean is agglutinative, so substring matching gives you both false positives and misses; the win came from morphological analysis with a much wider dictionary than the previous setup had.",
       },
       {
         heading: "Ranking logic, built from nothing",
-        body: "There was no ranking layer to tune. Results came back in whatever order retrieval produced them, which for a catalogue of this size means the right book is somewhere on page four.\n\nWhat I built combines two families of signal. First, field matches — a query hitting the title should not count the same as one hitting the author or the narrator. Second, engagement, counted over rolling windows rather than all-time: opens in the last 7 and 30 days, shelf adds over the same windows, review count, completion percentage, dwell time. Recent windows are weighted more heavily than lifetime totals, which is what stops a book that was popular three years ago from permanently occupying the top slot.\n\nEvery one of those signals carries its own weight, and weights interact — raising one to fix a bad result usually breaks a good one elsewhere. The client's product manager and I built a fixed list of around a hundred test queries, including spacing and spelling variants, and re-ran the whole list on every weight change so a fix could be checked against the same baseline instead of the one query that prompted it. That discipline is where the 38% ranking-quality improvement came from; it was not a single clever idea.",
+        body: "There was no ranking layer to tune. Results came back in whatever order retrieval produced them, which for a catalogue of this size means the right book is somewhere on page four.\n\nWhat I built combines two families of signal. First, field matches, a query hitting the title should not count the same as one hitting the author or the narrator. Second, engagement, counted over rolling windows rather than all-time: opens in the last 7 and 30 days, shelf adds over the same windows, review count, completion percentage, dwell time. Recent windows are weighted more heavily than lifetime totals, which is what stops a book that was popular three years ago from permanently occupying the top slot.\n\nEvery one of those signals carries its own weight, and weights interact, raising one to fix a bad result usually breaks a good one elsewhere. The client's product manager and I built a fixed list of around a hundred test queries, including spacing and spelling variants, and re-ran the whole list on every weight change so a fix could be checked against the same baseline instead of the one query that prompted it. That discipline is where the 38% ranking-quality improvement came from; it was not a single clever idea.",
       },
       {
         heading: "Deriving keyword features from the logs",
-        body: "Popular terms, rising terms, related terms and recommended terms are all downstream of one thing: analysis of the search logs over time. Volume per term across rolling windows is what produces both the popularity ranking and the rise/fall markers next to it. None of it is hand-curated, so it tracks what users are actually searching for rather than what someone assumed they would.\n\nThe same pipeline produces two things that are less visible and more useful. The typo-correction dictionary is extracted automatically instead of being maintained by hand. And terms that are searched repeatedly but return few or no results are flagged — sometimes that means a missing dictionary entry, and sometimes it means readers want a book the catalogue does not carry, which goes to the acquisition team. Search logs turned out to be a demand signal, not just a quality signal.",
+        body: "Popular terms, rising terms, related terms and recommended terms are all downstream of one thing: analysis of the search logs over time. Volume per term across rolling windows is what produces both the popularity ranking and the rise/fall markers next to it. None of it is hand-curated, so it tracks what users are actually searching for rather than what someone assumed they would.\n\nThe same pipeline produces two things that are less visible and more useful. The typo-correction dictionary is extracted automatically instead of being maintained by hand. And terms that are searched repeatedly but return few or no results are flagged, sometimes that means a missing dictionary entry, and sometimes it means readers want a book the catalogue does not carry, which goes to the acquisition team. Search logs turned out to be a demand signal, not just a quality signal.",
       },
       {
         heading: "The feature that had no data",
@@ -221,21 +221,21 @@ const projectDetails: Record<
       },
       {
         heading: "Auto-completion",
-        body: "Suggestions are whole titles containing the typed term, with the match highlighted wherever it falls rather than only at the start — Korean prefix matching alone would miss a term that appears in the middle of a title, which in practice is most of them.\n\nThe candidate dictionary is rebuilt by a batch job that exports the title and category fields, orders them by recent opens, and then triggers a reload of the completion module. Ordering by demand means the suggestion list is itself ranked, so the most likely completion is the first one.",
+        body: "Suggestions are whole titles containing the typed term, with the match highlighted wherever it falls rather than only at the start, Korean prefix matching alone would miss a term that appears in the middle of a title, which in practice is most of them.\n\nThe candidate dictionary is rebuilt by a batch job that exports the title and category fields, orders them by recent opens, and then triggers a reload of the completion module. Ordering by demand means the suggestion list is itself ranked, so the most likely completion is the first one.",
       },
       {
         heading: "What I took from it",
-        body: "This was the project where I learned what quality actually costs. The client tested at QA depth — the same fixed query list, the same criteria, every time a variable changed — and thinking through side effects before touching anything became a habit rather than an intention. It is also the first project where the hardest questions I raised had no answer inside my own company and had to go to the engine's R&D team, which is how I found out that being stuck is often a bug report rather than a knowledge gap.\n\nAnd it was fun. Watching results reorder as I moved a weight is the closest thing to a tight feedback loop I had found in production work at that point, and it is a large part of why retrieval and evaluation are still what I want to work on.",
+        body: "This was the project where I learned what quality actually costs. The client tested at QA depth, the same fixed query list, the same criteria, every time a variable changed, and thinking through side effects before touching anything became a habit rather than an intention. It is also the first project where the hardest questions I raised had no answer inside my own company and had to go to the engine's R&D team, which is how I found out that being stuck is often a bug report rather than a knowledge gap.\n\nAnd it was fun. Watching results reorder as I moved a weight is the closest thing to a tight feedback loop I had found in production work at that point, and it is a large part of why retrieval and evaluation are still what I want to work on.",
       },
     ],
   },
   "supreme-court": {
     overview:
-      "The Supreme Court of Korea was replacing its electronic litigation search system. The users are judges, clerks and litigants searching case law, judgments and treaties — a domain where a missed result is not an inconvenience but a consequence for someone's case. I owned the NLP and search layer end to end, from requirements analysis and infrastructure design through deployment and post-launch stabilisation.\n\nThe role had been scoped for an engineer at assistant-manager grade, which at that company required three years and a track record. I was assigned to it on the day I completed my first year.",
+      "The Supreme Court of Korea was replacing its electronic litigation search system. The users are judges, clerks and litigants searching case law, judgments and treaties, a domain where a missed result is not an inconvenience but a consequence for someone's case. I owned the NLP and search layer end to end, from requirements analysis and infrastructure design through deployment and post-launch stabilisation.\n\nThe role had been scoped for an engineer at assistant-manager grade, which at that company required three years and a track record. I was assigned to it on the day I completed my first year.",
     sections: [
       {
         heading: "Why not a rule-based layer",
-        body: "The common approach in comparable systems was a rule-based chatbot sitting in front of search. That works until a user phrases something the rules did not anticipate, and in a legal corpus that is most of the time. I argued for learned query understanding instead, and built it in two parts: SFX (speech act analysis) with SRL to work out what the user was actually constraining — recency, which court, case context — and a BERT-based NER to pull out the entities that matter in law: case numbers, statute names, party names.\n\nWhere documents resisted clean categorisation, SRL-derived labels were used as the training signal rather than forcing a category that did not fit.",
+        body: "The common approach in comparable systems was a rule-based chatbot sitting in front of search. That works until a user phrases something the rules did not anticipate, and in a legal corpus that is most of the time. I argued for learned query understanding instead, and built it in two parts: SFX (speech act analysis) with SRL to work out what the user was actually constraining, recency, which court, case context, and a BERT-based NER to pull out the entities that matter in law: case numbers, statute names, party names.\n\nWhere documents resisted clean categorisation, SRL-derived labels were used as the training signal rather than forcing a category that did not fit.",
       },
       {
         heading: "Routing instead of matching",
@@ -247,7 +247,7 @@ const projectDetails: Record<
       },
       {
         heading: "The feedback loop",
-        body: "Search logs were mined for related and recommended keywords, which fed back into query expansion and the results UI. Supervised tagging (LKWD) degraded results because of errors in the tagging step, so unsupervised LDA with careful preprocessing was used instead — it performed better in a single pass. I also attempted TF-IDF summarisation and was not satisfied with the quality; it stayed unfinished.\n\nAdministrators got search analytics dashboards — line, bubble and dendrogram charts — so search quality could be monitored rather than assumed.",
+        body: "Search logs were mined for related and recommended keywords, which fed back into query expansion and the results UI. Supervised tagging (LKWD) degraded results because of errors in the tagging step, so unsupervised LDA with careful preprocessing was used instead, it performed better in a single pass. I also attempted TF-IDF summarisation and was not satisfied with the quality; it stayed unfinished.\n\nAdministrators got search analytics dashboards, line, bubble and dendrogram charts, so search quality could be monitored rather than assumed.",
       },
       {
         heading: "What I took from it",
@@ -261,7 +261,7 @@ const projectDetails: Record<
     sections: [
       {
         heading: "Problem",
-        body: "UK electricity prices are highly non-stationary — they are driven by renewable intermittency, demand cycles, interconnector flows, and system stress events. Naïve models trained on raw price series massively overfit to temporal leakage, producing misleadingly good in-sample results that fail out-of-sample.",
+        body: "UK electricity prices are highly non-stationary, they are driven by renewable intermittency, demand cycles, interconnector flows, and system stress events. Naïve models trained on raw price series massively overfit to temporal leakage, producing misleadingly good in-sample results that fail out-of-sample.",
       },
       {
         heading: "The leakage, and what it cost",
@@ -277,11 +277,11 @@ const projectDetails: Record<
       },
       {
         heading: "The data layer, which is most of the work",
-        body: "Ten datasets on a continuous collection schedule since January 2023 — roughly 1.7M rows in PostgreSQL. Day-ahead and imbalance prices, generation by fuel (1.24M rows on its own), wind and solar forecasts, demand forecasts and actual demand, weather, carbon intensity and system metrics, from NESO and Elexon.\n\nThe collection-status view is part of the app rather than a separate dashboard: every dataset shows its row count, its coverage window and its number of distinct dates, so a feed that has quietly stopped is visible on the front page rather than discovered later. A price model trained across an unnoticed gap still produces a number, and the number still looks fine.",
+        body: "Ten datasets on a continuous collection schedule since January 2023, roughly 1.7M rows in PostgreSQL. Day-ahead and imbalance prices, generation by fuel (1.24M rows on its own), wind and solar forecasts, demand forecasts and actual demand, weather, carbon intensity and system metrics, from NESO and Elexon.\n\nThe collection-status view is part of the app rather than a separate dashboard: every dataset shows its row count, its coverage window and its number of distinct dates, so a feed that has quietly stopped is visible on the front page rather than discovered later. A price model trained across an unnoticed gap still produces a number, and the number still looks fine.",
       },
       {
         heading: "From a forecast to a schedule",
-        body: "A price forecast is not a decision. The scheduler turns it into an action for each of the 48 half-hourly settlement periods in a UK trading day — charge, hold or discharge — subject to the battery's power rating and its state of charge, since you cannot discharge energy you have not stored and every charge decision constrains the ones after it.\n\nThe output is the full 48-period table with the resulting SOC trajectory and margin, the best discharge windows, and a short set of checks: all 48 periods present, prices reconciled against Elexon. A schedule with a hole in it is worse than no schedule, because it looks complete.",
+        body: "A price forecast is not a decision. The scheduler turns it into an action for each of the 48 half-hourly settlement periods in a UK trading day: charge, hold or discharge, subject to the battery's power rating and its state of charge, since you cannot discharge energy you have not stored and every charge decision constrains the ones after it.\n\nThe output is the full 48-period table with the resulting SOC trajectory and margin, the best discharge windows, and a short set of checks: all 48 periods present, prices reconciled against Elexon. A schedule with a hole in it is worse than no schedule, because it looks complete.",
       },
       {
         heading: "What the strategy is actually worth",
@@ -341,7 +341,7 @@ const projectDetails: Record<
   },
   "generative-storytelling": {
     overview:
-      "An end-to-end generative pipeline that takes a set of keywords and produces a fully illustrated short story — and optionally, a short animated video.",
+      "An end-to-end generative pipeline that takes a set of keywords and produces a fully illustrated short story, and optionally, a short animated video.",
     sections: [
       {
         heading: "Story Generation",
@@ -353,13 +353,13 @@ const projectDetails: Record<
       },
       {
         heading: "Animation Extension",
-        body: "A subsequent pipeline uses moviepy to animate the illustrations — pan/zoom effects, fade transitions, and text-to-speech narration — producing a short MP4 suitable for social media.",
+        body: "A subsequent pipeline uses moviepy to animate the illustrations, pan/zoom effects, fade transitions, and text-to-speech narration, producing a short MP4 suitable for social media.",
       },
     ],
   },
   ate: {
     overview:
-      "ATE (from 'ate' — past tense of eat) is a full-stack recipe and ingredients management application. Users can create and browse recipes, track pantry inventory, and auto-generate shopping lists based on what is missing for a selected recipe.",
+      "ATE (from 'ate', past tense of eat) is a full-stack recipe and ingredients management application. Users can create and browse recipes, track pantry inventory, and auto-generate shopping lists based on what is missing for a selected recipe.",
     sections: [
       {
         heading: "Backend",
@@ -387,7 +387,7 @@ const projectDetails: Record<
   },
   "kaggle-ai4code": {
     overview:
-      "Google AI4Code challenged competitors to restore the correct cell execution order of shuffled Python Jupyter notebooks — essentially a sequence ordering problem over code and markdown cells.",
+      "Google AI4Code challenged competitors to restore the correct cell execution order of shuffled Python Jupyter notebooks, essentially a sequence ordering problem over code and markdown cells.",
     sections: [
       {
         heading: "Task",
@@ -518,7 +518,7 @@ export default function ProjectPage({ params }: Props) {
         )}
 
         {/* Figures. Real work, with captions that say what the reader is
-            looking at — the point of a portfolio page over a CV bullet. */}
+            looking at, the point of a portfolio page over a CV bullet. */}
         {"gallery" in project &&
           Array.isArray(project.gallery) &&
           project.gallery.length > 0 && (
@@ -528,7 +528,7 @@ export default function ProjectPage({ params }: Props) {
                 (figure, i) => {
                   // Diagrams are the argument and are in English, so they run
                   // full width. Product screenshots are mostly Korean UI that a
-                  // non-Korean reader cannot parse anyway — shown small, as
+                  // non-Korean reader cannot parse anyway, shown small, as
                   // evidence that the thing exists, with the caption carrying
                   // the meaning. Click for full resolution.
                   const isDiagram = figure.src.endsWith(".svg");

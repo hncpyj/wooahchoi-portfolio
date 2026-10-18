@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/card";
 import { ArrowRight, ExternalLink, Github, Rocket } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 const cardAccents = [
   {
@@ -111,6 +112,21 @@ export function Projects() {
                     accent.gradient
                   )}
                 />
+
+                {/* Preview. Shown only when the project has an image, so
+                    projects without one keep the existing text-only card. */}
+                {"image" in project && typeof project.image === "string" && (
+                  <div className="relative w-full aspect-[16/10] overflow-hidden bg-slate-100 dark:bg-slate-800">
+                    <Image
+                      src={project.image}
+                      alt={`${project.title} preview`}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    />
+                  </div>
+                )}
+
                 <CardHeader className="space-y-3">
                   <div className="flex items-center justify-between">
                     <div
