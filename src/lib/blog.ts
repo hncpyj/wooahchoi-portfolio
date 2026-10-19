@@ -26,7 +26,9 @@ export interface BlogPost extends BlogPostMeta {
 
 function readPostsFromDir(dir: string, lang: "ko" | "en"): BlogPostMeta[] {
   if (!fs.existsSync(dir)) return [];
-  const files = fs.readdirSync(dir).filter((f) => f.endsWith(".mdx"));
+  const files = fs.readdirSync(dir).filter(
+    (f) => f.endsWith(".mdx") && !f.includes(".math.")
+  );
   return files.map((filename) => {
     const slug = filename.replace(/(?:\.[a-z]{2})?\.mdx$/, "");
     const fullPath = path.join(dir, filename);

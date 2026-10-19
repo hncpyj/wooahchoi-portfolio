@@ -16,7 +16,7 @@ function formatDate(dateStr: string) {
 }
 
 export default function BlogPage() {
-  const posts = getAllPosts();
+  const posts = getAllPosts("en");
 
   return (
     <div className="min-h-screen pt-24 pb-16 px-4">
@@ -29,7 +29,7 @@ export default function BlogPage() {
             Blog
           </h1>
           <p className="text-muted-foreground max-w-xl">
-            Notes on machine learning, AI evaluation, and production systems. Korean posts are the original source — English translations follow.
+            Notes on machine learning, AI evaluation, and production systems.
           </p>
           <a
             href="https://backenddeveloper.tistory.com/"
